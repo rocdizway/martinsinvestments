@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GoldLink } from "@/components/gold-link";
 import { sectors, businesses, pillars, groupIntro, groupPromise } from "@/data/group";
 
@@ -47,7 +47,7 @@ function Home() {
 
   return (
     <>
-      <section className="relative min-h-[92vh] overflow-hidden text-white">
+      <section className="relative min-h-screen overflow-hidden text-white">
         <div className="absolute inset-0 bg-black">
           {heroSlides.map((slide) => (
             <iframe
@@ -62,7 +62,7 @@ function Home() {
           ))}
         </div>
         <div className="veil absolute inset-0" />
-        <div className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-end px-6 pb-24 pt-40 lg:px-10">
+        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-24 pt-40 lg:px-10">
           <p className="eyebrow">{activeSlide.eyebrow}</p>
           <h1 className="mt-8 max-w-4xl text-5xl leading-[1.05] md:text-7xl">
             {activeSlide.title}{" "}
@@ -254,9 +254,31 @@ function AnimatedStat({
   target: number;
   suffix: string;
 }) {
+  const ref = useRef<HTMLParagraphElement>(null);
   const [value, setValue] = useState(start);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
 
   useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldAnimate(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.45 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldAnimate) return;
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setValue(target);
       return;
@@ -277,10 +299,10 @@ function AnimatedStat({
 
     const frame = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(frame);
-  }, [start, target]);
+  }, [shouldAnimate, start, target]);
 
   return (
-    <p className="font-display text-4xl text-gold">
+    <p ref={ref} className="font-display text-4xl text-gold">
       {value}
       {suffix}
     </p>
