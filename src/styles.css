@@ -208,16 +208,18 @@
 @layer components {
   [data-reveal="pending"] {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(34px);
+    will-change: opacity, transform;
   }
 
   [data-reveal="visible"] {
     opacity: 1;
     transform: translateY(0);
     transition:
-      opacity 760ms var(--transition-luxe),
-      transform 760ms var(--transition-luxe);
+      opacity 820ms var(--transition-luxe),
+      transform 820ms var(--transition-luxe);
     transition-delay: var(--reveal-delay, 0ms);
+    will-change: auto;
   }
 
   .sister-card {
