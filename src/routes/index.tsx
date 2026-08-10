@@ -1,7 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImage from "@/assets/hero.jpg";
 import { GoldLink } from "@/components/gold-link";
 import { sectors, businesses, pillars, groupIntro, groupPromise } from "@/data/group";
+
+const heroSlides = [
+  {
+    id: "martins-video",
+    eyebrow: "Business Support · Personal Services",
+    title: "Let your dreams",
+    accent: "take off",
+    intro: groupIntro,
+    videoUrl:
+      "https://www.youtube-nocookie.com/embed/IxRVa1DbSAg?autoplay=1&mute=1&controls=0&loop=1&playlist=IxRVa1DbSAg&playsinline=1&rel=0&modestbranding=1&disablekb=1",
+  },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,31 +35,51 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const activeSlide = heroSlides[0];
+
   return (
     <>
       <section className="relative min-h-[92vh] overflow-hidden text-white">
-        <img
-          src={heroImage}
-          alt="Black marble and brushed gold architectural interior"
-          width={1920}
-          height={1088}
-          className="absolute inset-0 size-full object-cover"
-        />
+        <div className="absolute inset-0 bg-black">
+          {heroSlides.map((slide) => (
+            <iframe
+              key={slide.id}
+              title="Martins Investments hero video"
+              src={slide.videoUrl}
+              className="hero-video-frame"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              referrerPolicy="strict-origin-when-cross-origin"
+              aria-hidden="true"
+            />
+          ))}
+        </div>
         <div className="veil absolute inset-0" />
         <div className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-end px-6 pb-24 pt-40 lg:px-10">
-          <p className="eyebrow">Business Support · Personal Services</p>
+          <p className="eyebrow">{activeSlide.eyebrow}</p>
           <h1 className="mt-8 max-w-4xl text-5xl leading-[1.05] md:text-7xl">
-            Let your dreams{" "}
-            <span className="text-gold-gradient">take off</span>
+            {activeSlide.title}{" "}
+            <span className="text-gold-gradient">{activeSlide.accent}</span>
           </h1>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-white/78 md:text-lg">
-            {groupIntro}
+            {activeSlide.intro}
           </p>
           <div className="mt-12 flex flex-wrap gap-4">
             <GoldLink to="/portfolio">Explore our services</GoldLink>
             <GoldLink to="/about" variant="outline">
               About Martins
             </GoldLink>
+          </div>
+          <div
+            className="mt-12 flex items-center gap-3"
+            aria-label="Hero slider position"
+          >
+            {heroSlides.map((slide, index) => (
+              <span
+                key={slide.id}
+                className="h-px w-12 bg-gold"
+                aria-label={`Slide ${index + 1} of ${heroSlides.length}`}
+              />
+            ))}
           </div>
         </div>
       </section>
