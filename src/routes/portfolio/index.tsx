@@ -1,21 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
-import { sectors, businesses } from "@/data/group";
+import { sectors, businesses, groupPromise } from "@/data/group";
 
 export const Route = createFileRoute("/portfolio/")({
   head: () => ({
     meta: [
-      { title: "Our Portfolio | Martins Investments" },
+      { title: "Our Services | Martins Investments" },
       {
         name: "description",
         content:
-          "Seven business areas — fashion and e-commerce, lifestyle, entertainment, property, mobility, media and future ventures — within the Martins Investments group.",
+          "Service areas at Martins Investments, including home and property, transport, creative and digital, lifestyle and finance.",
       },
-      { property: "og:title", content: "Our Portfolio | Martins Investments" },
+      { property: "og:title", content: "Our Services | Martins Investments" },
       {
         property: "og:description",
-        content:
-          "The business areas that organise the Martins Investments portfolio.",
+        content: "The service areas available from Martins Investments.",
       },
     ],
   }),
@@ -26,9 +25,9 @@ function Portfolio() {
   return (
     <>
       <PageHero
-        eyebrow="Our Portfolio"
-        title="Seven business areas, one group"
-        intro="The portfolio is organised into defined pillars. This structure lets the group add new companies, brands and ventures over time without changing how the whole is presented."
+        eyebrow="Our Services"
+        title="Service areas for business, home and leisure"
+        intro={groupPromise}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
@@ -57,7 +56,7 @@ function Portfolio() {
                   </p>
                 </div>
                 <p className="mt-10 text-xs tracking-[0.18em] uppercase text-muted-foreground">
-                  {count} {count === 1 ? "business" : "businesses"}
+                  {count} {count === 1 ? "service" : "services"}
                 </p>
               </Link>
             );

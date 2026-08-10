@@ -10,12 +10,12 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Contact Martins Investments for partnership, investment, media and general group enquiries.",
+          "Contact Martins Investments by web form, phone, fax or office address.",
       },
       { property: "og:title", content: "Contact | Martins Investments" },
       {
         property: "og:description",
-        content: "Partnership, investment and media enquiries for the group.",
+        content: "Get in touch with Martins Investments.",
       },
     ],
   }),
@@ -23,10 +23,10 @@ export const Route = createFileRoute("/contact")({
 });
 
 const enquiryTypes = [
-  "Partnership",
-  "Investment",
-  "Media & press",
   "General enquiry",
+  "Business support",
+  "Personal service",
+  "Finance",
 ];
 
 function Contact() {
@@ -36,8 +36,8 @@ function Contact() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Speak with the group"
-        intro="For partnership, investment, media or general enquiries relating to Martins Investments or any business within the portfolio."
+        title="We look forward to hearing from you"
+        intro="It all starts when you get in touch. Send your details and we will get back to you as soon as we can."
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
@@ -45,8 +45,8 @@ function Contact() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              toast.success("Thank you — your enquiry has been noted.", {
-                description: "A member of the group team will respond shortly.",
+              toast.success("Thank you - your enquiry has been noted.", {
+                description: "Martins Investments will get back to you as soon as possible.",
               });
               (e.target as HTMLFormElement).reset();
             }}
@@ -70,9 +70,9 @@ function Contact() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
-              <Field label="Full name" name="name" />
+              <Field label="Name" name="name" />
               <Field label="Email" name="email" type="email" />
-              <Field label="Organisation" name="org" required={false} />
+              <Field label="Telephone" name="telephone" required={false} />
               <Field label="Subject" name="subject" />
             </div>
 
@@ -81,7 +81,7 @@ function Contact() {
                 htmlFor="message"
                 className="text-xs tracking-[0.2em] uppercase text-muted-foreground"
               >
-                Message
+                Details
               </label>
               <textarea
                 id="message"
@@ -96,21 +96,24 @@ function Contact() {
               type="submit"
               className="bg-gold px-10 py-4 text-[0.75rem] tracking-[0.2em] uppercase text-primary-foreground transition-colors duration-500 hover:bg-gold-soft"
             >
-              Submit enquiry
+              Send message
             </button>
           </form>
 
           <aside className="space-y-10">
             {[
               {
-                t: "Group enquiries",
-                b: "enquiries@martinsinvestments.com",
+                t: "Phone",
+                b: "020 4531 3661",
               },
               {
-                t: "Partnerships & investment",
-                b: "partnerships@martinsinvestments.com",
+                t: "Fax",
+                b: "020 4531 3661",
               },
-              { t: "Press & media", b: "press@martinsinvestments.com" },
+              {
+                t: "Office",
+                b: "Bobby Martins Investments Limited, 3rd Floor, 207 Regent Street, W1B 3HH, London, England",
+              },
             ].map((c) => (
               <div key={c.t}>
                 <div className="rule-gold" />
@@ -121,8 +124,8 @@ function Contact() {
               </div>
             ))}
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Enquiries about a specific brand within the group will be directed
-              to the relevant operating company.
+              You can send us a message by text-phone, fax or by submitting the
+              contact form.
             </p>
           </aside>
         </div>

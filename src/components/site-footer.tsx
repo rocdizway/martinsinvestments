@@ -12,20 +12,19 @@ export function SiteFooter() {
             </p>
             <p className="eyebrow mt-2">Investments</p>
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              A privately held investment group building and operating a
-              portfolio of businesses across consumer, property, mobility and
-              media.
+              Business support and personal services helping clients enjoy
+              leisure, maximize business and turn dreams into reality.
             </p>
           </div>
 
           <div>
-            <p className="eyebrow">Group</p>
+            <p className="eyebrow">Company</p>
             <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
               {[
                 { to: "/about", label: "About" },
-                { to: "/portfolio", label: "Our Portfolio" },
-                { to: "/businesses", label: "Our Businesses" },
-                { to: "/approach", label: "Our Approach" },
+                { to: "/portfolio", label: "Services" },
+                { to: "/businesses", label: "Service Directory" },
+                { to: "/approach", label: "How We Help" },
                 { to: "/insights", label: "News & Insights" },
                 { to: "/contact", label: "Contact" },
               ].map((l) => (
@@ -39,7 +38,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="eyebrow">Business areas</p>
+            <p className="eyebrow">Service areas</p>
             <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
               {sectors.map((s) => (
                 <li key={s.slug}>
@@ -59,7 +58,7 @@ export function SiteFooter() {
         <div className="mt-16 rule-gold" />
         <div className="mt-8 flex flex-col gap-3 text-xs tracking-[0.12em] uppercase text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Martins Investments. All rights reserved.</p>
-          <p>Holding company · Portfolio of businesses &amp; ventures</p>
+          <p>Business support · Personal services</p>
         </div>
       </div>
     </footer>

@@ -13,7 +13,7 @@ export const Route = createFileRoute("/businesses/$business")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Business not found | Martins Investments" },
+          { title: "Service not found | Martins Investments" },
           { name: "robots", content: "noindex" },
         ],
       };
@@ -41,7 +41,7 @@ function BusinessPage() {
   return (
     <>
       <PageHero
-        eyebrow={`${sector?.name ?? "Group"} · ${business.stage}`}
+        eyebrow={`${sector?.name ?? "Service"} · ${business.stage}`}
         title={business.name}
         intro={business.tagline}
       />
@@ -52,10 +52,8 @@ function BusinessPage() {
             <p className="eyebrow">Overview</p>
             <p>{business.description}</p>
             <p>
-              {business.name} operates as part of the Martins Investments group.
-              Group support covers strategy, capital, shared operating capability
-              and brand governance, while day-to-day operations remain with the
-              business.
+              Contact Martins Investments for more details about this service
+              and tell us what you need help with today.
             </p>
           </div>
 
@@ -64,21 +62,21 @@ function BusinessPage() {
             <dl className="mt-8 space-y-6 text-sm">
               <div>
                 <dt className="text-xs tracking-[0.18em] uppercase text-muted-foreground">
-                  Business area
+                  Service area
                 </dt>
                 <dd className="mt-2 text-gold">{sector?.name}</dd>
               </div>
               <div>
                 <dt className="text-xs tracking-[0.18em] uppercase text-muted-foreground">
-                  Stage
+                  Status
                 </dt>
                 <dd className="mt-2">{business.stage}</dd>
               </div>
               <div>
                 <dt className="text-xs tracking-[0.18em] uppercase text-muted-foreground">
-                  Ownership
+                  Provider
                 </dt>
-                <dd className="mt-2">Martins Investments group company</dd>
+                <dd className="mt-2">Martins Investments</dd>
               </div>
             </dl>
           </aside>
@@ -100,9 +98,9 @@ function BusinessPage() {
 
         <div className="mt-16 flex flex-wrap gap-4">
           <GoldLink to="/businesses" variant="outline">
-            All businesses
+            All services
           </GoldLink>
-          <GoldLink to="/contact">Enquire about this business</GoldLink>
+          <GoldLink to="/contact">Enquire about this service</GoldLink>
         </div>
       </section>
     </>

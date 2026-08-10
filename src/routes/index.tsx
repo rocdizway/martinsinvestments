@@ -1,22 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImage from "@/assets/hero.jpg";
 import { GoldLink } from "@/components/gold-link";
-import { sectors, businesses, pillars } from "@/data/group";
+import { sectors, businesses, pillars, groupIntro, groupPromise } from "@/data/group";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Martins Investments — A Modern Investment Group" },
+      { title: "Martins Investments — Business Support & Personal Services" },
       {
         name: "description",
         content:
-          "Martins Investments is the parent company behind a growing portfolio of businesses across fashion, lifestyle, entertainment, property, mobility and media.",
+          "Martins Investments works with clients to lift capabilities, turn dreams to reality, enjoy leisure and maximize business.",
       },
-      { property: "og:title", content: "Martins Investments — A Modern Investment Group" },
+      { property: "og:title", content: "Martins Investments — Business Support & Personal Services" },
       {
         property: "og:description",
         content:
-          "The holding company behind a growing portfolio of businesses and ventures across seven business areas.",
+          "Services across landscaping, transport, cars, music and video, fashion, web design, home cookery, Girl Friday, property and finance.",
       },
     ],
   }),
@@ -36,20 +36,18 @@ function Home() {
         />
         <div className="veil absolute inset-0" />
         <div className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-end px-6 pb-24 pt-40 lg:px-10">
-          <p className="eyebrow">Investment Group · Established Portfolio</p>
+          <p className="eyebrow">Business Support · Personal Services</p>
           <h1 className="mt-8 max-w-4xl text-5xl leading-[1.05] md:text-7xl">
-            Building and owning{" "}
-            <span className="text-gold-gradient">enduring businesses</span>
+            Let your dreams{" "}
+            <span className="text-gold-gradient">take off</span>
           </h1>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Martins Investments is the parent company behind a growing portfolio
-            of brands and ventures — operated independently, backed
-            collectively, and built for the long term.
+            {groupIntro}
           </p>
           <div className="mt-12 flex flex-wrap gap-4">
-            <GoldLink to="/portfolio">Explore the portfolio</GoldLink>
+            <GoldLink to="/portfolio">Explore our services</GoldLink>
             <GoldLink to="/about" variant="outline">
-              About the group
+              About Martins
             </GoldLink>
           </div>
         </div>
@@ -58,10 +56,10 @@ function Home() {
       <section className="border-y border-border bg-onyx">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px px-6 lg:grid-cols-4 lg:px-10">
           {[
-            { value: "7", label: "Business areas" },
-            { value: `${businesses.length}`, label: "Ventures in group" },
-            { value: "100%", label: "Privately held" },
-            { value: "Long-term", label: "Ownership horizon" },
+            { value: `${sectors.length}`, label: "Service areas" },
+            { value: `${businesses.length}`, label: "Services listed" },
+            { value: "20+", label: "Years web experience" },
+            { value: "24-hour", label: "Chauffeur bookings" },
           ].map((s) => (
             <div key={s.label} className="py-14 pr-6">
               <p className="font-display text-4xl text-gold">{s.value}</p>
@@ -76,29 +74,28 @@ function Home() {
       <section className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
         <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="eyebrow">The Group</p>
+            <p className="eyebrow">What We Do</p>
             <h2 className="mt-6 text-3xl leading-tight md:text-5xl">
-              A parent company, not a single business
+              Business support and personal services in one place
             </h2>
           </div>
           <div className="space-y-6 text-base leading-relaxed text-muted-foreground">
             <p>
-              Martins Investments exists to build, acquire and hold companies.
-              Each venture in the group operates with its own identity,
-              leadership and customers, while drawing on shared capability in
-              commerce, brand, media and operations.
+              Whether you are looking for business support or help to make your
+              quality personal time richer and more relaxing, Martins
+              Investments works with you to lift your capabilities and turn
+              dreams to reality.
             </p>
             <p>
-              That structure keeps the group agile. New businesses can be added
-              to the portfolio without disruption, and successful ventures can
-              grow into their own dedicated platforms while remaining clearly
-              connected to the parent company.
+              Services span landscaping, transport and removals, cars and limo
+              hire, music and video production, fashion, web design, home
+              cookery, Girl Friday support, property and finance.
             </p>
             <Link
               to="/about"
               className="inline-block border-b border-gold/60 pb-1 text-xs tracking-[0.2em] uppercase text-gold transition-colors hover:border-gold"
             >
-              Read our story
+              Read more
             </Link>
           </div>
         </div>
@@ -108,8 +105,8 @@ function Home() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="eyebrow">Business Areas</p>
-              <h2 className="mt-6 text-3xl md:text-5xl">Where we operate</h2>
+              <p className="eyebrow">Service Areas</p>
+              <h2 className="mt-6 text-3xl md:text-5xl">How we can help</h2>
             </div>
             <Link
               to="/portfolio"
@@ -143,9 +140,9 @@ function Home() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-        <p className="eyebrow">Selected Businesses</p>
+        <p className="eyebrow">Selected Services</p>
         <h2 className="mt-6 max-w-2xl text-3xl md:text-5xl">
-          Independent brands within the group
+          Practical support for work, home and leisure
         </h2>
         <div className="mt-16 grid gap-8 md:grid-cols-3">
           {businesses.slice(0, 3).map((b) => (
@@ -167,7 +164,7 @@ function Home() {
         </div>
         <div className="mt-14">
           <GoldLink to="/businesses" variant="outline">
-            All businesses
+            All services
           </GoldLink>
         </div>
       </section>
@@ -192,11 +189,11 @@ function Home() {
       <section className="mx-auto max-w-7xl px-6 py-32 text-center lg:px-10">
         <p className="eyebrow">Future Vision</p>
         <h2 className="mx-auto mt-8 max-w-3xl text-3xl leading-tight md:text-5xl">
-          The portfolio is designed to keep growing
+          Enjoy your leisure and maximize your business
         </h2>
         <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
-          New ventures, new markets and new partnerships. If you are exploring
-          an opportunity with the group, we would like to hear from you.
+          {groupPromise} Contact us for more details and tell us what you need
+          help with today.
         </p>
         <div className="mt-12 flex justify-center">
           <GoldLink to="/contact">Contact the group</GoldLink>

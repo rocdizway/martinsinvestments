@@ -1,21 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
-import { businesses, sectors } from "@/data/group";
+import { businesses, sectors, groupPromise } from "@/data/group";
 
 export const Route = createFileRoute("/businesses/")({
   head: () => ({
     meta: [
-      { title: "Our Businesses | Martins Investments" },
+      { title: "Service Directory | Martins Investments" },
       {
         name: "description",
         content:
-          "The companies, brands and ventures operating within the Martins Investments group, including RocDizWay, Roc*Away and Roc*Parties.",
+          "The service directory for Martins Investments, including landscaping, removals, cars and limo, music and video, fashion, web design, home cookery, Girl Friday, property and finance.",
       },
-      { property: "og:title", content: "Our Businesses | Martins Investments" },
+      { property: "og:title", content: "Service Directory | Martins Investments" },
       {
         property: "og:description",
-        content:
-          "Companies, brands and ventures operating within the Martins Investments group.",
+        content: "Services available from Martins Investments.",
       },
     ],
   }),
@@ -26,9 +25,9 @@ function Businesses() {
   return (
     <>
       <PageHero
-        eyebrow="Our Businesses"
-        title="Companies, brands and ventures in the group"
-        intro="Each business operates independently under the Martins Investments umbrella. New ventures are added to this register as they join the group."
+        eyebrow="Service Directory"
+        title="Practical services from Martins Investments"
+        intro={groupPromise}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
@@ -62,9 +61,8 @@ function Businesses() {
         </div>
 
         <p className="mt-12 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          The register is structured so additional companies and ventures can be
-          added at any time, and so any subsidiary can move to its own dedicated
-          website while remaining linked to the parent company.
+          Contact Martins Investments for more details about any service and we
+          will get back to you as soon as we can.
         </p>
       </section>
     </>

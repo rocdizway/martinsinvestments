@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import aboutImage from "@/assets/about.jpg";
 import { PageHero } from "@/components/page-hero";
 import { GoldLink } from "@/components/gold-link";
+import { groupIntro, groupPromise } from "@/data/group";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -10,13 +11,12 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Martins Investments is a privately held investment group that builds, acquires and operates businesses for the long term.",
+          "Martins Investments helps clients enjoy leisure and maximize business through practical business support and personal services.",
       },
       { property: "og:title", content: "About | Martins Investments" },
       {
         property: "og:description",
-        content:
-          "A privately held investment group building and operating businesses for the long term.",
+        content: "Business support and personal services from Martins Investments.",
       },
     ],
   }),
@@ -27,9 +27,9 @@ function About() {
   return (
     <>
       <PageHero
-        eyebrow="About the Group"
-        title="A privately held group with a long-term view"
-        intro="Martins Investments was founded to build lasting value through ownership — creating, backing and operating businesses that can stand on their own while benefiting from the strength of a shared parent company."
+        eyebrow="About Martins Investments"
+        title="Let your dreams take off"
+        intro={groupIntro}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
@@ -45,20 +45,18 @@ function About() {
           <div className="space-y-6 text-base leading-relaxed text-muted-foreground">
             <p className="eyebrow">Who we are</p>
             <p>
-              We are an investment group, not an operating brand. Our role is to
-              allocate capital, set governance, build shared capability and give
-              each business in the portfolio the space to perform.
+              Martins Investments works with clients who need business support,
+              personal assistance or specialist services that make daily life and
+              work easier.
             </p>
             <p>
-              The group's interests span fashion and e-commerce, lifestyle,
-              entertainment and events, property, mobility, media and a
-              deliberate pipeline of future ventures.
+              Our services span landscape design, transport and removals, cars
+              and limo, music and video, fashion, web design, home cookery, Girl
+              Friday, property and finance.
             </p>
             <p>
-              Every venture keeps its own identity. Over time, individual
-              subsidiaries may operate their own dedicated websites and
-              platforms — always clearly connected to Martins Investments as
-              the parent company.
+              {groupPromise} Contact us for more details and we will be happy to
+              help you today.
             </p>
           </div>
         </div>
@@ -69,15 +67,15 @@ function About() {
           {[
             {
               t: "Mission",
-              b: "To build and own a portfolio of well-run businesses that create durable value for customers, partners and the group.",
+              b: "To work with clients to lift capabilities, solve practical problems and turn dreams into reality.",
             },
             {
               t: "Vision",
-              b: "An international group of respected brands, each strong enough to lead its own market and connected by a common standard of quality.",
+              b: "A trusted service company helping customers enjoy their leisure, maximize business and make quality time richer.",
             },
             {
               t: "Values",
-              b: "Integrity in dealings, discipline in capital, ambition in strategy and respect for the people who operate our businesses.",
+              b: "Helpful service, practical delivery, clear contact and a focus on what the client actually needs.",
             },
           ].map((item) => (
             <div key={item.t}>
@@ -92,23 +90,23 @@ function About() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
-        <p className="eyebrow">Group structure</p>
+        <p className="eyebrow">Service structure</p>
         <h2 className="mt-6 max-w-2xl text-3xl md:text-4xl">
-          Parent company, independent businesses
+          Business help, home help and leisure help
         </h2>
         <div className="mt-12 border border-border">
           {[
             {
               t: "Martins Investments",
-              b: "Holding company. Capital allocation, governance, group strategy and shared services.",
+              b: "The main point of contact for clients who want help with business, home, leisure or finance needs.",
             },
             {
-              t: "Business areas",
-              b: "Seven defined pillars that organise the portfolio and guide where new ventures are added.",
+              t: "Service areas",
+              b: "Clear categories that organise the services available from Martins Investments.",
             },
             {
-              t: "Operating companies",
-              b: "Individual brands and ventures with their own leadership, customers and — in time — their own platforms.",
+              t: "Specialist services",
+              b: "Practical offers such as Dial-a-Chef, Roc Diz Way fashion, web design, transport, removals, property and finance.",
             },
           ].map((row, i) => (
             <div
@@ -123,7 +121,7 @@ function About() {
           ))}
         </div>
         <div className="mt-14">
-          <GoldLink to="/portfolio">See the portfolio</GoldLink>
+          <GoldLink to="/portfolio">See our services</GoldLink>
         </div>
       </section>
     </>

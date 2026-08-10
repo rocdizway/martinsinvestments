@@ -80,11 +80,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Martins Investments — A Modern Investment Group" },
+      { title: "Martins Investments — Business Support & Personal Services" },
       {
         name: "description",
         content:
-          "Martins Investments is the parent company behind a growing portfolio of businesses across fashion, lifestyle, entertainment, property, mobility and media.",
+          "Martins Investments helps clients lift capabilities, turn dreams to reality, enjoy leisure and maximize business.",
       },
       { name: "author", content: "Martins Investments" },
       { property: "og:type", content: "website" },

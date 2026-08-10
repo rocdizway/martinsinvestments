@@ -13,7 +13,7 @@ export const Route = createFileRoute("/portfolio/$sector")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Business area not found | Martins Investments" },
+          { title: "Service area not found | Martins Investments" },
           { name: "robots", content: "noindex" },
         ],
       };
@@ -38,13 +38,13 @@ function SectorPage() {
   return (
     <>
       <PageHero
-        eyebrow={`Business Area · ${sector.status}`}
+        eyebrow={`Service Area · ${sector.status}`}
         title={sector.name}
         intro={sector.detail}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
-        <p className="eyebrow">Businesses in this area</p>
+        <p className="eyebrow">Services in this area</p>
         {list.length ? (
           <div className="mt-12 grid gap-8 md:grid-cols-2">
             {list.map((b) => (
@@ -66,16 +66,15 @@ function SectorPage() {
           </div>
         ) : (
           <p className="mt-8 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Ventures in this area are currently in development. Announcements
-            will be published as they join the group.
+            Contact Martins Investments to discuss support in this service area.
           </p>
         )}
 
         <div className="mt-16 flex flex-wrap gap-4">
           <GoldLink to="/portfolio" variant="outline">
-            All business areas
+            All service areas
           </GoldLink>
-          <GoldLink to="/contact">Discuss an opportunity</GoldLink>
+          <GoldLink to="/contact">Discuss this service</GoldLink>
         </div>
       </section>
     </>

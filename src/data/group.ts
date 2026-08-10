@@ -18,213 +18,268 @@ export type Business = {
   highlights: string[];
 };
 
+export const groupIntro =
+  "Martins Investments is all about working with you to lift your capabilities and turn dreams to reality. Whether you are looking for business support or help to make your quality personal time richer and more relaxing, contact us and let us help you today.";
+
+export const groupPromise =
+  "Martins Investments can help you enjoy your leisure and maximize your business.";
+
 export const sectors: Sector[] = [
   {
-    slug: "fashion-ecommerce",
-    name: "Fashion & E-commerce",
+    slug: "home-property",
+    name: "Home, Property & Gardens",
     summary:
-      "Consumer brands and digital retail platforms built for a global audience.",
+      "Landscape design, property support and practical home services for better spaces.",
     detail:
-      "We build and back apparel and lifestyle labels with strong creative direction, supported by modern digital commerce infrastructure, fulfilment partnerships and performance marketing.",
+      "From full garden and driveway designs to property market guidance, Martins Investments helps clients improve, manage and enjoy their homes and property interests.",
     status: "Active",
   },
   {
-    slug: "lifestyle",
-    name: "Lifestyle",
+    slug: "transport-mobility",
+    name: "Transport, Removals & Cars",
     summary:
-      "Products, spaces and experiences designed around modern living and culture.",
+      "Removals, rubbish clearance, minicabs, chauffeurs and limousine hire.",
     detail:
-      "Lifestyle ventures extend our consumer expertise into wellbeing, hospitality-adjacent concepts and premium everyday goods, where brand trust compounds over time.",
-    status: "Growth",
-  },
-  {
-    slug: "entertainment-events",
-    name: "Entertainment & Events",
-    summary:
-      "Live experiences, nightlife and cultural programming with international reach.",
-    detail:
-      "From curated events to entertainment formats, this pillar builds audiences and cultural equity that feed the wider group's brands and media assets.",
+      "Transport services include removals and recycling, 24-hour personal chauffeur bookings, hybrid minicabs around London and the South East, PCO car rental and limousine hire for special occasions.",
     status: "Active",
   },
   {
-    slug: "property",
-    name: "Property",
+    slug: "creative-digital",
+    name: "Creative, Fashion & Digital",
     summary:
-      "Real estate acquisition, development and long-term asset management.",
+      "Music, video, fashion, e-commerce and web design services.",
     detail:
-      "Property provides the group with a stable asset base — residential and commercial holdings selected for yield, appreciation and strategic operational use.",
+      "Martins Investments helps clients get seen, heard and sold online through professional music and video production, fashion retail, responsive websites and e-commerce platforms.",
     status: "Growth",
   },
   {
-    slug: "mobility",
-    name: "Mobility",
+    slug: "personal-lifestyle",
+    name: "Personal & Lifestyle Services",
     summary:
-      "Transport, logistics and movement services for people and goods.",
+      "Home cookery and Girl Friday services that make personal time richer.",
     detail:
-      "Mobility ventures focus on reliable, technology-enabled transport and logistics operations that support both consumers and other group businesses.",
-    status: "Emerging",
+      "Lifestyle support ranges from Dial-a-Chef on-site cooking in your own home to Girl Friday assistance for planning, home support and companionship at business or social events.",
+    status: "Active",
   },
   {
-    slug: "media",
-    name: "Media",
+    slug: "finance",
+    name: "Finance",
     summary:
-      "Content, publishing and brand storytelling across digital channels.",
+      "Loans and finance planning support to help clients manage money with confidence.",
     detail:
-      "Media capability gives the group distribution: original content, creator partnerships and channels that build demand for every brand we own or back.",
+      "Martins Investments helps clients plan and manage finances so money works for them instead of against them, including support when an extra amount at the right moment could make the difference.",
     status: "Emerging",
-  },
-  {
-    slug: "future-ventures",
-    name: "Future Ventures",
-    summary:
-      "Early-stage exploration, partnerships and new market entry.",
-    detail:
-      "A deliberate space for what comes next — technology, financial services and international expansion opportunities evaluated against our long-term thesis.",
-    status: "Exploratory",
   },
 ];
 
 export const businesses: Business[] = [
   {
-    slug: "rocdizway",
-    name: "RocDizWay",
-    sector: "fashion-ecommerce",
-    tagline: "Contemporary fashion and digital retail.",
+    slug: "landscape-design",
+    name: "Landscape Design",
+    sector: "home-property",
+    tagline:
+      "Five years' experience in landscape architecture, ground works and full garden or driveway designs.",
     description:
-      "RocDizWay is the group's fashion and e-commerce brand, combining original design with a direct-to-consumer digital platform. It anchors our consumer strategy and serves as the testbed for the group's commerce, fulfilment and brand-building capability.",
+      "The landscaping service covers landscaping and ground works, full garden and driveway designs, measuring up jobs, organising materials, and 360 digger and dumper operations. The wider home improvement skill set also includes plastering, carpentry, tiling, bathroom and kitchen fitting, brickwork, window fitting and UPVC work.",
     stage: "Operating",
     highlights: [
-      "Direct-to-consumer digital storefront",
-      "Original design and seasonal collections",
-      "Foundation of the group's commerce infrastructure",
+      "Landscaping, ground works, garden and driveway design",
+      "Measuring up jobs and organising materials",
+      "Plastering, carpentry, tiling, brickwork and UPVC work",
     ],
   },
   {
-    slug: "roc-away",
-    name: "Roc*Away",
-    sector: "lifestyle",
-    tagline: "Travel and lifestyle experiences.",
+    slug: "transport-removals",
+    name: "Transport & Removals",
+    sector: "transport-mobility",
+    tagline:
+      "Removals, recycling, rubbish clearance, packing, cleaning and handyman support.",
     description:
-      "Roc*Away curates travel and getaway experiences for a discerning audience, translating the group's brand equity into memorable lifestyle offerings and recurring customer relationships.",
-    stage: "Scaling",
-    highlights: [
-      "Curated travel and getaway programmes",
-      "Partnership-led operating model",
-      "Shared audience with the wider Roc portfolio",
-    ],
-  },
-  {
-    slug: "roc-parties",
-    name: "Roc*Parties",
-    sector: "entertainment-events",
-    tagline: "Events, nightlife and cultural moments.",
-    description:
-      "Roc*Parties produces live events and entertainment experiences, building cultural presence and community around the group's brands while operating as a commercial venture in its own right.",
+      "Empire Killer Removals & Recycling Company provides transport and removals support including rubbish clearance, packing and assembling, cleaning and laundry service, recycling contract support, handyman work, packaging products, and help buying unwanted goods or clearing them for a few pounds.",
     stage: "Operating",
     highlights: [
-      "Curated live events and nightlife formats",
-      "Brand partnership and sponsorship revenue",
-      "Audience engine for group media assets",
+      "Rubbish clearance, packing and assembling",
+      "Cleaning, laundry, recycling and handyman services",
+      "Packaging products plus unwanted-goods clearance",
     ],
   },
   {
-    slug: "martins-property",
-    name: "Martins Property",
-    sector: "property",
-    tagline: "Real estate holdings and development.",
+    slug: "cars-limo",
+    name: "Cars & Limo",
+    sector: "transport-mobility",
+    tagline:
+      "24-hour personal chauffeur, minicab, PCO rental and limousine hire services.",
     description:
-      "Martins Property manages the group's real estate interests, focusing on carefully selected acquisitions, refurbishment and long-term asset management.",
-    stage: "In development",
+      "Cars & Limo helps clients get the car they want when they want it. Services include a 24-hour personal chauffeur for journeys to and from London and the south of England, quick hybrid minicabs around London and the South East, PCO car rental, driver opportunity support, and limousine hire for special occasions.",
+    stage: "Operating",
     highlights: [
-      "Acquisition and asset management",
-      "Long-term capital appreciation focus",
-      "Operational space for group businesses",
+      "24-hour chauffeur bookings and hybrid minicabs",
+      "PCO car rental and driver registration support",
+      "Limousine options including Chrysler, Escalade, Hummer, party bus and Lincoln models",
     ],
   },
   {
-    slug: "martins-mobility",
-    name: "Martins Mobility",
-    sector: "mobility",
-    tagline: "Transport and logistics services.",
+    slug: "music-video-production",
+    name: "Music & Video",
+    sector: "creative-digital",
+    tagline:
+      "Professional music and video production to help clients broadcast to the world.",
     description:
-      "Martins Mobility develops the group's transport and logistics capability, supporting both external customers and the delivery requirements of our consumer brands.",
-    stage: "In development",
+      "Music & Video production helps clients get seen and heard with professional production delivered by Martins Investments. The service includes music production for a professional sound on download or disc, plus video production for selling videos, YouTube content and full-length features.",
+    stage: "Operating",
     highlights: [
-      "Transport and delivery operations",
-      "Technology-enabled scheduling",
-      "Internal fulfilment support",
+      "Music production for download or disc",
+      "Short selling videos and YouTube-ready content",
+      "Guidance for longer video and feature projects",
     ],
   },
   {
-    slug: "martins-media",
-    name: "Martins Media",
-    sector: "media",
-    tagline: "Content, storytelling and distribution.",
+    slug: "fashion",
+    name: "Fashion",
+    sector: "creative-digital",
+    tagline:
+      "Online fashion through Roc Diz Way, with great designs for the whole family.",
     description:
-      "Martins Media builds the group's owned channels — content production, brand storytelling and creator partnerships that give every venture a route to audience.",
-    stage: "Pipeline",
+      "Fashion at Martins Investments is built around the Roc Diz Way online fashion store. The service invites customers to love their look with designs for the whole family, while also calling for models interested in available modelling work.",
+    stage: "Operating",
+    website: "https://rocdizway.com/",
     highlights: [
-      "Owned content channels",
-      "Creator and partner network",
-      "Group-wide brand storytelling",
+      "Roc Diz Way online fashion store",
+      "Great designs for the whole family",
+      "Model recruitment for available modelling work",
+    ],
+  },
+  {
+    slug: "web-design",
+    name: "Web Design",
+    sector: "creative-digital",
+    tagline:
+      "Responsive websites, e-commerce and web publishing experience at great value.",
+    description:
+      "Web Design helps clients deliver their message online to the world. Martins Investments specifies what clients really need, draws on 20 years of web publishing experience, offers solutions from under GBP100, promises to beat any quote, and builds responsive sites that work across desktop, mobile and tablet. E-commerce solutions can include shopping basket and credit-card or PayPal-based payment systems.",
+    stage: "Operating",
+    highlights: [
+      "Responsive design for desktop, mobile and tablet",
+      "E-commerce stores with basket and payment systems",
+      "HTML5, CSS3, JavaScript, jQuery, PHP, SQL and app-development experience",
+    ],
+  },
+  {
+    slug: "home-cookery",
+    name: "Home Cookery",
+    sector: "personal-lifestyle",
+    tagline:
+      "Dial-a-Chef on-site cooking that turns your own home into your restaurant.",
+    description:
+      "Dial-a-Chef brings the restaurant to you. Martins Investments uses your own facilities to prepare your chosen feast on the spot, letting you enjoy restaurant-style food in the comfort of your own home without worrying about travel, tables or what happens behind closed kitchen doors.",
+    stage: "Operating",
+    highlights: [
+      "Professional on-site cooking in your own home",
+      "Restaurant-style food prepared before your eyes",
+      "Dial-a-Chef is a registered trade mark of Martins Investments",
+    ],
+  },
+  {
+    slug: "girl-friday",
+    name: "Girl Friday",
+    sector: "personal-lifestyle",
+    tagline:
+      "Weekend home support, planning help and companionship for business or social events.",
+    description:
+      "Girl Friday helps clients get their act together when life is too busy. The service covers home support at weekends, planning and arrangements, practical tasks, and Boy or Girl Friday companionship for business and social events during a short stay in London.",
+    stage: "Operating",
+    highlights: [
+      "Weekend home support and practical task handling",
+      "Planning and arrangements when life is busy",
+      "Business and social event companionship in London",
+    ],
+  },
+  {
+    slug: "property",
+    name: "Property",
+    sector: "home-property",
+    tagline:
+      "A window to the property market for clients looking to optimise a property portfolio.",
+    description:
+      "Property services help clients find property that works for them. Martins Investments positions the current market as an opportunity to optimise a property portfolio when clients know what they are doing and where the best opportunities can be found.",
+    stage: "Operating",
+    highlights: [
+      "Property market guidance",
+      "Portfolio optimisation support",
+      "Help finding property opportunities that work for the client",
+    ],
+  },
+  {
+    slug: "loans-finance",
+    name: "Loans & Finance",
+    sector: "finance",
+    tagline:
+      "Finance planning and support so money can work for you instead of against you.",
+    description:
+      "Loans & Finance helps clients plan and manage their finances so they can do the things they do best without worrying about stretching money across too many demands at once. The service is positioned for moments when even an extra GBP100 at the right time could make a difference.",
+    stage: "Operating",
+    highlights: [
+      "Loans and finance support",
+      "Planning and money-management guidance",
+      "Practical help when timing and cash flow matter",
     ],
   },
 ];
 
 export const pillars = [
   {
-    title: "Ownership",
-    body: "We build and hold. Our businesses are operated for the long term, not assembled for a quick exit.",
+    title: "Business support",
+    body: "We work with clients to lift capabilities, solve practical problems and help business plans move from idea to action.",
   },
   {
-    title: "Discipline",
-    body: "Every venture is assessed on unit economics, operating capability and its fit within the wider group.",
+    title: "Personal time",
+    body: "Our leisure and lifestyle services are designed to make quality personal time richer, easier and more relaxing.",
   },
   {
-    title: "Shared capability",
-    body: "Commerce, media, logistics and brand expertise are built once and made available across the portfolio.",
+    title: "Practical delivery",
+    body: "From transport and property to web design and production, the focus is useful service delivered at the point clients need it.",
   },
   {
-    title: "Independence",
-    body: "Each business keeps its own identity and platform while drawing on the strength of the parent company.",
+    title: "Direct contact",
+    body: "It all starts when clients get in touch, explain what they need and let Martins Investments help with the next step.",
   },
 ];
 
 export const insights = [
   {
-    slug: "building-a-modern-holding-company",
-    title: "Building a modern holding company",
+    slug: "let-your-dreams-take-off",
+    title: "Let your dreams take off",
     date: "2026-07-14",
     category: "Group",
     excerpt:
-      "Why Martins Investments is structured as a parent company with independent operating brands, and what that means for growth.",
+      "Martins Investments works with clients to lift capabilities and turn dreams into reality.",
     body: [
-      "A holding structure separates ownership from operations. It allows each brand to move at its own pace, with its own identity and leadership, while capital allocation, governance and shared services remain centralised.",
-      "For Martins Investments, this means a portfolio that can absorb new ventures without disrupting existing ones — and businesses that can eventually run their own platforms while remaining clearly connected to the group.",
+      "Martins Investments is all about working with clients to lift capabilities and turn dreams to reality.",
+      "Whether the need is business support or help making quality personal time richer and more relaxing, the starting point is contact: explain the goal and let the team help.",
     ],
   },
   {
-    slug: "portfolio-expansion-strategy",
-    title: "Our approach to portfolio expansion",
+    slug: "deliver-your-message-online",
+    title: "Deliver your message online",
     date: "2026-05-02",
-    category: "Strategy",
+    category: "Digital",
     excerpt:
-      "The criteria we apply before a new venture enters the group, from market position to operating capability.",
+      "Responsive websites and e-commerce can open a business to customers nationwide and worldwide.",
     body: [
-      "New ventures are evaluated against four questions: is the market durable, can we operate it well, does it strengthen an existing pillar, and can it stand alone commercially?",
-      "Ventures that pass move into a structured development phase before they are presented publicly as part of the portfolio.",
+      "With more than half of visits coming from mobile and tablet devices, responsive web design is essential for modern businesses.",
+      "Martins Investments offers web publishing experience, responsive design and e-commerce solutions with shopping basket and payment capability.",
     ],
   },
   {
-    slug: "entertainment-as-brand-infrastructure",
-    title: "Entertainment as brand infrastructure",
+    slug: "your-home-is-your-restaurant",
+    title: "Your home is your restaurant",
     date: "2026-02-19",
-    category: "Sector",
+    category: "Lifestyle",
     excerpt:
-      "How live experiences and cultural programming compound value across the wider group.",
+      "Dial-a-Chef brings restaurant-style cooking into the comfort of your own home.",
     body: [
-      "Events create attention, community and data. For a group with consumer brands, that attention is infrastructure — it lowers the cost of launching the next venture.",
-      "Roc*Parties illustrates the model: a commercially viable business that simultaneously builds audience for fashion, lifestyle and media assets across the group.",
+      "Finding a good restaurant can be hard, and no restaurant is as familiar or convenient as your own home.",
+      "Dial-a-Chef uses your own facilities to make up your chosen feast on the spot while you relax and enjoy the result.",
     ],
   },
 ];

@@ -1,22 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
 import { GoldLink } from "@/components/gold-link";
-import { pillars } from "@/data/group";
+import { pillars, groupIntro, groupPromise } from "@/data/group";
 
 export const Route = createFileRoute("/approach")({
   head: () => ({
     meta: [
-      { title: "Our Approach | Martins Investments" },
+      { title: "How We Help | Martins Investments" },
       {
         name: "description",
         content:
-          "How Martins Investments selects, builds and governs the businesses in its portfolio — ownership, discipline, shared capability and independence.",
+          "How Martins Investments helps clients with business support, personal services, leisure and finance needs.",
       },
-      { property: "og:title", content: "Our Approach | Martins Investments" },
+      { property: "og:title", content: "How We Help | Martins Investments" },
       {
         property: "og:description",
-        content:
-          "How we select, build and govern the businesses in our portfolio.",
+        content: "How Martins Investments helps clients turn plans into action.",
       },
     ],
   }),
@@ -25,24 +24,20 @@ export const Route = createFileRoute("/approach")({
 
 const stages = [
   {
-    t: "Identify",
-    b: "We look for markets with durable demand and a clear route to a defensible brand position.",
+    t: "Get in touch",
+    b: "Send your details, subject and requirements through the contact form, by phone or by fax.",
   },
   {
-    t: "Assess",
-    b: "Each opportunity is tested on unit economics, operating requirements and fit with an existing pillar.",
+    t: "Explain the need",
+    b: "Tell us whether you need business support, help at home, transport, creative work, property guidance or finance support.",
   },
   {
-    t: "Build",
-    b: "Ventures are given capital, leadership and access to group capability in commerce, media and operations.",
+    t: "Match the service",
+    b: "We connect the enquiry to the relevant Martins Investments service area and clarify the practical next step.",
   },
   {
-    t: "Govern",
-    b: "Clear reporting and standards apply across the portfolio, without removing operational independence.",
-  },
-  {
-    t: "Scale",
-    b: "Proven businesses move onto their own platforms and expand into new markets under group ownership.",
+    t: "Make it happen",
+    b: "The focus is simple: help you enjoy your leisure, maximize your business and move the task forward.",
   },
 ];
 
@@ -50,9 +45,9 @@ function Approach() {
   return (
     <>
       <PageHero
-        eyebrow="Our Approach"
-        title="Deliberate ownership, disciplined growth"
-        intro="We are not a service provider and we are not a passive investor. We build businesses we intend to own, and we hold them to a consistent operating standard."
+        eyebrow="How We Help"
+        title="From first contact to practical support"
+        intro={groupIntro}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
@@ -71,9 +66,9 @@ function Approach() {
 
       <section className="border-y border-border bg-onyx py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <p className="eyebrow">How we work</p>
+          <p className="eyebrow">How it works</p>
           <h2 className="mt-6 text-3xl md:text-4xl">
-            From opportunity to operating company
+            It all starts when you get in touch
           </h2>
           <div className="mt-14 border-l border-border">
             {stages.map((s, i) => (
@@ -97,25 +92,19 @@ function Approach() {
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
         <div className="grid gap-16 lg:grid-cols-2">
           <div>
-            <p className="eyebrow">Future-proof by design</p>
+            <p className="eyebrow">Contact us</p>
             <h2 className="mt-6 text-3xl md:text-4xl">
-              Built to add the next venture
+              Tell us what you need help with today
             </h2>
           </div>
           <div className="space-y-6 text-base leading-relaxed text-muted-foreground">
+            <p>{groupPromise}</p>
             <p>
-              The group's public presentation is structured around business
-              areas rather than individual products. Adding a company, brand or
-              venture is a matter of extending the portfolio — not rebuilding
-              the platform.
-            </p>
-            <p>
-              Subsidiaries can graduate to their own dedicated websites and
-              systems at the right moment, with a clear line back to Martins
-              Investments as the parent company.
+              Contact us for more details and we will get back to you as soon as
+              we can.
             </p>
             <GoldLink to="/contact" variant="outline">
-              Talk to the group
+              Contact Martins Investments
             </GoldLink>
           </div>
         </div>
