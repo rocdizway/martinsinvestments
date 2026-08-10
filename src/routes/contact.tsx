@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { toast } from "sonner";
 import { PageHero } from "@/components/page-hero";
 
@@ -10,7 +9,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Contact Martins Investments by web form, phone, fax or office address.",
+          "Speak with Martins Investments about the group, one of our businesses or a new idea.",
       },
       { property: "og:title", content: "Contact | Martins Investments" },
       {
@@ -22,53 +21,39 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-const enquiryTypes = [
-  "General enquiry",
-  "Business support",
-  "Personal service",
-  "Finance",
-];
-
 function Contact() {
-  const [type, setType] = useState(enquiryTypes[0]);
-
   return (
     <>
       <PageHero
         eyebrow="Contact"
-        title="We look forward to hearing from you"
-        intro="It all starts when you get in touch. Send your details and we will get back to you as soon as we can."
+        title="A conversation is a good place to begin."
+        intro="Ask about one of our businesses, introduce an opportunity or simply tell us what brought you here. Your message will reach the group directly."
       />
+
+      <section className="relative h-[420px] w-full overflow-hidden border-y border-border lg:h-[560px]">
+        <iframe
+          title="Martins Investments office on Google Maps"
+          src="https://www.google.com/maps?q=207%20Regent%20Street%2C%20London%20W1B%203HH&output=embed"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="absolute inset-0 size-full border-0"
+          allowFullScreen
+        />
+      </section>
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
         <div className="grid gap-16 lg:grid-cols-[1fr_0.8fr]">
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              toast.success("Thank you - your enquiry has been noted.", {
-                description: "Martins Investments will get back to you as soon as possible.",
+              toast.success("Your message is with us.", {
+                description:
+                  "Thank you for taking the time to write. We will respond as soon as we can.",
               });
               (e.target as HTMLFormElement).reset();
             }}
             className="space-y-8"
           >
-            <div className="flex flex-wrap gap-3">
-              {enquiryTypes.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => setType(t)}
-                  className={`px-5 py-3 text-[0.7rem] tracking-[0.18em] uppercase transition-colors duration-500 ${
-                    type === t
-                      ? "bg-gold text-primary-foreground"
-                      : "border border-border text-muted-foreground hover:border-gold/50 hover:text-gold"
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
-
             <div className="grid gap-8 md:grid-cols-2">
               <Field label="Name" name="name" />
               <Field label="Email" name="email" type="email" />
@@ -81,7 +66,7 @@ function Contact() {
                 htmlFor="message"
                 className="text-xs tracking-[0.2em] uppercase text-muted-foreground"
               >
-                Details
+                Your message
               </label>
               <textarea
                 id="message"
@@ -124,8 +109,8 @@ function Contact() {
               </div>
             ))}
             <p className="text-sm leading-relaxed text-muted-foreground">
-              You can send us a message by text-phone, fax or by submitting the
-              contact form.
+              Use the form for general enquiries, introductions and partnership conversations with
+              Martins Investments.
             </p>
           </aside>
         </div>
@@ -147,10 +132,7 @@ function Field({
 }) {
   return (
     <div>
-      <label
-        htmlFor={name}
-        className="text-xs tracking-[0.2em] uppercase text-muted-foreground"
-      >
+      <label htmlFor={name} className="text-xs tracking-[0.2em] uppercase text-muted-foreground">
         {label}
       </label>
       <input

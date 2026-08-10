@@ -1,41 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { GoldLink } from "@/components/gold-link";
-import { sectors, businesses, pillars, groupIntro, groupPromise } from "@/data/group";
-
-const heroSlides = [
-  {
-    id: "martins-video",
-    eyebrow: "Business Support · Personal Services",
-    title: "Let your dreams",
-    accent: "take off",
-    intro: groupIntro,
-    videoUrl:
-      "https://www.youtube-nocookie.com/embed/IxRVa1DbSAg?autoplay=1&mute=1&controls=0&loop=1&playlist=IxRVa1DbSAg&playsinline=1&rel=0&modestbranding=1&disablekb=1",
-  },
-];
-
-const homepageStats = [
-  { target: sectors.length, start: 30, suffix: "", label: "Service areas" },
-  { target: businesses.length, start: 60, suffix: "", label: "Services listed" },
-  { target: 20, start: 80, suffix: "+", label: "Years web experience" },
-  { target: 24, start: 96, suffix: "-hour", label: "Chauffeur bookings" },
-];
+import { holdings } from "@/data/group";
+import heroImage from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Martins Investments — Business Support & Personal Services" },
+      { title: "Martins Investments — Culture, Experience and Enterprise" },
       {
         name: "description",
         content:
-          "Martins Investments works with clients to lift capabilities, turn dreams to reality, enjoy leisure and maximize business.",
+          "Martins Investments develops carefully chosen ventures across fashion, experiences and hospitality.",
       },
-      { property: "og:title", content: "Martins Investments — Business Support & Personal Services" },
+      { property: "og:title", content: "Martins Investments — Culture, Experience and Enterprise" },
       {
         property: "og:description",
-        content:
-          "Services across landscaping, transport, cars, music and video, fashion, web design, home cookery, Girl Friday, property and finance.",
+        content: "An independent group bringing clarity, structure and ambition to ideas with character.",
       },
     ],
   }),
@@ -43,182 +24,151 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const activeSlide = heroSlides[0];
-
   return (
     <>
-      <section className="relative min-h-screen overflow-hidden text-white">
-        <div className="absolute inset-0 bg-black">
-          {heroSlides.map((slide) => (
-            <iframe
-              key={slide.id}
-              title="Martins Investments hero video"
-              src={slide.videoUrl}
-              className="hero-video-frame"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              referrerPolicy="strict-origin-when-cross-origin"
-              aria-hidden="true"
-            />
-          ))}
-        </div>
-        <div className="veil absolute inset-0" />
-        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-24 pt-40 lg:px-10">
-          <p className="eyebrow">{activeSlide.eyebrow}</p>
-          <h1 className="mt-8 max-w-4xl text-5xl leading-[1.05] md:text-7xl">
-            {activeSlide.title}{" "}
-            <span className="text-gold-gradient">{activeSlide.accent}</span>
-          </h1>
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-white/78 md:text-lg">
-            {activeSlide.intro}
-          </p>
-          <div className="mt-12 flex flex-wrap gap-4">
-            <GoldLink to="/portfolio">Explore our services</GoldLink>
-            <GoldLink to="/about" variant="outline">
-              About Martins
-            </GoldLink>
+      <section className="relative min-h-screen overflow-hidden bg-black text-white">
+        <img
+          src={heroImage}
+          alt=""
+          className="absolute inset-0 size-full object-cover opacity-55"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,6,.94)_0%,rgba(7,7,6,.62)_52%,rgba(7,7,6,.28)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 to-transparent" />
+        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-20 pt-40 lg:px-10 lg:pb-24">
+          <div className="mb-10 flex items-center gap-4">
+            <span className="h-px w-12 bg-gold" />
+            <p className="eyebrow">Independent Holding Company</p>
           </div>
-          <div
-            className="mt-12 flex items-center gap-3"
-            aria-label="Hero slider position"
-          >
-            {heroSlides.map((slide, index) => (
-              <span
-                key={slide.id}
-                className="h-px w-12 bg-gold"
-                aria-label={`Slide ${index + 1} of ${heroSlides.length}`}
-              />
-            ))}
+          <h1 className="max-w-5xl text-5xl leading-[.98] md:text-7xl lg:text-[6.4rem]">
+            Backing the ideas that shape how people{" "}
+            <span className="text-gold-gradient">dress, gather and live.</span>
+          </h1>
+          <div className="mt-10 flex max-w-4xl flex-col gap-8 border-t border-white/20 pt-8 md:flex-row md:items-end md:justify-between">
+            <p className="max-w-xl text-base leading-relaxed text-white/72 md:text-lg">
+              Martins Investments develops carefully chosen ventures across
+              fashion, experiences and hospitality—giving each the clarity,
+              structure and space to become exceptional.
+            </p>
+            <GoldLink to="/portfolio">Explore the portfolio</GoldLink>
           </div>
         </div>
       </section>
 
-      <section className="border-y border-border bg-onyx">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px px-6 lg:grid-cols-4 lg:px-10">
-          {homepageStats.map((s) => (
-            <div key={s.label} className="py-14 text-center">
-              <AnimatedStat
-                start={s.start}
-                target={s.target}
-                suffix={s.suffix}
-              />
-              <p className="mt-3 text-center text-xs tracking-[0.18em] uppercase text-muted-foreground">
-                {s.label}
+      <section className="section-ivory">
+        <div className="mx-auto grid max-w-7xl gap-14 px-6 py-28 lg:grid-cols-[.72fr_1.28fr] lg:px-10 lg:py-36">
+          <div>
+            <p className="eyebrow">The Group</p>
+            <p className="mt-5 text-xs tracking-[.18em] uppercase text-muted-foreground">
+              Fashion · Experiences · Hospitality
+            </p>
+          </div>
+          <div>
+            <h2 className="text-3xl leading-tight md:text-5xl">
+              Built together.
+              <br />
+              Made to stand apart.
+            </h2>
+            <div className="mt-10 grid gap-8 text-base leading-relaxed text-muted-foreground md:grid-cols-2">
+              <p>
+                The best businesses have a point of view. Ours begin with a clear feel for the
+                people, places and moments that move culture forward.
+              </p>
+              <p>
+                The group brings commercial focus and a steady hand behind the scenes. Out front,
+                every brand earns attention in its own way.
               </p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-ivory">
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 py-28 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
-          <div>
-            <p className="eyebrow">What We Do</p>
-            <h2 className="mt-6 text-3xl leading-tight md:text-5xl">
-              Business support and personal services in one place
-            </h2>
-          </div>
-          <div className="space-y-6 text-base leading-relaxed text-muted-foreground">
-            <p>
-              Whether you are looking for business support or help to make your
-              quality personal time richer and more relaxing, Martins
-              Investments works with you to lift your capabilities and turn
-              dreams to reality.
-            </p>
-            <p>
-              Services span landscaping, transport and removals, cars and limo
-              hire, music and video production, fashion, web design, home
-              cookery, Girl Friday support, property and finance.
-            </p>
             <Link
               to="/about"
-              className="inline-block border-b border-gold/60 pb-1 text-xs tracking-[0.2em] uppercase text-gold transition-colors hover:border-gold"
+              className="mt-10 inline-flex items-center gap-3 text-xs tracking-[.2em] uppercase text-gold"
             >
-              Read more
+              Discover the group <ArrowUpRight className="size-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-border bg-onyx py-28">
+      <section className="border-y border-border bg-onyx py-28 lg:py-36">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="eyebrow">Service Areas</p>
-              <h2 className="mt-6 text-3xl md:text-5xl">How we can help</h2>
+              <p className="eyebrow">Meet the businesses</p>
+              <h2 className="mt-6 text-3xl md:text-5xl">Three brands. Three worlds.</h2>
             </div>
-            <Link
-              to="/portfolio"
-              className="text-xs tracking-[0.2em] uppercase text-gold transition-opacity hover:opacity-70"
-            >
-              View all
-            </Link>
+            <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+              From a rare streetwear find to a room at its best, each business starts with one
+              question: how should this make people feel?
+            </p>
           </div>
-
-          <div className="mt-16 grid gap-px border border-border md:grid-cols-2 lg:grid-cols-3">
-            {sectors.map((s, i) => (
-              <Link
-                key={s.slug}
-                to="/portfolio/$sector"
-                params={{ sector: s.slug }}
-                className="group border-border p-10 transition-colors duration-500 hover:bg-elevated md:border-r md:border-b [&:nth-child(2n)]:md:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(3n)]:border-r-0"
+          <div className="mt-16 grid gap-6 lg:grid-cols-3">
+            {holdings.map((holding, index) => (
+              <article
+                key={holding.slug}
+                className="group overflow-hidden border border-border bg-background"
               >
-                <span className="font-display text-sm text-gold/60">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-6 text-2xl transition-colors group-hover:text-gold">
-                  {s.name}
-                </h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  {s.summary}
-                </p>
-              </Link>
+                <div className="relative aspect-[4/5] overflow-hidden bg-black">
+                  <img
+                    src={holding.image}
+                    alt={`${holding.name} brand`}
+                    className="size-full object-cover transition duration-700 group-hover:scale-[1.035]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-transparent" />
+                  <span className="absolute left-6 top-6 text-[.62rem] tracking-[.22em] uppercase text-white/65">
+                    0{index + 1} · {holding.status}
+                  </span>
+                  <div className="absolute inset-x-0 bottom-0 p-7 text-white">
+                    <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-soft">
+                      {holding.category}
+                    </p>
+                    <h3 className="mt-3 text-3xl">{holding.name}</h3>
+                  </div>
+                </div>
+                <div className="p-7">
+                  <p className="font-display text-xl text-[#2a261f] dark:text-white">
+                    {holding.positioning}
+                  </p>
+                  <p className="mt-4 text-sm leading-relaxed text-[#5b5448] dark:text-white/70">
+                    {holding.description}
+                  </p>
+                  <Link
+                    to="/portfolio"
+                    className="mt-7 inline-flex items-center gap-2 text-[.65rem] tracking-[.2em] uppercase text-gold"
+                  >
+                    View holding <ArrowUpRight className="size-3.5" />
+                  </Link>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-ivory">
-        <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-          <p className="eyebrow">Selected Services</p>
-          <h2 className="mt-6 max-w-2xl text-3xl md:text-5xl">
-            Practical support for work, home and leisure
-          </h2>
-          <div className="mt-16 grid gap-8 md:grid-cols-3">
-            {businesses.slice(0, 3).map((b) => (
-              <Link
-                key={b.slug}
-                to="/businesses/$business"
-                params={{ business: b.slug }}
-                className="surface-card block p-10"
-              >
-                <p className="text-[0.65rem] tracking-[0.24em] uppercase text-gold">
-                  {b.stage}
-                </p>
-                <h3 className="mt-6 text-2xl">{b.name}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  {b.tagline}
-                </p>
-              </Link>
-            ))}
-          </div>
-          <div className="mt-14">
-            <GoldLink to="/businesses" variant="outline">
-              All services
-            </GoldLink>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-border bg-onyx py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <p className="eyebrow">Our Approach</p>
-          <div className="mt-16 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-            {pillars.map((p) => (
-              <div key={p.title}>
-                <div className="rule-gold" />
-                <h3 className="mt-8 text-xl">{p.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  {p.body}
+      <section className="section-ivory overflow-hidden">
+        <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10 lg:py-40">
+          <p className="eyebrow">What we bring</p>
+          <div className="mt-14 grid gap-px border border-border bg-border md:grid-cols-3">
+            {[
+              [
+                "01",
+                "Direction",
+                "A strong idea becomes more valuable when every decision points the same way.",
+              ],
+              [
+                "02",
+                "Backing",
+                "The structure, attention and practical support each team needs to keep moving.",
+              ],
+              [
+                "03",
+                "Room",
+                "Enough independence for every brand to find its audience and become fully itself.",
+              ],
+            ].map(([number, title, body]) => (
+              <div key={title} className="bg-background p-9 lg:p-12">
+                <p className="font-display text-gold-deep dark:text-gold-soft">{number}</p>
+                <h3 className="mt-16 text-3xl text-[#2a261f] dark:text-white">{title}</h3>
+                <p className="mt-5 text-sm leading-relaxed text-[#5b5448] dark:text-white/70">
+                  {body}
                 </p>
               </div>
             ))}
@@ -226,85 +176,27 @@ function Home() {
         </div>
       </section>
 
-      <section className="section-ivory">
-        <div className="mx-auto max-w-7xl px-6 py-32 text-center lg:px-10">
-          <p className="eyebrow">Future Vision</p>
-          <h2 className="mx-auto mt-8 max-w-3xl text-3xl leading-tight md:text-5xl">
-            Enjoy your leisure and maximize your business
+      <section className="relative overflow-hidden bg-onyx py-32 lg:py-44">
+        <div className="absolute -right-20 top-1/2 -translate-y-1/2 font-display text-[18rem] leading-none text-gold/[.035] md:text-[28rem]">
+          MI
+        </div>
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+          <p className="eyebrow">Still in motion</p>
+          <h2 className="mt-8 max-w-4xl text-4xl leading-tight md:text-6xl">
+            Three businesses today. An open horizon tomorrow.
           </h2>
-          <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
-            {groupPromise} Contact us for more details and tell us what you need
-            help with today.
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
+            We remain curious about original concepts, unexpected connections and the right people
+            to build with.
           </p>
-          <div className="mt-12 flex justify-center">
-            <GoldLink to="/contact">Contact the group</GoldLink>
-          </div>
+          <Link
+            to="/contact"
+            className="mt-12 inline-flex items-center gap-5 border-b border-gold pb-3 text-xs tracking-[.2em] uppercase text-gold"
+          >
+            Start a conversation <ArrowDownRight className="size-4" />
+          </Link>
         </div>
       </section>
     </>
-  );
-}
-
-function AnimatedStat({
-  start,
-  target,
-  suffix,
-}: {
-  start: number;
-  target: number;
-  suffix: string;
-}) {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const [value, setValue] = useState(start);
-  const [shouldAnimate, setShouldAnimate] = useState(false);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldAnimate(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.45 },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!shouldAnimate) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setValue(target);
-      return;
-    }
-
-    const duration = 1500;
-    const startedAt = performance.now();
-
-    const tick = (now: number) => {
-      const progress = Math.min((now - startedAt) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(start - (start - target) * eased));
-
-      if (progress < 1) {
-        window.requestAnimationFrame(tick);
-      }
-    };
-
-    const frame = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frame);
-  }, [shouldAnimate, start, target]);
-
-  return (
-    <p ref={ref} className="font-display text-4xl text-gold">
-      {value}
-      {suffix}
-    </p>
   );
 }
