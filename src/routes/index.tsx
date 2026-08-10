@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { GoldLink } from "@/components/gold-link";
 import { sectors, businesses, pillars, groupIntro, groupPromise } from "@/data/group";
 
@@ -12,6 +13,13 @@ const heroSlides = [
     videoUrl:
       "https://www.youtube-nocookie.com/embed/IxRVa1DbSAg?autoplay=1&mute=1&controls=0&loop=1&playlist=IxRVa1DbSAg&playsinline=1&rel=0&modestbranding=1&disablekb=1",
   },
+];
+
+const homepageStats = [
+  { target: sectors.length, start: 30, suffix: "", label: "Service areas" },
+  { target: businesses.length, start: 60, suffix: "", label: "Services listed" },
+  { target: 20, start: 80, suffix: "+", label: "Years web experience" },
+  { target: 24, start: 96, suffix: "-hour", label: "Chauffeur bookings" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -86,15 +94,14 @@ function Home() {
 
       <section className="border-y border-border bg-onyx">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px px-6 lg:grid-cols-4 lg:px-10">
-          {[
-            { value: `${sectors.length}`, label: "Service areas" },
-            { value: `${businesses.length}`, label: "Services listed" },
-            { value: "20+", label: "Years web experience" },
-            { value: "24-hour", label: "Chauffeur bookings" },
-          ].map((s) => (
-            <div key={s.label} className="py-14 pr-6">
-              <p className="font-display text-4xl text-gold">{s.value}</p>
-              <p className="mt-3 text-xs tracking-[0.18em] uppercase text-muted-foreground">
+          {homepageStats.map((s) => (
+            <div key={s.label} className="py-14 text-center">
+              <AnimatedStat
+                start={s.start}
+                target={s.target}
+                suffix={s.suffix}
+              />
+              <p className="mt-3 text-center text-xs tracking-[0.18em] uppercase text-muted-foreground">
                 {s.label}
               </p>
             </div>
@@ -235,5 +242,47 @@ function Home() {
         </div>
       </section>
     </>
+  );
+}
+
+function AnimatedStat({
+  start,
+  target,
+  suffix,
+}: {
+  start: number;
+  target: number;
+  suffix: string;
+}) {
+  const [value, setValue] = useState(start);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValue(target);
+      return;
+    }
+
+    const duration = 1500;
+    const startedAt = performance.now();
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(start - (start - target) * eased));
+
+      if (progress < 1) {
+        window.requestAnimationFrame(tick);
+      }
+    };
+
+    const frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [start, target]);
+
+  return (
+    <p className="font-display text-4xl text-gold">
+      {value}
+      {suffix}
+    </p>
   );
 }
