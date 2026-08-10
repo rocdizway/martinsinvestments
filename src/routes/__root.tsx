@@ -82,11 +82,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Martins Investments — Business Support & Personal Services" },
+      { title: "Martins Investments — Culture, Experience and Enterprise" },
       {
         name: "description",
         content:
-          "Martins Investments helps clients lift capabilities, turn dreams to reality, enjoy leisure and maximize business.",
+          "Martins Investments develops carefully chosen ventures across fashion, experiences and hospitality.",
       },
       { name: "author", content: "Martins Investments" },
       { property: "og:type", content: "website" },
@@ -146,4 +146,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-

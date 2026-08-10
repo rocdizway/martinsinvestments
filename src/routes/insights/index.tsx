@@ -5,13 +5,13 @@ import { insights } from "@/data/group";
 export const Route = createFileRoute("/insights/")({
   head: () => ({
     meta: [
-      { title: "News & Insights | Martins Investments" },
+      { title: "Perspectives | Martins Investments" },
       {
         name: "description",
         content:
-          "Announcements, strategy notes and perspectives from the Martins Investments group.",
+          "Notes on style, hospitality, experience and the ideas taking shape across Martins Investments.",
       },
-      { property: "og:title", content: "News & Insights | Martins Investments" },
+      { property: "og:title", content: "Perspectives | Martins Investments" },
       {
         property: "og:description",
         content: "Announcements and perspectives from the Martins Investments group.",
@@ -25,9 +25,9 @@ function Insights() {
   return (
     <>
       <PageHero
-        eyebrow="News & Insights"
-        title="Group announcements and perspectives"
-        intro="Updates on the portfolio, notes on strategy and thinking from across our business areas."
+        eyebrow="Perspectives"
+        title="Things we notice. Ideas we are following."
+        intro="Notes from the worlds around our businesses—from the return of an era-defining label to the small details that change the feeling of a room."
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
@@ -52,9 +52,7 @@ function Insights() {
                 </time>
               </div>
               <div>
-                <h2 className="text-2xl transition-colors group-hover:text-gold">
-                  {post.title}
-                </h2>
+                <h2 className="text-2xl transition-colors group-hover:text-gold">{post.title}</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
                   {post.excerpt}
                 </p>
