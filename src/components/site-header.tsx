@@ -32,7 +32,12 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-10">
-        <Link to="/" className="group flex flex-col leading-none">
+        <Link
+          to="/"
+          className={`group flex flex-col leading-none transition-colors ${
+            scrolled ? "text-foreground" : "text-white"
+          }`}
+        >
           <span className="font-display text-lg tracking-[0.28em] uppercase">
             Martins
           </span>
@@ -45,7 +50,9 @@ export function SiteHeader() {
               key={item.to}
               to={item.to}
               activeProps={{ className: "text-gold" }}
-              inactiveProps={{ className: "text-muted-foreground" }}
+              inactiveProps={{
+                className: scrolled ? "text-muted-foreground" : "text-white/82",
+              }}
               activeOptions={{ exact: item.to === "/" }}
               className="text-[0.8rem] tracking-[0.14em] uppercase transition-colors hover:text-gold"
             >

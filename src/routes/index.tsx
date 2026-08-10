@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <>
-      <section className="relative min-h-[92vh] overflow-hidden">
+      <section className="relative min-h-[92vh] overflow-hidden text-white">
         <img
           src={heroImage}
           alt="Black marble and brushed gold architectural interior"
@@ -41,7 +41,7 @@ function Home() {
             Let your dreams{" "}
             <span className="text-gold-gradient">take off</span>
           </h1>
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-white/78 md:text-lg">
             {groupIntro}
           </p>
           <div className="mt-12 flex flex-wrap gap-4">
@@ -71,8 +71,8 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-        <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="section-ivory">
+        <div className="mx-auto grid max-w-7xl gap-16 px-6 py-28 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
           <div>
             <p className="eyebrow">What We Do</p>
             <h2 className="mt-6 text-3xl leading-tight md:text-5xl">
@@ -139,33 +139,35 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-        <p className="eyebrow">Selected Services</p>
-        <h2 className="mt-6 max-w-2xl text-3xl md:text-5xl">
-          Practical support for work, home and leisure
-        </h2>
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
-          {businesses.slice(0, 3).map((b) => (
-            <Link
-              key={b.slug}
-              to="/businesses/$business"
-              params={{ business: b.slug }}
-              className="surface-card block p-10"
-            >
-              <p className="text-[0.65rem] tracking-[0.24em] uppercase text-gold">
-                {b.stage}
-              </p>
-              <h3 className="mt-6 text-2xl">{b.name}</h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                {b.tagline}
-              </p>
-            </Link>
-          ))}
-        </div>
-        <div className="mt-14">
-          <GoldLink to="/businesses" variant="outline">
-            All services
-          </GoldLink>
+      <section className="section-ivory">
+        <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
+          <p className="eyebrow">Selected Services</p>
+          <h2 className="mt-6 max-w-2xl text-3xl md:text-5xl">
+            Practical support for work, home and leisure
+          </h2>
+          <div className="mt-16 grid gap-8 md:grid-cols-3">
+            {businesses.slice(0, 3).map((b) => (
+              <Link
+                key={b.slug}
+                to="/businesses/$business"
+                params={{ business: b.slug }}
+                className="surface-card block p-10"
+              >
+                <p className="text-[0.65rem] tracking-[0.24em] uppercase text-gold">
+                  {b.stage}
+                </p>
+                <h3 className="mt-6 text-2xl">{b.name}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  {b.tagline}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-14">
+            <GoldLink to="/businesses" variant="outline">
+              All services
+            </GoldLink>
+          </div>
         </div>
       </section>
 
@@ -186,17 +188,19 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-32 text-center lg:px-10">
-        <p className="eyebrow">Future Vision</p>
-        <h2 className="mx-auto mt-8 max-w-3xl text-3xl leading-tight md:text-5xl">
-          Enjoy your leisure and maximize your business
-        </h2>
-        <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
-          {groupPromise} Contact us for more details and tell us what you need
-          help with today.
-        </p>
-        <div className="mt-12 flex justify-center">
-          <GoldLink to="/contact">Contact the group</GoldLink>
+      <section className="section-ivory">
+        <div className="mx-auto max-w-7xl px-6 py-32 text-center lg:px-10">
+          <p className="eyebrow">Future Vision</p>
+          <h2 className="mx-auto mt-8 max-w-3xl text-3xl leading-tight md:text-5xl">
+            Enjoy your leisure and maximize your business
+          </h2>
+          <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
+            {groupPromise} Contact us for more details and tell us what you need
+            help with today.
+          </p>
+          <div className="mt-12 flex justify-center">
+            <GoldLink to="/contact">Contact the group</GoldLink>
+          </div>
         </div>
       </section>
     </>

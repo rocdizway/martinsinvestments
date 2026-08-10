@@ -4,6 +4,29 @@ import { PageHero } from "@/components/page-hero";
 import { GoldLink } from "@/components/gold-link";
 import { groupIntro, groupPromise } from "@/data/group";
 
+const sisterCompanies = [
+  {
+    name: "Roc Diz Way",
+    label: "A Rocawear label",
+    image: "/sister-companies/roc-diz-way.png",
+  },
+  {
+    name: "Roc Away",
+    label: "Travel and lifestyle",
+    image: "/sister-companies/roc-away.png",
+  },
+  {
+    name: "Roc Parties",
+    label: "Events and entertainment",
+    image: "/sister-companies/roc-parties.png",
+  },
+  {
+    name: "Roc Cars",
+    label: "Cars and luxury mobility",
+    image: "/sister-companies/roc-cars.png",
+  },
+];
+
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
@@ -62,6 +85,53 @@ function About() {
         </div>
       </section>
 
+      <section className="section-ivory py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+            <div>
+              <p className="eyebrow">Sister Companies</p>
+              <h2 className="mt-6 text-3xl leading-tight md:text-5xl">
+                Brands connected to the Martins vision
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-relaxed text-muted-foreground lg:justify-self-end">
+              A growing family of Roc brands supports the wider Martins
+              Investments offer across fashion, travel, events and mobility.
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {sisterCompanies.map((company, index) => (
+              <article
+                key={company.name}
+                className="sister-card group"
+                style={{ animationDelay: `${index * 120}ms` }}
+              >
+                <div className="sister-card-image relative aspect-square overflow-hidden">
+                  <img
+                    src={company.image}
+                    alt={`${company.name} logo`}
+                    loading="lazy"
+                    width={1024}
+                    height={1024}
+                    className="size-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-transparent to-white/6 opacity-70 transition-opacity duration-700 group-hover:opacity-35" />
+                </div>
+                <div className="sister-card-panel p-6">
+                  <p className="text-[0.65rem] tracking-[0.24em] uppercase text-gold">
+                    {company.label}
+                  </p>
+                  <h3 className="mt-3 text-2xl transition-colors group-hover:text-gold">
+                    {company.name}
+                  </h3>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="border-y border-border bg-onyx py-24">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 md:grid-cols-3 lg:px-10">
           {[
@@ -89,39 +159,41 @@ function About() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
-        <p className="eyebrow">Service structure</p>
-        <h2 className="mt-6 max-w-2xl text-3xl md:text-4xl">
-          Business help, home help and leisure help
-        </h2>
-        <div className="mt-12 border border-border">
-          {[
-            {
-              t: "Martins Investments",
-              b: "The main point of contact for clients who want help with business, home, leisure or finance needs.",
-            },
-            {
-              t: "Service areas",
-              b: "Clear categories that organise the services available from Martins Investments.",
-            },
-            {
-              t: "Specialist services",
-              b: "Practical offers such as Dial-a-Chef, Roc Diz Way fashion, web design, transport, removals, property and finance.",
-            },
-          ].map((row, i) => (
-            <div
-              key={row.t}
-              className={`grid gap-6 p-10 md:grid-cols-[240px_1fr] ${i > 0 ? "border-t border-border" : ""}`}
-            >
-              <h3 className="text-xl text-gold">{row.t}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {row.b}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-14">
-          <GoldLink to="/portfolio">See our services</GoldLink>
+      <section className="section-ivory py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <p className="eyebrow">Service structure</p>
+          <h2 className="mt-6 max-w-2xl text-3xl md:text-4xl">
+            Business help, home help and leisure help
+          </h2>
+          <div className="mt-12 border border-border bg-card/40">
+            {[
+              {
+                t: "Martins Investments",
+                b: "The main point of contact for clients who want help with business, home, leisure or finance needs.",
+              },
+              {
+                t: "Service areas",
+                b: "Clear categories that organise the services available from Martins Investments.",
+              },
+              {
+                t: "Specialist services",
+                b: "Practical offers such as Dial-a-Chef, Roc Diz Way fashion, web design, transport, removals, property and finance.",
+              },
+            ].map((row, i) => (
+              <div
+                key={row.t}
+                className={`grid gap-6 p-10 md:grid-cols-[240px_1fr] ${i > 0 ? "border-t border-border" : ""}`}
+              >
+                <h3 className="text-xl text-gold">{row.t}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {row.b}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-14">
+            <GoldLink to="/portfolio">See our services</GoldLink>
+          </div>
         </div>
       </section>
     </>
