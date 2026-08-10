@@ -254,6 +254,53 @@
     transform: translate(-50%, -50%);
   }
 
+  .service-structure-panel {
+    background: oklch(0.992 0.004 88);
+    border: 1px solid oklch(0.19 0.012 78 / 26%);
+    color: oklch(0.13 0.01 78);
+    box-shadow: 0 28px 80px -56px oklch(0.14 0.015 78 / 46%);
+  }
+
+  .service-structure-panel > div + div {
+    border-top-color: oklch(0.19 0.012 78 / 24%);
+  }
+
+  .service-structure-panel h3 {
+    color: oklch(0.38 0.09 72);
+  }
+
+  .service-structure-panel p {
+    color: oklch(0.2 0.012 78);
+  }
+
+  .service-structure-copy {
+    color: oklch(0.2 0.012 78);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .dark .service-structure-panel {
+    background: oklch(0.982 0.006 88);
+    border-color: oklch(0.18 0.012 78 / 28%);
+    color: oklch(0.13 0.01 78);
+  }
+
+  .dark .service-structure-panel > div + div {
+    border-top-color: oklch(0.18 0.012 78 / 26%);
+  }
+
+  .dark .service-structure-panel h3 {
+    color: oklch(0.36 0.09 72);
+  }
+
+  .dark .service-structure-panel p {
+    color: oklch(0.2 0.012 78);
+  }
+
+  .dark .service-structure-copy {
+    color: oklch(0.2 0.012 78);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .sister-card {
       animation: none;

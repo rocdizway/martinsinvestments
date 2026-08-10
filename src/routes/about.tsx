@@ -165,7 +165,7 @@ function About() {
           <h2 className="mt-6 max-w-2xl text-3xl md:text-4xl">
             Business help, home help and leisure help
           </h2>
-          <div className="mt-12 border border-border bg-card/40">
+          <div className="mt-12 service-structure-panel">
             {[
               {
                 t: "Martins Investments",
@@ -185,7 +185,7 @@ function About() {
                 className={`grid gap-6 p-10 md:grid-cols-[240px_1fr] ${i > 0 ? "border-t border-border" : ""}`}
               >
                 <h3 className="text-xl text-gold">{row.t}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p className="service-structure-copy">
                   {row.b}
                 </p>
               </div>
