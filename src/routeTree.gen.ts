@@ -11,8 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ApproachRouteImport } from './routes/approach'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BusinessesIndexRouteImport } from './routes/businesses/index'
 import { Route as BusinessesBusinessRouteImport } from './routes/businesses/$business'
+import { Route as InsightsIndexRouteImport } from './routes/insights/index'
+import { Route as InsightsSlugRouteImport } from './routes/insights/$slug'
 import { Route as PortfolioIndexRouteImport } from './routes/portfolio/index'
 import { Route as PortfolioSectorRouteImport } from './routes/portfolio/$sector'
 
@@ -26,6 +30,16 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApproachRoute = ApproachRouteImport.update({
+  id: '/approach',
+  path: '/approach',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BusinessesIndexRoute = BusinessesIndexRouteImport.update({
   id: '/businesses/',
   path: '/businesses/',
@@ -34,6 +48,16 @@ const BusinessesIndexRoute = BusinessesIndexRouteImport.update({
 const BusinessesBusinessRoute = BusinessesBusinessRouteImport.update({
   id: '/businesses/$business',
   path: '/businesses/$business',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsIndexRoute = InsightsIndexRouteImport.update({
+  id: '/insights/',
+  path: '/insights/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsSlugRoute = InsightsSlugRouteImport.update({
+  id: '/insights/$slug',
+  path: '/insights/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
@@ -50,26 +74,38 @@ const PortfolioSectorRoute = PortfolioSectorRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/approach': typeof ApproachRoute
+  '/contact': typeof ContactRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
   '/businesses/': typeof BusinessesIndexRoute
+  '/insights/': typeof InsightsIndexRoute
   '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/approach': typeof ApproachRoute
+  '/contact': typeof ContactRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
   '/businesses': typeof BusinessesIndexRoute
+  '/insights': typeof InsightsIndexRoute
   '/portfolio': typeof PortfolioIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/approach': typeof ApproachRoute
+  '/contact': typeof ContactRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
   '/businesses/': typeof BusinessesIndexRoute
+  '/insights/': typeof InsightsIndexRoute
   '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRouteTypes {
@@ -77,34 +113,50 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/approach'
+    | '/contact'
     | '/businesses/$business'
+    | '/insights/$slug'
     | '/portfolio/$sector'
     | '/businesses/'
+    | '/insights/'
     | '/portfolio/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/approach'
+    | '/contact'
     | '/businesses/$business'
+    | '/insights/$slug'
     | '/portfolio/$sector'
     | '/businesses'
+    | '/insights'
     | '/portfolio'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/approach'
+    | '/contact'
     | '/businesses/$business'
+    | '/insights/$slug'
     | '/portfolio/$sector'
     | '/businesses/'
+    | '/insights/'
     | '/portfolio/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ApproachRoute: typeof ApproachRoute
+  ContactRoute: typeof ContactRoute
   BusinessesBusinessRoute: typeof BusinessesBusinessRoute
+  InsightsSlugRoute: typeof InsightsSlugRoute
   PortfolioSectorRoute: typeof PortfolioSectorRoute
   BusinessesIndexRoute: typeof BusinessesIndexRoute
+  InsightsIndexRoute: typeof InsightsIndexRoute
   PortfolioIndexRoute: typeof PortfolioIndexRoute
 }
 
@@ -124,6 +176,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/approach': {
+      id: '/approach'
+      path: '/approach'
+      fullPath: '/approach'
+      preLoaderRoute: typeof ApproachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/businesses/': {
       id: '/businesses/'
       path: '/businesses'
@@ -136,6 +202,20 @@ declare module '@tanstack/react-router' {
       path: '/businesses/$business'
       fullPath: '/businesses/$business'
       preLoaderRoute: typeof BusinessesBusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/': {
+      id: '/insights/'
+      path: '/insights'
+      fullPath: '/insights/'
+      preLoaderRoute: typeof InsightsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/$slug': {
+      id: '/insights/$slug'
+      path: '/insights/$slug'
+      fullPath: '/insights/$slug'
+      preLoaderRoute: typeof InsightsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portfolio/': {
@@ -158,9 +238,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ApproachRoute: ApproachRoute,
+  ContactRoute: ContactRoute,
   BusinessesBusinessRoute: BusinessesBusinessRoute,
+  InsightsSlugRoute: InsightsSlugRoute,
   PortfolioSectorRoute: PortfolioSectorRoute,
   BusinessesIndexRoute: BusinessesIndexRoute,
+  InsightsIndexRoute: InsightsIndexRoute,
   PortfolioIndexRoute: PortfolioIndexRoute,
 }
 export const routeTree = rootRouteImport
