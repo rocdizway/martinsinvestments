@@ -206,8 +206,21 @@
 }
 
 @layer components {
+  [data-reveal="pending"] {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  [data-reveal="visible"] {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 760ms var(--transition-luxe),
+      transform 760ms var(--transition-luxe);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
   .sister-card {
-    animation: sister-card-in 780ms var(--transition-luxe) both;
     transition:
       transform var(--transition-luxe),
       box-shadow var(--transition-luxe),
@@ -302,6 +315,12 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
     .sister-card {
       animation: none;
     }
