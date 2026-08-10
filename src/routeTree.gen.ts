@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as BusinessesIndexRouteImport } from './routes/businesses/index'
+import { Route as BusinessesBusinessRouteImport } from './routes/businesses/$business'
+import { Route as PortfolioIndexRouteImport } from './routes/portfolio/index'
+import { Route as PortfolioSectorRouteImport } from './routes/portfolio/$sector'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessesIndexRoute = BusinessesIndexRouteImport.update({
+  id: '/businesses/',
+  path: '/businesses/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessesBusinessRoute = BusinessesBusinessRouteImport.update({
+  id: '/businesses/$business',
+  path: '/businesses/$business',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
+  id: '/portfolio/',
+  path: '/portfolio/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioSectorRoute = PortfolioSectorRouteImport.update({
+  id: '/portfolio/$sector',
+  path: '/portfolio/$sector',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/businesses/$business': typeof BusinessesBusinessRoute
+  '/portfolio/$sector': typeof PortfolioSectorRoute
+  '/businesses/': typeof BusinessesIndexRoute
+  '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/businesses/$business': typeof BusinessesBusinessRoute
+  '/portfolio/$sector': typeof PortfolioSectorRoute
+  '/businesses': typeof BusinessesIndexRoute
+  '/portfolio': typeof PortfolioIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/businesses/$business': typeof BusinessesBusinessRoute
+  '/portfolio/$sector': typeof PortfolioSectorRoute
+  '/businesses/': typeof BusinessesIndexRoute
+  '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/businesses/$business'
+    | '/portfolio/$sector'
+    | '/businesses/'
+    | '/portfolio/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/businesses/$business'
+    | '/portfolio/$sector'
+    | '/businesses'
+    | '/portfolio'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/businesses/$business'
+    | '/portfolio/$sector'
+    | '/businesses/'
+    | '/portfolio/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  BusinessesBusinessRoute: typeof BusinessesBusinessRoute
+  PortfolioSectorRoute: typeof PortfolioSectorRoute
+  BusinessesIndexRoute: typeof BusinessesIndexRoute
+  PortfolioIndexRoute: typeof PortfolioIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +117,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/businesses/': {
+      id: '/businesses/'
+      path: '/businesses'
+      fullPath: '/businesses/'
+      preLoaderRoute: typeof BusinessesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/businesses/$business': {
+      id: '/businesses/$business'
+      path: '/businesses/$business'
+      fullPath: '/businesses/$business'
+      preLoaderRoute: typeof BusinessesBusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio/': {
+      id: '/portfolio/'
+      path: '/portfolio'
+      fullPath: '/portfolio/'
+      preLoaderRoute: typeof PortfolioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio/$sector': {
+      id: '/portfolio/$sector'
+      path: '/portfolio/$sector'
+      fullPath: '/portfolio/$sector'
+      preLoaderRoute: typeof PortfolioSectorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  BusinessesBusinessRoute: BusinessesBusinessRoute,
+  PortfolioSectorRoute: PortfolioSectorRoute,
+  BusinessesIndexRoute: BusinessesIndexRoute,
+  PortfolioIndexRoute: PortfolioIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -87,7 +87,7 @@ function BusinessPage() {
         <div className="mt-20">
           <p className="eyebrow">Highlights</p>
           <div className="mt-10 grid gap-10 md:grid-cols-3">
-            {business.highlights.map((h) => (
+            {business.highlights.map((h: string) => (
               <div key={h}>
                 <div className="rule-gold" />
                 <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
