@@ -26,8 +26,8 @@ function Contact() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="A conversation is a good place to begin."
-        intro="Ask about one of our businesses, introduce an opportunity or simply tell us what brought you here. Your message will reach the group directly."
+        title="Start the next conversation."
+        intro="Connect with us about a core holding, a purposeful business opportunity or a partnership aligned with our long-term vision."
       />
 
       <section className="relative h-[420px] w-full overflow-hidden border-y border-border lg:h-[560px]">
@@ -109,8 +109,8 @@ function Contact() {
               </div>
             ))}
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Use the form for general enquiries, introductions and partnership conversations with
-              Martins Investments.
+              Use the form for holding enquiries, business introductions and purposeful partnership
+              conversations with Martins Investments.
             </p>
           </aside>
         </div>

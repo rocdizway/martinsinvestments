@@ -33,10 +33,10 @@ export const holdings: Holding[] = [
   {
     slug: "rocdizway",
     name: "RocDizWay",
-    category: "Fashion & Lifestyle",
-    positioning: "Fashion with history, selected for now.",
+    category: "Curated Sovereign",
+    positioning: "Premium online fashion and lifestyle.",
     description:
-      "RocDizWay finds the pieces that still matter: authentic Y2K labels, heritage streetwear and unmistakable design chosen for people who dress with intent.",
+      "Premium online fashion and lifestyle-curated designer clothing, footwear and accessories.",
     image: "/sister-companies/roc-diz-way.png",
     status: "Operating",
     website: "https://rocdizway.com/",
@@ -44,20 +44,20 @@ export const holdings: Holding[] = [
   {
     slug: "roc-parties",
     name: "Roc Parties",
-    category: "Events & Experiences",
-    positioning: "More than an invitation. A way into the moment.",
+    category: "VIP Events. Experiences",
+    positioning: "Unforgettable occasions, considered from beginning to end.",
     description:
-      "Roc Parties brings together access, entertainment and considered service to create occasions that feel personal long after the night is over.",
+      "VIP events, experiences, concierge and lifestyle management for unforgettable occasions.",
     image: "/sister-companies/roc-parties.png",
     status: "In development",
   },
   {
     slug: "roc-away",
     name: "Roc Away",
-    category: "Food & Hospitality",
-    positioning: "Good food. Warm energy. Reasons to stay.",
+    category: "Restaurant. Lounge. Lifestyle",
+    positioning: "Food, atmosphere and culture in one experience.",
     description:
-      "Roc Away is a restaurant and lounge concept where flavour, music and atmosphere meet—made for easy afternoons, late evenings and everything between.",
+      "Restaurant, lounge and hospitality experiences built around food, atmosphere and culture.",
     image: "/sister-companies/roc-away.png",
     status: "In development",
   },

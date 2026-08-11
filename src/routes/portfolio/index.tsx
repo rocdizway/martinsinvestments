@@ -6,8 +6,11 @@ import { holdings } from "@/data/group";
 export const Route = createFileRoute("/portfolio/")({
   head: () => ({
     meta: [
-      { title: "Our Businesses | Martins Investments" },
-      { name: "description", content: "Meet RocDizWay, Roc Parties and Roc Away." },
+      { title: "Our Core Holdings | Martins Investments" },
+      {
+        name: "description",
+        content: "Three distinct businesses united by shared values and long-term purpose.",
+      },
     ],
   }),
   component: Portfolio,
@@ -17,9 +20,9 @@ function Portfolio() {
   return (
     <>
       <PageHero
-        eyebrow="Our Businesses"
-        title="Different worlds. The same appetite for more."
-        intro="A fashion archive for the present. Events designed around access and atmosphere. A new place to eat, drink and stay awhile."
+        eyebrow="Our Core Holdings"
+        title="Three businesses. One purpose."
+        intro="Distinct by design. United by values. Built for long-term impact."
       />
       <section className="section-ivory py-24 lg:py-32">
         <div className="mx-auto max-w-7xl space-y-10 px-6 lg:px-10">
@@ -73,13 +76,14 @@ function Portfolio() {
       </section>
       <section className="bg-onyx py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <p className="eyebrow">Beyond the three</p>
+          <p className="eyebrow">The future is building</p>
           <h2 className="mt-7 max-w-3xl text-4xl leading-tight md:text-6xl">
-            The next idea may not look like the last.
+            The next chapter is already beginning.
           </h2>
           <p className="mt-8 max-w-xl leading-relaxed text-muted-foreground">
-            We keep the group deliberately open: ready for a concept with real character, a market
-            worth understanding and people we trust to take it forward.
+            We continue to explore new ideas, enter new markets and build the next generation of
+            Martins Investments businesses—always with purpose, discipline and long-term impact in
+            view.
           </p>
         </div>
       </section>
