@@ -12,6 +12,28 @@ import { GoldLink } from "@/components/gold-link";
 import { holdings } from "@/data/group";
 import heroImage from "@/assets/hero.jpg";
 
+const homepageHoldings = holdings.map((holding) => {
+  const copy = {
+    rocdizway: {
+      category: "Curated sovereign",
+      description:
+        "Premium online fashion and lifestyle-curated designer clothing, footwear and accessories.",
+    },
+    "roc-parties": {
+      category: "VIP events. Experiences",
+      description:
+        "VIP events, experiences, concierge and lifestyle management for unforgettable occasions.",
+    },
+    "roc-away": {
+      category: "Restaurant. Lounge. Lifestyle",
+      description:
+        "Restaurant, lounge and hospitality experiences built around food, atmosphere and culture.",
+    },
+  }[holding.slug];
+
+  return { ...holding, ...copy };
+});
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -65,12 +87,14 @@ function Home() {
           }`}
           aria-hidden={heroSlide !== 1}
         >
-          <iframe
-            className="hero-video-frame"
-            src="https://www.youtube.com/embed/YD_4CgJgHoI?autoplay=1&mute=1&controls=0&loop=1&playlist=YD_4CgJgHoI&playsinline=1&rel=0&modestbranding=1"
-            title="Martins Investments hero video"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            tabIndex={-1}
+          <video
+            className="size-full object-cover"
+            src="https://www.pexels.com/download/video/27587866/"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
           />
         </div>
         <div
@@ -221,16 +245,15 @@ function Home() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="eyebrow">Meet the businesses</p>
-              <h2 className="mt-6 text-3xl md:text-5xl">Three brands. Three worlds.</h2>
+              <p className="eyebrow">Our core holdings</p>
+              <h2 className="mt-6 text-3xl md:text-5xl">Three businesses. One purpose.</h2>
             </div>
             <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-              From a rare streetwear find to a room at its best, each business starts with one
-              question: how should this make people feel?
+              Distinct by design. United by values. Built for long-term impact.
             </p>
           </div>
           <div className="mt-16 grid gap-6 lg:grid-cols-3">
-            {holdings.map((holding, index) => (
+            {homepageHoldings.map((holding, index) => (
               <article
                 key={holding.slug}
                 className="group overflow-hidden border border-border bg-background"
@@ -249,13 +272,10 @@ function Home() {
                     <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-soft">
                       {holding.category}
                     </p>
-                    <h3 className="mt-3 text-3xl">{holding.name}</h3>
+                    <h3 className="mt-3 text-3xl uppercase">{holding.name}</h3>
                   </div>
                 </div>
                 <div className="p-7">
-                  <p className="font-display text-xl text-[#2a261f] dark:text-white">
-                    {holding.positioning}
-                  </p>
                   <p className="mt-4 text-sm leading-relaxed text-[#5b5448] dark:text-white/70">
                     {holding.description}
                   </p>
@@ -274,23 +294,29 @@ function Home() {
 
       <section className="overflow-hidden border-y border-border bg-onyx">
         <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10 lg:py-40">
-          <p className="eyebrow">What we bring</p>
-          <div className="mt-14 grid gap-px border border-border bg-border md:grid-cols-3">
+          <p className="eyebrow">Why we exist</p>
+          <h2 className="mt-6 text-3xl text-white md:text-5xl">Ideas. Values. Impact.</h2>
+          <div className="mt-14 grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
             {[
               [
                 "01",
-                "Direction",
-                "A strong idea becomes more valuable when every decision points the same way.",
+                "Backing ideas that matter",
+                "We invest in ideas with purpose, potential and real-world impact.",
               ],
               [
                 "02",
-                "Backing",
-                "The structure, attention and practical support each team needs to keep moving.",
+                "Building with integrity",
+                "We believe trust, transparency and discipline create lasting values.",
               ],
               [
                 "03",
-                "Room",
-                "Enough independence for every brand to find its audience and become fully itself.",
+                "Freedom to create",
+                "We give our businesses the space and support to grow and lead.",
+              ],
+              [
+                "04",
+                "Legacy as the goal",
+                "We build for the long term — for people, for communities and for generations.",
               ],
             ].map(([number, title, body]) => (
               <div key={title} className="bg-background p-9 lg:p-12">
@@ -306,17 +332,21 @@ function Home() {
       </section>
 
       <section className="section-ivory relative overflow-hidden py-32 lg:py-44">
-        <div className="absolute -right-20 top-1/2 -translate-y-1/2 font-display text-[18rem] leading-none text-gold/[.035] md:text-[28rem]">
-          MI
-        </div>
+        <img
+          src="/future-monogram.png"
+          alt=""
+          aria-hidden="true"
+          className="absolute right-0 top-1/2 h-full w-full -translate-y-1/2 object-contain object-right opacity-20 mix-blend-multiply md:w-[58%] md:opacity-95"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#f3efe5] via-[#f3efe5]/90 to-transparent md:w-3/5" />
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-          <p className="eyebrow">Still in motion</p>
-          <h2 className="mt-8 max-w-4xl text-4xl leading-tight md:text-6xl">
-            Three businesses today. An open horizon tomorrow.
+          <p className="eyebrow">The future is building</p>
+          <h2 className="mt-8 max-w-3xl text-4xl leading-tight md:text-6xl">
+            The next chapter is already beginning.
           </h2>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
-            We remain curious about original concepts, unexpected connections and the right people
-            to build with.
+            We continue to look forward — exploring new ideas, entering new markets and building
+            the next generation of Martins Investments businesses.
           </p>
           <Link
             to="/contact"

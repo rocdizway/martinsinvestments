@@ -9,7 +9,7 @@ export const Route = createFileRoute("/insights/")({
       {
         name: "description",
         content:
-          "Notes on style, hospitality, experience and the ideas taking shape across Martins Investments.",
+          "Focused perspectives on fashion, experiences, hospitality and purposeful business building.",
       },
       { property: "og:title", content: "Perspectives | Martins Investments" },
       {
@@ -26,8 +26,8 @@ function Insights() {
     <>
       <PageHero
         eyebrow="Perspectives"
-        title="Things we notice. Ideas we are following."
-        intro="Notes from the worlds around our businesses—from the return of an era-defining label to the small details that change the feeling of a room."
+        title="Perspective with a clear point of view."
+        intro="Focused thinking from across our holdings—examining the ideas, behaviours and details shaping fashion, experiences and hospitality."
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">

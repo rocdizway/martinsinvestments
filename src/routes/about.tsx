@@ -6,10 +6,10 @@ import aboutImage from "@/assets/about.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Our Story | Martins Investments" },
+      { title: "The Group | Martins Investments" },
       {
         name: "description",
-        content: "Meet the people and thinking behind RocDizWay, Roc Parties and Roc Away.",
+        content: "Discover the purpose, values and long-term vision behind Martins Investments.",
       },
     ],
   }),
@@ -19,24 +19,28 @@ export const Route = createFileRoute("/about")({
 function About() {
   const principles = [
     [
-      "Instinct",
-      "We pay attention to what people are wearing, where they are gathering and what makes an experience worth returning to.",
+      "Purpose",
+      "We back ideas that answer a real need, carry genuine potential and can create meaningful impact.",
     ],
     [
-      "Discipline",
-      "A compelling concept still needs clear decisions, sound structure and the patience to be built properly.",
+      "Integrity",
+      "Trust, transparency and disciplined decisions are the foundation of value that lasts.",
     ],
     [
-      "Character",
-      "We want every business to be recognisable before anyone sees the group name behind it.",
+      "Freedom",
+      "Each business has the space to develop its own identity, lead its market and grow with confidence.",
+    ],
+    [
+      "Legacy",
+      "We build for the long term—for people, communities and the generations that follow.",
     ],
   ];
   return (
     <>
       <PageHero
-        eyebrow="Our Story"
-        title="The thinking behind the names."
-        intro="Martins Investments brings three very different ideas under one roof: a fashion destination, an events platform and a new hospitality concept."
+        eyebrow="The Group"
+        title="One group. Three businesses. A shared purpose."
+        intro="Martins Investments builds and supports distinctive businesses with the potential to create lasting commercial and cultural value."
       />
       <section className="section-ivory py-24 lg:py-32">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-2 lg:items-center lg:px-10">
@@ -52,19 +56,20 @@ function About() {
             </div>
           </div>
           <div>
-            <p className="eyebrow">Why the group exists</p>
+            <p className="eyebrow">Why we exist</p>
             <h2 className="mt-6 text-3xl leading-tight md:text-5xl">
-              Good ideas deserve more than a moment.
+              Built to turn purposeful ideas into lasting value.
             </h2>
             <div className="mt-8 space-y-5 leading-relaxed text-muted-foreground">
               <p>
-                Some ideas begin with a product. Others begin with a room, a mood or a gap nobody
-                else has noticed. Our job is to recognise the ones with somewhere to go.
+                We believe the strongest businesses begin with a clear purpose. Our role is to
+                recognise their potential, give them the right backing and help turn ambition into
+                sustainable progress.
               </p>
               <p>
-                Martins Investments gives those ideas a commercial home. We bring clarity where it
-                helps, step back where independence matters and keep an eye on what each business
-                could become.
+                Across fashion, experiences and hospitality, we provide structure without taking
+                away individuality. Every holding remains distinct by design and united by the
+                values that guide the wider group.
               </p>
             </div>
           </div>
@@ -73,7 +78,7 @@ function About() {
       <section className="border-y border-border bg-onyx py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <p className="eyebrow">Our principles</p>
-          <div className="mt-14 grid gap-px border border-border md:grid-cols-3">
+          <div className="mt-14 grid gap-px border border-border md:grid-cols-2 lg:grid-cols-4">
             {principles.map(([title, body], index) => (
               <div key={title} className="p-9 md:p-10">
                 <p className="font-display text-gold/60">0{index + 1}</p>
@@ -86,13 +91,13 @@ function About() {
       </section>
       <section className="section-ivory py-28 text-center">
         <div className="mx-auto max-w-3xl px-6">
-          <p className="eyebrow">Where we are going</p>
+          <p className="eyebrow">The future is building</p>
           <h2 className="mt-7 text-4xl leading-tight md:text-6xl">
-            Selective by nature. Open by outlook.
+            The next chapter is already beginning.
           </h2>
           <p className="mx-auto mt-8 max-w-xl leading-relaxed text-muted-foreground">
-            We are not interested in collecting brands for the sake of scale. We are interested in
-            the right ideas, pursued with care and given time to prove themselves.
+            We continue to look forward—exploring new ideas, entering new markets and building the
+            next generation of Martins Investments businesses.
           </p>
           <div className="mt-10 flex justify-center">
             <GoldLink to="/portfolio">Meet the businesses</GoldLink>

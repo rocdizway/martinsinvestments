@@ -5,10 +5,10 @@ import { GoldLink } from "@/components/gold-link";
 export const Route = createFileRoute("/approach")({
   head: () => ({
     meta: [
-      { title: "How We Think | Martins Investments" },
+      { title: "Our Vision | Martins Investments" },
       {
         name: "description",
-        content: "The instincts and principles that guide Martins Investments.",
+        content: "How Martins Investments turns purposeful ideas into enduring businesses.",
       },
     ],
   }),
@@ -18,23 +18,23 @@ export const Route = createFileRoute("/approach")({
 const principles = [
   {
     number: "01",
-    title: "Find the truth",
-    body: "Before logos, launches or expansion plans, we look for the simple truth at the centre of an idea: who is it for, and why should they care?",
+    title: "Back ideas that matter",
+    body: "We look for a clear purpose, credible potential and an opportunity to create meaningful real-world impact.",
   },
   {
     number: "02",
-    title: "Give it shape",
-    body: "We turn that truth into clear choices—what the business offers, how it behaves and where its energy is best spent.",
+    title: "Build with integrity",
+    body: "We bring trust, transparency and discipline to every decision because lasting value depends on strong foundations.",
   },
   {
     number: "03",
-    title: "Let it breathe",
-    body: "A brand needs consistency, but it also needs room to respond to its customers, its culture and the opportunities nobody could plan for.",
+    title: "Create room to lead",
+    body: "We give every business the independence, practical support and confidence to grow without losing its distinct identity.",
   },
   {
     number: "04",
-    title: "Stay close",
-    body: "We remain involved beyond the first idea, asking better questions and helping the team keep momentum without losing its character.",
+    title: "Build for legacy",
+    body: "We take the long view, making choices designed to benefit people, communities and generations—not only the next quarter.",
   },
 ];
 
@@ -42,9 +42,9 @@ function Approach() {
   return (
     <>
       <PageHero
-        eyebrow="How We Think"
-        title="Clear enough to guide. Flexible enough to grow."
-        intro="We do not force every business into the same mould. We find what is true about each idea, strengthen it and build around it."
+        eyebrow="Our Vision"
+        title="Ideas. Values. Impact."
+        intro="We combine purposeful investment with disciplined support, giving distinctive businesses the freedom to grow and the foundations to endure."
       />
       <section className="section-ivory py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -63,15 +63,15 @@ function Approach() {
       </section>
       <section className="border-y border-border bg-onyx py-28">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[.8fr_1.2fr] lg:px-10">
-          <p className="eyebrow">What earns our attention</p>
+          <p className="eyebrow">Our investment focus</p>
           <div>
             <h2 className="text-3xl leading-tight md:text-5xl">
-              Not every opportunity needs to be obvious. It does need to be honest.
+              Purpose first. Potential always.
             </h2>
             <p className="mt-8 max-w-2xl leading-relaxed text-muted-foreground">
-              We are drawn to ideas with a clear audience, a founder who understands the details and
-              a reason to exist beyond following a trend. Sometimes that is a proven business ready
-              for its next stage. Sometimes it is a strong concept waiting for the right structure.
+              We are drawn to ideas with a clear audience, a meaningful reason to exist and the
+              potential to lead. Whether supporting a growing business or shaping an emerging
+              concept, we look for ambition grounded in substance and people we can trust.
             </p>
             <div className="mt-10">
               <GoldLink to="/contact" variant="outline">
