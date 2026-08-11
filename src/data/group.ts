@@ -32,7 +32,7 @@ export type Holding = {
 export const holdings: Holding[] = [
   {
     slug: "rocdizway",
-    name: "RocDizWay",
+    name: "Roc*Diz*Way",
     category: "Curated Sovereign",
     positioning: "Premium online fashion and lifestyle.",
     description:
@@ -43,23 +43,23 @@ export const holdings: Holding[] = [
   },
   {
     slug: "roc-parties",
-    name: "Roc Parties",
+    name: "Roc*Parties",
     category: "VIP Events. Experiences",
     positioning: "Unforgettable occasions, considered from beginning to end.",
     description:
       "VIP events, experiences, concierge and lifestyle management for unforgettable occasions.",
     image: "/sister-companies/roc-parties.png",
-    status: "In development",
+    status: "Operating",
   },
   {
     slug: "roc-away",
-    name: "Roc Away",
+    name: "Roc*Away",
     category: "Restaurant. Lounge. Lifestyle",
     positioning: "Food, atmosphere and culture in one experience.",
     description:
       "Restaurant, lounge and hospitality experiences built around food, atmosphere and culture.",
     image: "/sister-companies/roc-away.png",
-    status: "In development",
+    status: "Operating",
   },
 ];
 
@@ -174,13 +174,13 @@ export const businesses: Business[] = [
     slug: "fashion",
     name: "Fashion",
     sector: "creative-digital",
-    tagline: "Online fashion through Roc Diz Way, with great designs for the whole family.",
+    tagline: "Online fashion through Roc*Diz*Way, with great designs for the whole family.",
     description:
-      "Fashion at Martins Investments is built around the Roc Diz Way online fashion store. The service invites customers to love their look with designs for the whole family, while also calling for models interested in available modelling work.",
+      "Fashion at Martins Investments is built around the Roc*Diz*Way online fashion store. The service invites customers to love their look with designs for the whole family, while also calling for models interested in available modelling work.",
     stage: "Operating",
     website: "https://rocdizway.com/",
     highlights: [
-      "Roc Diz Way online fashion store",
+      "Roc*Diz*Way online fashion store",
       "Great designs for the whole family",
       "Model recruitment for available modelling work",
     ],
@@ -287,7 +287,7 @@ export const insights = [
       "The best archive fashion carries more than a logo. It holds a time, an attitude and a story worth wearing again.",
     body: [
       "A sought-after piece of Y2K streetwear is never only about nostalgia. The cut, the weight, the branding and the memory around it all say something that a quick imitation cannot.",
-      "RocDizWay exists for that distinction: finding authentic pieces with enough character to feel relevant without pretending they were made yesterday.",
+      "Roc*Diz*Way exists for that distinction: finding authentic pieces with enough character to feel relevant without pretending they were made yesterday.",
     ],
   },
   {
@@ -299,7 +299,7 @@ export const insights = [
       "A memorable night starts with anticipation—and every detail either builds it or lets it fade.",
     body: [
       "The first impression of an event rarely happens at the door. It begins with how the invitation arrives, who tells you about it and what remains deliberately unsaid.",
-      "For Roc Parties, access and atmosphere belong to the same experience. The aim is not simply to fill a room, but to make every stage of the occasion feel considered.",
+      "For Roc*Parties, access and atmosphere belong to the same experience. The aim is not simply to fill a room, but to make every stage of the occasion feel considered.",
     ],
   },
   {
@@ -311,7 +311,7 @@ export const insights = [
       "People may arrive for the menu, but atmosphere is what turns one visit into a favourite place.",
     body: [
       "The places we remember understand timing: the welcome, the music, the pace of a table and the moment an evening begins to feel effortless.",
-      "Roc Away is being shaped around that whole experience. Food matters deeply, but so do warmth, rhythm and the feeling that there is no need to rush elsewhere.",
+      "Roc*Away is being shaped around that whole experience. Food matters deeply, but so do warmth, rhythm and the feeling that there is no need to rush elsewhere.",
     ],
   },
 ];
