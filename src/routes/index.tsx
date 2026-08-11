@@ -10,7 +10,6 @@ import {
 import { useEffect, useState } from "react";
 import { GoldLink } from "@/components/gold-link";
 import { holdings } from "@/data/group";
-import heroImage from "@/assets/hero.jpg";
 
 const homepageHoldings = holdings.map((holding) => {
   const copy = {
@@ -55,12 +54,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const [heroSlide, setHeroSlide] = useState<0 | 1 | 2>(0);
+  const [heroSlide, setHeroSlide] = useState<0 | 1>(0);
 
   useEffect(() => {
     const timeout = window.setTimeout(
-      () => setHeroSlide((current) => ((current + 1) % 3) as 0 | 1 | 2),
-      heroSlide === 1 ? 12_000 : 9_000,
+      () => setHeroSlide((current) => ((current + 1) % 2) as 0 | 1),
+      heroSlide === 0 ? 33_000 : 9_000,
     );
 
     return () => window.clearTimeout(timeout);
@@ -70,43 +69,29 @@ function Home() {
     <>
       <section className="relative min-h-screen overflow-hidden bg-black text-white">
         <div
-          className={`absolute inset-0 overflow-hidden transition-opacity duration-700 ${
+          className={`absolute inset-0 transition-opacity duration-1000 ${
             heroSlide === 0 ? "opacity-55" : "opacity-0"
           }`}
           aria-hidden={heroSlide !== 0}
         >
-          <img
-            src="/hero-0.jpg"
-            alt=""
-            className={`size-full object-cover ${heroSlide === 0 ? "hero-cube-reveal" : ""}`}
-          />
-        </div>
-        <div
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            heroSlide === 1 ? "opacity-55" : "opacity-0"
-          }`}
-          aria-hidden={heroSlide !== 1}
-        >
-          <video
-            className="size-full object-cover"
-            src="https://www.pexels.com/download/video/27587866/"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
+          <iframe
+            className="hero-video-frame"
+            src="https://www.youtube.com/embed/InHfN22wA9s?autoplay=1&mute=1&controls=0&loop=1&playlist=InHfN22wA9s&playsinline=1&rel=0&modestbranding=1"
+            title="Martins Investments hero video"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            tabIndex={-1}
           />
         </div>
         <div
           className={`absolute inset-0 overflow-hidden transition-opacity duration-1000 ${
-            heroSlide === 2 ? "opacity-55" : "opacity-0"
+            heroSlide === 1 ? "opacity-55" : "opacity-0"
           }`}
-          aria-hidden={heroSlide !== 2}
+          aria-hidden={heroSlide !== 1}
         >
           <img
-            src={heroImage}
+            src="/hero-0.jpg"
             alt=""
-            className={`size-full object-cover ${heroSlide === 2 ? "hero-ken-burns" : ""}`}
+            className={`size-full object-cover ${heroSlide === 1 ? "hero-cube-reveal" : ""}`}
           />
         </div>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,6,.94)_0%,rgba(7,7,6,.62)_52%,rgba(7,7,6,.28)_100%)]" />
@@ -127,13 +112,13 @@ function Home() {
             <GoldLink to="/portfolio">Explore the portfolio</GoldLink>
           </div>
           <div className="mt-8 flex gap-2" aria-label="Hero slides">
-            {[0, 1, 2].map((slide) => (
+            {[0, 1].map((slide) => (
               <button
                 key={slide}
                 type="button"
                 aria-label={`Show hero slide ${slide + 1}`}
                 aria-current={heroSlide === slide}
-                onClick={() => setHeroSlide(slide as 0 | 1 | 2)}
+                onClick={() => setHeroSlide(slide as 0 | 1)}
                 className={`h-0.5 transition-all duration-500 ${
                   heroSlide === slide ? "w-12 bg-gold" : "w-7 bg-white/40 hover:bg-white/70"
                 }`}
