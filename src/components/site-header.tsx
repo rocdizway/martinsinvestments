@@ -1,15 +1,16 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 
 const nav = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "The Group" },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/approach", label: "Our Vision" },
   { to: "/insights", label: "Perspectives" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
+const groupNav = [{ to: "/founder", label: "Founder" }] as const;
 
 export function SiteHeader() {
   const location = useLocation();
@@ -47,20 +48,48 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {nav.slice(1).map((item) => (
+          <div className="group relative py-7">
             <Link
-              key={item.to}
-              to={item.to}
+              to="/about"
               activeProps={{ className: "text-gold" }}
               inactiveProps={{
                 className: useSolidHeader ? "text-muted-foreground" : "text-white/82",
               }}
-              activeOptions={{ exact: item.to === "/" }}
-              className="text-[0.8rem] tracking-[0.14em] uppercase transition-colors hover:text-gold"
+              className="flex items-center gap-1.5 text-[0.8rem] tracking-[0.14em] uppercase transition-colors hover:text-gold"
             >
-              {item.label}
+              The Group
+              <ChevronDown className="size-3.5 transition-transform duration-300 group-hover:rotate-180" />
             </Link>
-          ))}
+            <div className="invisible absolute left-1/2 top-full w-56 -translate-x-1/2 translate-y-2 border border-border bg-onyx/98 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition-all duration-300 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+              {groupNav.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  activeProps={{ className: "text-gold bg-gold/5" }}
+                  inactiveProps={{ className: "text-muted-foreground" }}
+                  className="block border-b border-border/70 px-4 py-3 text-[0.72rem] tracking-[0.15em] uppercase transition-colors last:border-0 hover:bg-gold/5 hover:text-gold"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+          {nav
+            .filter((item) => item.to !== "/")
+            .map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                activeProps={{ className: "text-gold" }}
+                inactiveProps={{
+                  className: useSolidHeader ? "text-muted-foreground" : "text-white/82",
+                }}
+                activeOptions={{ exact: item.to === "/" }}
+                className="text-[0.8rem] tracking-[0.14em] uppercase transition-colors hover:text-gold"
+              >
+                {item.label}
+              </Link>
+            ))}
         </nav>
 
         <button
@@ -76,6 +105,21 @@ export function SiteHeader() {
       {open ? (
         <div className="border-t border-border bg-onyx px-6 pb-8 pt-4 lg:hidden">
           <nav className="flex flex-col">
+            <div className="border-b border-border py-4">
+              <p className="text-sm tracking-[0.16em] uppercase text-gold">The Group</p>
+              <div className="mt-3 border-l border-gold/30 pl-4">
+                {groupNav.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setOpen(false)}
+                    className="block py-2 text-xs tracking-[0.14em] uppercase text-muted-foreground transition-colors hover:text-gold"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
             {nav.map((item) => (
               <Link
                 key={item.to}
