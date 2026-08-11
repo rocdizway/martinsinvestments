@@ -15,8 +15,13 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
         <div className="grid gap-14 md:grid-cols-[1.4fr_.7fr_.9fr]">
           <div>
-            <p className="font-display text-4xl tracking-[0.2em] uppercase">MI</p>
-            <p className="eyebrow mt-3">Martins Investments</p>
+            <Link to="/" aria-label="Martins Investments — home" className="inline-flex">
+              <img
+                src="/footer-logo.png"
+                alt="Martins Investments"
+                className="h-auto w-48 object-contain brightness-110 contrast-105 drop-shadow-sm"
+              />
+            </Link>
             <p className="mt-7 max-w-sm text-sm leading-relaxed text-muted-foreground">
               Three businesses shaped by a shared feel for style, good company and memorable
               experiences.

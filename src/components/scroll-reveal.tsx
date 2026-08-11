@@ -1,16 +1,16 @@
+import { useLocation } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 const revealSelector = [
   "main section:not(:first-child) > .mx-auto > *",
-  "main section:not(:first-child) .surface-card",
-  "main section:not(:first-child) .sister-card",
-  "main section:not(:first-child) .service-structure-panel > div",
   "main section:not(:first-child) article",
   "main section:not(:first-child) form",
   "main section:not(:first-child) aside",
 ].join(",");
 
 export function ScrollReveal() {
+  const location = useLocation();
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -25,48 +25,59 @@ export function ScrollReveal() {
         });
       },
       {
-        rootMargin: "0px 0px -10% 0px",
-        threshold: 0.14,
+        rootMargin: "0px 0px -8% 0px",
+        threshold: 0.08,
       },
     );
 
-    let queued = false;
+    let firstFrame = 0;
+    let secondFrame = 0;
+    let mutationFrame = 0;
 
     const prepareElements = () => {
-      queued = false;
-      const elements = Array.from(
-        document.querySelectorAll<HTMLElement>(revealSelector),
-      );
+      const elements = Array.from(document.querySelectorAll<HTMLElement>(revealSelector));
 
-      elements.forEach((element, index) => {
-        if (element.dataset.reveal) return;
-        if (element.closest("[data-no-reveal]")) return;
+      elements.forEach((element) => {
+        if (element.dataset.reveal || element.closest("[data-no-reveal]")) return;
+
+        const section = element.closest("section");
+        const sectionElements = section
+          ? Array.from(section.querySelectorAll<HTMLElement>(revealSelector))
+          : elements;
+        const position = Math.max(0, sectionElements.indexOf(element));
 
         element.dataset.reveal = "pending";
-        element.style.setProperty("--reveal-delay", `${(index % 6) * 70}ms`);
-        observer.observe(element);
+        element.style.setProperty("--reveal-delay", `${Math.min(position, 4) * 85}ms`);
+      });
+
+      // Waiting for a second animation frame guarantees that the browser paints
+      // the pending state before IntersectionObserver reveals visible elements.
+      secondFrame = window.requestAnimationFrame(() => {
+        elements.forEach((element) => {
+          if (element.dataset.reveal === "pending") observer.observe(element);
+        });
       });
     };
 
-    const schedulePrepare = () => {
-      if (queued) return;
-      queued = true;
-      window.requestAnimationFrame(prepareElements);
-    };
+    firstFrame = window.requestAnimationFrame(prepareElements);
 
-    schedulePrepare();
-
-    const mutationObserver = new MutationObserver(schedulePrepare);
-    mutationObserver.observe(document.body, {
+    const mutationObserver = new MutationObserver(() => {
+      window.cancelAnimationFrame(mutationFrame);
+      mutationFrame = window.requestAnimationFrame(prepareElements);
+    });
+    mutationObserver.observe(document.querySelector("main") ?? document.body, {
       childList: true,
       subtree: true,
     });
 
     return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+      window.cancelAnimationFrame(mutationFrame);
       observer.disconnect();
       mutationObserver.disconnect();
     };
-  }, []);
+  }, [location.pathname]);
 
   return null;
 }

@@ -7,7 +7,7 @@ export const Route = createFileRoute("/portfolio/")({
   head: () => ({
     meta: [
       { title: "Our Businesses | Martins Investments" },
-      { name: "description", content: "Meet RocDizWay, Roc*Parties and Roc*Away." },
+      { name: "description", content: "Meet RocDizWay, Roc Parties and Roc Away." },
     ],
   }),
   component: Portfolio,

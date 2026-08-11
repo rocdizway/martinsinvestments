@@ -36,14 +36,14 @@ export function SiteHeader() {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-10">
         <Link
           to="/"
-          className={`group flex flex-col leading-none transition-colors ${
-            useSolidHeader ? "text-foreground" : "text-white"
-          }`}
+          aria-label="Martins Investments — home"
+          className="group flex shrink-0 transition-transform hover:scale-[1.01]"
         >
-          <span className="font-display text-lg tracking-[0.32em] uppercase">MI</span>
-          <span className="mt-1 text-[0.54rem] tracking-[0.25em] uppercase text-gold">
-            Martins Investments
-          </span>
+          <img
+            src="/logo.png"
+            alt="Martins Investments"
+            className="h-auto w-44 object-contain brightness-110 contrast-105 drop-shadow-sm sm:w-52"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

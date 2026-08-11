@@ -43,21 +43,21 @@ export const holdings: Holding[] = [
   },
   {
     slug: "roc-parties",
-    name: "Roc*Parties",
+    name: "Roc Parties",
     category: "Events & Experiences",
     positioning: "More than an invitation. A way into the moment.",
     description:
-      "Roc*Parties brings together access, entertainment and considered service to create occasions that feel personal long after the night is over.",
+      "Roc Parties brings together access, entertainment and considered service to create occasions that feel personal long after the night is over.",
     image: "/sister-companies/roc-parties.png",
     status: "In development",
   },
   {
     slug: "roc-away",
-    name: "Roc*Away",
+    name: "Roc Away",
     category: "Food & Hospitality",
     positioning: "Good food. Warm energy. Reasons to stay.",
     description:
-      "Roc*Away is a restaurant and lounge concept where flavour, music and atmosphere meet—made for easy afternoons, late evenings and everything between.",
+      "Roc Away is a restaurant and lounge concept where flavour, music and atmosphere meet—made for easy afternoons, late evenings and everything between.",
     image: "/sister-companies/roc-away.png",
     status: "In development",
   },
@@ -299,7 +299,7 @@ export const insights = [
       "A memorable night starts with anticipation—and every detail either builds it or lets it fade.",
     body: [
       "The first impression of an event rarely happens at the door. It begins with how the invitation arrives, who tells you about it and what remains deliberately unsaid.",
-      "For Roc*Parties, access and atmosphere belong to the same experience. The aim is not simply to fill a room, but to make every stage of the occasion feel considered.",
+      "For Roc Parties, access and atmosphere belong to the same experience. The aim is not simply to fill a room, but to make every stage of the occasion feel considered.",
     ],
   },
   {
@@ -311,7 +311,7 @@ export const insights = [
       "People may arrive for the menu, but atmosphere is what turns one visit into a favourite place.",
     body: [
       "The places we remember understand timing: the welcome, the music, the pace of a table and the moment an evening begins to feel effortless.",
-      "Roc*Away is being shaped around that whole experience. Food matters deeply, but so do warmth, rhythm and the feeling that there is no need to rush elsewhere.",
+      "Roc Away is being shaped around that whole experience. Food matters deeply, but so do warmth, rhythm and the feeling that there is no need to rush elsewhere.",
     ],
   },
 ];

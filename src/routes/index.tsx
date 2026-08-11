@@ -1,5 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  Award,
+  Handshake,
+  Lightbulb,
+  TrendingUp,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 import { GoldLink } from "@/components/gold-link";
 import { holdings } from "@/data/group";
 import heroImage from "@/assets/hero.jpg";
@@ -16,7 +24,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Martins Investments — Culture, Experience and Enterprise" },
       {
         property: "og:description",
-        content: "An independent group bringing clarity, structure and ambition to ideas with character.",
+        content:
+          "An independent group bringing clarity, structure and ambition to ideas with character.",
       },
     ],
   }),
@@ -24,14 +33,58 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const [heroSlide, setHeroSlide] = useState<0 | 1 | 2>(0);
+
+  useEffect(() => {
+    const timeout = window.setTimeout(
+      () => setHeroSlide((current) => ((current + 1) % 3) as 0 | 1 | 2),
+      heroSlide === 1 ? 12_000 : 9_000,
+    );
+
+    return () => window.clearTimeout(timeout);
+  }, [heroSlide]);
+
   return (
     <>
       <section className="relative min-h-screen overflow-hidden bg-black text-white">
-        <img
-          src={heroImage}
-          alt=""
-          className="absolute inset-0 size-full object-cover opacity-55"
-        />
+        <div
+          className={`absolute inset-0 overflow-hidden transition-opacity duration-700 ${
+            heroSlide === 0 ? "opacity-55" : "opacity-0"
+          }`}
+          aria-hidden={heroSlide !== 0}
+        >
+          <img
+            src="/hero-0.jpg"
+            alt=""
+            className={`size-full object-cover ${heroSlide === 0 ? "hero-cube-reveal" : ""}`}
+          />
+        </div>
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            heroSlide === 1 ? "opacity-55" : "opacity-0"
+          }`}
+          aria-hidden={heroSlide !== 1}
+        >
+          <iframe
+            className="hero-video-frame"
+            src="https://www.youtube.com/embed/YD_4CgJgHoI?autoplay=1&mute=1&controls=0&loop=1&playlist=YD_4CgJgHoI&playsinline=1&rel=0&modestbranding=1"
+            title="Martins Investments hero video"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            tabIndex={-1}
+          />
+        </div>
+        <div
+          className={`absolute inset-0 overflow-hidden transition-opacity duration-1000 ${
+            heroSlide === 2 ? "opacity-55" : "opacity-0"
+          }`}
+          aria-hidden={heroSlide !== 2}
+        >
+          <img
+            src={heroImage}
+            alt=""
+            className={`size-full object-cover ${heroSlide === 2 ? "hero-ken-burns" : ""}`}
+          />
+        </div>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,6,.94)_0%,rgba(7,7,6,.62)_52%,rgba(7,7,6,.28)_100%)]" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-20 pt-40 lg:px-10 lg:pb-24">
@@ -40,21 +93,97 @@ function Home() {
             <p className="eyebrow">Independent Holding Company</p>
           </div>
           <h1 className="max-w-5xl text-5xl leading-[.98] md:text-7xl lg:text-[6.4rem]">
-            Backing the ideas that shape how people{" "}
-            <span className="text-gold-gradient">dress, gather and live.</span>
+            INVESTING TODAY. <span className="text-gold-gradient">BUILDING TOMORROW.</span>
           </h1>
           <div className="mt-10 flex max-w-4xl flex-col gap-8 border-t border-white/20 pt-8 md:flex-row md:items-end md:justify-between">
             <p className="max-w-xl text-base leading-relaxed text-white/72 md:text-lg">
-              Martins Investments develops carefully chosen ventures across
-              fashion, experiences and hospitality—giving each the clarity,
-              structure and space to become exceptional.
+              Martins Investments is a private holding company building and backing businesses that
+              inspire, serve and stand the test of time.
             </p>
             <GoldLink to="/portfolio">Explore the portfolio</GoldLink>
+          </div>
+          <div className="mt-8 flex gap-2" aria-label="Hero slides">
+            {[0, 1, 2].map((slide) => (
+              <button
+                key={slide}
+                type="button"
+                aria-label={`Show hero slide ${slide + 1}`}
+                aria-current={heroSlide === slide}
+                onClick={() => setHeroSlide(slide as 0 | 1 | 2)}
+                className={`h-0.5 transition-all duration-500 ${
+                  heroSlide === slide ? "w-12 bg-gold" : "w-7 bg-white/40 hover:bg-white/70"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section-ivory">
+      <section className="section-ivory border-b border-border">
+        <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10 lg:py-36">
+          <div className="grid gap-14 lg:grid-cols-[0.82fr_1.18fr] lg:gap-24">
+            <div>
+              <div className="flex items-center gap-4">
+                <span className="h-px w-12 bg-gold" />
+                <p className="eyebrow">Who We Are</p>
+              </div>
+              <h2 className="mt-8 text-4xl leading-[1.02] text-foreground md:text-6xl">
+                Building ideas.
+                <br />
+                <span className="text-gold-gradient">Backing legacy.</span>
+              </h2>
+            </div>
+
+            <div className="flex items-end">
+              <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+                We are long-term thinkers with a clear focus on quality ideas, strong execution and
+                the freedom to build something real.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-20 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-4">
+            {[
+              {
+                title: "Strategic Investment",
+                body: "We identify and back ideas with real potential.",
+                icon: Lightbulb,
+              },
+              {
+                title: "Active Partnership",
+                body: "We work alongside founders and management teams.",
+                icon: Handshake,
+              },
+              {
+                title: "Sustainable Growth",
+                body: "We build businesses with enduring value.",
+                icon: TrendingUp,
+              },
+              {
+                title: "Excellence in Everything",
+                body: "We hold high standards across all we do.",
+                icon: Award,
+              },
+            ].map(({ title, body, icon: Icon }, index) => (
+              <article
+                key={title}
+                className="group bg-background p-8 text-white transition-colors duration-500 hover:bg-[#171510] lg:p-9"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="flex size-12 items-center justify-center rounded-full border border-gold/35 text-gold transition-colors duration-500 group-hover:bg-gold group-hover:text-black">
+                    <Icon className="size-5" strokeWidth={1.5} aria-hidden="true" />
+                  </span>
+                  <span className="font-display text-sm text-gold/60">0{index + 1}</span>
+                </div>
+                <h3 className="mt-12 text-xl text-white">{title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-white/65">{body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-onyx text-white">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 py-28 lg:grid-cols-[.72fr_1.28fr] lg:px-10 lg:py-36">
           <div>
             <p className="eyebrow">The Group</p>
@@ -88,7 +217,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-onyx py-28 lg:py-36">
+      <section className="section-ivory py-28 lg:py-36">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div>
@@ -143,7 +272,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="section-ivory overflow-hidden">
+      <section className="overflow-hidden border-y border-border bg-onyx">
         <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10 lg:py-40">
           <p className="eyebrow">What we bring</p>
           <div className="mt-14 grid gap-px border border-border bg-border md:grid-cols-3">
@@ -176,7 +305,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-onyx py-32 lg:py-44">
+      <section className="section-ivory relative overflow-hidden py-32 lg:py-44">
         <div className="absolute -right-20 top-1/2 -translate-y-1/2 font-display text-[18rem] leading-none text-gold/[.035] md:text-[28rem]">
           MI
         </div>
