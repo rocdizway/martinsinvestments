@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApproachRouteImport } from './routes/approach'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FounderRouteImport } from './routes/founder'
 import { Route as BusinessesIndexRouteImport } from './routes/businesses/index'
 import { Route as BusinessesBusinessRouteImport } from './routes/businesses/$business'
 import { Route as InsightsIndexRouteImport } from './routes/insights/index'
@@ -38,6 +39,11 @@ const ApproachRoute = ApproachRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FounderRoute = FounderRouteImport.update({
+  id: '/founder',
+  path: '/founder',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BusinessesIndexRoute = BusinessesIndexRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
   '/contact': typeof ContactRoute
+  '/founder': typeof FounderRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
   '/contact': typeof ContactRoute
+  '/founder': typeof FounderRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
   '/contact': typeof ContactRoute
+  '/founder': typeof FounderRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/approach'
     | '/contact'
+    | '/founder'
     | '/businesses/$business'
     | '/insights/$slug'
     | '/portfolio/$sector'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/approach'
     | '/contact'
+    | '/founder'
     | '/businesses/$business'
     | '/insights/$slug'
     | '/portfolio/$sector'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/approach'
     | '/contact'
+    | '/founder'
     | '/businesses/$business'
     | '/insights/$slug'
     | '/portfolio/$sector'
@@ -152,6 +164,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ApproachRoute: typeof ApproachRoute
   ContactRoute: typeof ContactRoute
+  FounderRoute: typeof FounderRoute
   BusinessesBusinessRoute: typeof BusinessesBusinessRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   PortfolioSectorRoute: typeof PortfolioSectorRoute
@@ -188,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/founder': {
+      id: '/founder'
+      path: '/founder'
+      fullPath: '/founder'
+      preLoaderRoute: typeof FounderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/businesses/': {
@@ -240,6 +260,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ApproachRoute: ApproachRoute,
   ContactRoute: ContactRoute,
+  FounderRoute: FounderRoute,
   BusinessesBusinessRoute: BusinessesBusinessRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   PortfolioSectorRoute: PortfolioSectorRoute,

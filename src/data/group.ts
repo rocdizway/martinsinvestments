@@ -32,7 +32,7 @@ export type Holding = {
 export const holdings: Holding[] = [
   {
     slug: "rocdizway",
-    name: "Roc*Diz*Way",
+    name: "Roc Diz Way",
     category: "Curated Sovereign",
     positioning: "Premium online fashion and lifestyle.",
     description:
@@ -174,13 +174,13 @@ export const businesses: Business[] = [
     slug: "fashion",
     name: "Fashion",
     sector: "creative-digital",
-    tagline: "Online fashion through Roc*Diz*Way, with great designs for the whole family.",
+    tagline: "Online fashion through Roc Diz Way, with great designs for the whole family.",
     description:
-      "Fashion at Martins Investments is built around the Roc*Diz*Way online fashion store. The service invites customers to love their look with designs for the whole family, while also calling for models interested in available modelling work.",
+      "Fashion at Martins Investments is built around the Roc Diz Way online fashion store. The service invites customers to love their look with designs for the whole family, while also calling for models interested in available modelling work.",
     stage: "Operating",
     website: "https://rocdizway.com/",
     highlights: [
-      "Roc*Diz*Way online fashion store",
+      "Roc Diz Way online fashion store",
       "Great designs for the whole family",
       "Model recruitment for available modelling work",
     ],
@@ -287,7 +287,7 @@ export const insights = [
       "The best archive fashion carries more than a logo. It holds a time, an attitude and a story worth wearing again.",
     body: [
       "A sought-after piece of Y2K streetwear is never only about nostalgia. The cut, the weight, the branding and the memory around it all say something that a quick imitation cannot.",
-      "Roc*Diz*Way exists for that distinction: finding authentic pieces with enough character to feel relevant without pretending they were made yesterday.",
+      "Roc Diz Way exists for that distinction: finding authentic pieces with enough character to feel relevant without pretending they were made yesterday.",
     ],
   },
   {
