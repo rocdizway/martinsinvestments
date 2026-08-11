@@ -269,6 +269,18 @@
     transform: translate(-50%, -50%);
   }
 
+  .hero-ken-burns {
+    animation: hero-ken-burns 9s ease-out both;
+    will-change: transform;
+  }
+
+  .hero-cube-reveal {
+    animation: hero-cube-reveal 1.35s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+    backface-visibility: hidden;
+    transform-origin: right center;
+    will-change: transform, opacity;
+  }
+
   .service-structure-panel {
     background: oklch(0.992 0.004 88);
     border: 1px solid oklch(0.19 0.012 78 / 26%);
@@ -336,6 +348,40 @@
   }
 }
 
+@keyframes hero-ken-burns {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+@keyframes hero-cube-reveal {
+  from {
+    opacity: 0;
+    transform: perspective(1400px) rotateY(-88deg) scale(0.92);
+  }
+  65% {
+    opacity: 1;
+    transform: perspective(1400px) rotateY(7deg) scale(1.015);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1400px) rotateY(0deg) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ken-burns {
+    animation: none;
+  }
+
+  .hero-cube-reveal {
+    animation: none;
+  }
+}
+
 @utility text-gold-gradient {
   background: var(--gradient-gold);
   background-clip: text;
@@ -346,12 +392,7 @@
 @utility rule-gold {
   height: 1px;
   width: 100%;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--gold-deep),
-    transparent
-  );
+  background: linear-gradient(to right, transparent, var(--gold-deep), transparent);
 }
 
 @utility eyebrow {
@@ -382,46 +423,24 @@
 }
 
 .dark .surface-card {
-  background: linear-gradient(
-    160deg,
-    var(--elevated) 0%,
-    var(--onyx) 100%
-  );
+  background: linear-gradient(160deg, var(--elevated) 0%, var(--onyx) 100%);
 }
 
 .section-ivory .surface-card {
-  background:
-    linear-gradient(
-      160deg,
-      oklch(0.995 0.004 88) 0%,
-      oklch(0.95 0.014 86) 100%
-    );
+  background: linear-gradient(160deg, oklch(0.995 0.004 88) 0%, oklch(0.95 0.014 86) 100%);
   border-color: oklch(0.24 0.014 78 / 22%);
   box-shadow: 0 24px 70px -50px oklch(0.14 0.015 78 / 56%);
 }
 
 .dark .section-ivory .surface-card {
-  background:
-    linear-gradient(
-      160deg,
-      oklch(0.99 0.004 88) 0%,
-      oklch(0.9 0.016 86) 100%
-    );
+  background: linear-gradient(160deg, oklch(0.99 0.004 88) 0%, oklch(0.9 0.016 86) 100%);
   border-color: oklch(0.24 0.014 78 / 18%);
 }
 
 @utility section-ivory {
   background:
-    radial-gradient(
-      circle at 12% 0%,
-      oklch(0.86 0.06 86 / 36%),
-      transparent 34%
-    ),
-    linear-gradient(
-      135deg,
-      oklch(0.995 0.006 88) 0%,
-      oklch(0.92 0.02 86) 100%
-    );
+    radial-gradient(circle at 12% 0%, oklch(0.86 0.06 86 / 36%), transparent 34%),
+    linear-gradient(135deg, oklch(0.995 0.006 88) 0%, oklch(0.92 0.02 86) 100%);
   border-block: 1px solid oklch(0.24 0.014 78 / 16%);
   color: oklch(0.17 0.012 78);
   --foreground: oklch(0.17 0.012 78);
@@ -433,16 +452,8 @@
 
 .dark .section-ivory {
   background:
-    radial-gradient(
-      circle at 12% 0%,
-      oklch(0.78 0.08 86 / 28%),
-      transparent 34%
-    ),
-    linear-gradient(
-      135deg,
-      oklch(0.93 0.012 88) 0%,
-      oklch(0.86 0.018 86) 100%
-    );
+    radial-gradient(circle at 12% 0%, oklch(0.78 0.08 86 / 28%), transparent 34%),
+    linear-gradient(135deg, oklch(0.93 0.012 88) 0%, oklch(0.86 0.018 86) 100%);
   border-block: 1px solid oklch(0.99 0 0 / 14%);
   color: oklch(0.17 0.012 78);
   --foreground: oklch(0.17 0.012 78);

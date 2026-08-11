@@ -9,7 +9,7 @@ export const Route = createFileRoute("/about")({
       { title: "Our Story | Martins Investments" },
       {
         name: "description",
-        content: "Meet the people and thinking behind RocDizWay, Roc*Parties and Roc*Away.",
+        content: "Meet the people and thinking behind RocDizWay, Roc Parties and Roc Away.",
       },
     ],
   }),
