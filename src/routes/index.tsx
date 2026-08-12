@@ -176,7 +176,7 @@ function Home() {
             ].map(({ title, body, icon: Icon }, index) => (
               <article
                 key={title}
-                className="group bg-background p-8 text-white transition-colors duration-500 hover:bg-[#171510] lg:p-9"
+                className="group bg-background p-8 text-foreground transition-colors duration-500 hover:bg-elevated lg:p-9"
               >
                 <div className="flex items-start justify-between">
                   <span className="flex size-12 items-center justify-center rounded-full border border-gold/35 text-gold transition-colors duration-500 group-hover:bg-gold group-hover:text-black">
@@ -184,15 +184,15 @@ function Home() {
                   </span>
                   <span className="font-display text-sm text-gold/60">0{index + 1}</span>
                 </div>
-                <h3 className="mt-12 text-xl text-white">{title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-white/65">{body}</p>
+                <h3 className="mt-12 text-xl text-foreground">{title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{body}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-y border-border bg-onyx text-white">
+      <section className="border-y border-border bg-onyx text-foreground">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 py-28 lg:grid-cols-[.72fr_1.28fr] lg:px-10 lg:py-36">
           <div>
             <p className="eyebrow">The Group</p>
@@ -261,7 +261,7 @@ function Home() {
                   </div>
                 </div>
                 <div className="p-7">
-                  <p className="mt-4 text-sm leading-relaxed text-[#5b5448] dark:text-white/70">
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                     {holding.description}
                   </p>
                   <Link
@@ -280,7 +280,7 @@ function Home() {
       <section className="overflow-hidden border-y border-border bg-onyx">
         <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10 lg:py-40">
           <p className="eyebrow">Why we exist</p>
-          <h2 className="mt-6 text-3xl text-white md:text-5xl">Ideas. Values. Impact.</h2>
+          <h2 className="mt-6 text-3xl text-foreground md:text-5xl">Ideas. Values. Impact.</h2>
           <div className="mt-14 grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
             {[
               [
@@ -305,11 +305,9 @@ function Home() {
               ],
             ].map(([number, title, body]) => (
               <div key={title} className="bg-background p-9 lg:p-12">
-                <p className="font-display text-gold-deep dark:text-gold-soft">{number}</p>
-                <h3 className="mt-16 text-3xl text-[#2a261f] dark:text-white">{title}</h3>
-                <p className="mt-5 text-sm leading-relaxed text-[#5b5448] dark:text-white/70">
-                  {body}
-                </p>
+                <p className="font-display text-gold-deep">{number}</p>
+                <h3 className="mt-16 text-3xl text-foreground">{title}</h3>
+                <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{body}</p>
               </div>
             ))}
           </div>
@@ -330,8 +328,8 @@ function Home() {
             The next chapter is already beginning.
           </h2>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
-            We continue to look forward — exploring new ideas, entering new markets and building
-            the next generation of Martins Investments businesses.
+            We continue to look forward — exploring new ideas, entering new markets and building the
+            next generation of Martins Investments businesses.
           </p>
           <Link
             to="/contact"

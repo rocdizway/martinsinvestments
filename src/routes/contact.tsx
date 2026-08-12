@@ -79,7 +79,7 @@ function Contact() {
 
             <button
               type="submit"
-              className="bg-gold px-10 py-4 text-[0.75rem] tracking-[0.2em] uppercase text-primary-foreground transition-colors duration-500 hover:bg-gold-soft"
+              className="bg-gold px-10 py-4 text-[0.75rem] tracking-[0.2em] uppercase text-gold-foreground transition-colors duration-300 hover:bg-gold-soft"
             >
               Send message
             </button>

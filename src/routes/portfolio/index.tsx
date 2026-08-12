@@ -46,13 +46,9 @@ function Portfolio() {
               </div>
               <div className="flex flex-col justify-center p-9 lg:p-16">
                 <p className="eyebrow">{holding.category}</p>
-                <h2 className="mt-6 text-4xl text-[#2a261f] dark:text-white md:text-5xl">
-                  {holding.name}
-                </h2>
-                <p className="mt-4 font-display text-xl text-gold-deep dark:text-gold-soft">
-                  {holding.positioning}
-                </p>
-                <p className="mt-7 max-w-lg text-base leading-relaxed text-[#5b5448] dark:text-white/70">
+                <h2 className="mt-6 text-4xl text-foreground md:text-5xl">{holding.name}</h2>
+                <p className="mt-4 font-display text-xl text-gold-deep">{holding.positioning}</p>
+                <p className="mt-7 max-w-lg text-base leading-relaxed text-muted-foreground">
                   {holding.description}
                 </p>
                 {holding.website ? (
@@ -60,12 +56,12 @@ function Portfolio() {
                     href={holding.website}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-9 inline-flex items-center gap-3 text-xs tracking-[.2em] uppercase text-gold-deep dark:text-gold-soft"
+                    className="mt-9 inline-flex items-center gap-3 text-xs tracking-[.2em] uppercase text-gold-deep"
                   >
                     Visit the business <ArrowUpRight className="size-4" />
                   </a>
                 ) : (
-                  <p className="mt-9 text-xs tracking-[.2em] uppercase text-[#6b6459] dark:text-white/55">
+                  <p className="mt-9 text-xs tracking-[.2em] uppercase text-muted-foreground">
                     Independent platform in development
                   </p>
                 )}

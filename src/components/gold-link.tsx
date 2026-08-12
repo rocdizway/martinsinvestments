@@ -13,7 +13,7 @@ export function GoldLink({ to, variant = "solid", children }: Props) {
     "group inline-flex items-center gap-3 px-8 py-4 text-[0.75rem] tracking-[0.2em] uppercase transition-all duration-500";
   const styles =
     variant === "solid"
-      ? "bg-gold text-primary-foreground hover:bg-gold-soft"
+      ? "bg-gold text-gold-foreground hover:bg-gold-soft"
       : "border border-gold/50 text-gold hover:border-gold hover:bg-gold/10";
 
   return (

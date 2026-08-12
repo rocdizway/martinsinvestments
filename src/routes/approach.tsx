@@ -51,9 +51,9 @@ function Approach() {
           <div className="grid gap-px border border-border bg-border md:grid-cols-2">
             {principles.map((item) => (
               <article key={item.number} className="bg-background p-9 lg:p-14">
-                <p className="font-display text-gold-deep dark:text-gold-soft">{item.number}</p>
-                <h2 className="mt-12 text-3xl text-[#2a261f] dark:text-white">{item.title}</h2>
-                <p className="mt-5 max-w-md text-sm leading-relaxed text-[#5b5448] dark:text-white/70">
+                <p className="font-display text-gold-deep">{item.number}</p>
+                <h2 className="mt-12 text-3xl text-foreground">{item.title}</h2>
+                <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
                   {item.body}
                 </p>
               </article>
@@ -65,9 +65,7 @@ function Approach() {
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[.8fr_1.2fr] lg:px-10">
           <p className="eyebrow">Our investment focus</p>
           <div>
-            <h2 className="text-3xl leading-tight md:text-5xl">
-              Purpose first. Potential always.
-            </h2>
+            <h2 className="text-3xl leading-tight md:text-5xl">Purpose first. Potential always.</h2>
             <p className="mt-8 max-w-2xl leading-relaxed text-muted-foreground">
               We are drawn to ideas with a clear audience, a meaningful reason to exist and the
               potential to lead. Whether supporting a growing business or shaping an emerging

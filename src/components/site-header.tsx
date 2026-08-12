@@ -43,7 +43,7 @@ export function SiteHeader() {
           <img
             src="/logo.png"
             alt="Martins Investments"
-            className="h-auto w-44 object-contain brightness-110 contrast-105 drop-shadow-sm sm:w-52"
+            className="site-brand-logo h-auto w-44 object-contain sm:w-52"
           />
         </Link>
 
