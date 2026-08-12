@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDown, ArrowUpRight, Crown, Play } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Crown, Download, FileText, Play } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -334,6 +334,64 @@ function Founder() {
               </AccordionItem>
             ))}
           </Accordion>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-onyx py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="grid overflow-hidden border border-border bg-background lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="flex min-h-72 flex-col justify-between bg-[#0c0c0c] p-8 text-white sm:p-10 lg:p-12">
+              <div className="flex items-start justify-between gap-6">
+                <FileText className="size-9 text-gold" strokeWidth={1.25} />
+                <span className="border border-white/15 px-3 py-2 text-[0.6rem] tracking-[0.2em] text-white/55 uppercase">
+                  PDF · 16 MB
+                </span>
+              </div>
+              <div className="mt-16">
+                <p className="text-[0.65rem] tracking-[0.22em] text-gold uppercase">
+                  Official media document
+                </p>
+                <p className="mt-4 font-display text-3xl">Founder Profile</p>
+                <p className="mt-2 text-sm text-white/50">Martins Investments</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-14">
+              <p className="eyebrow">Press &amp; media resource</p>
+              <h2 className="mt-5 max-w-2xl text-3xl leading-tight sm:text-4xl">
+                The definitive profile of Bobby Martins.
+              </h2>
+              <p className="mt-6 max-w-2xl leading-7 text-muted-foreground">
+                Prepared by Martins Investments, this official profile presents the Founder’s story
+                in full—from his early creative life and recording career in Nigeria to his
+                education in Britain, entrepreneurial journey and the vision shaping the group
+                today.
+              </p>
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
+                It is the authorised biographical reference for journalists, editors, producers and
+                research teams preparing features, interviews, programme notes and institutional
+                coverage. Interview requests and enquiries for approved imagery or supporting
+                material may be directed to Martins Investments.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-4">
+                <a
+                  href="/media/martins-investments-founder-profile.pdf"
+                  download="Martins_Investments_Founder_Profile.pdf"
+                  className="inline-flex items-center gap-3 bg-gold px-7 py-4 text-xs tracking-[0.18em] text-gold-foreground uppercase transition-colors hover:bg-gold-soft"
+                >
+                  <Download className="size-4" /> Download profile
+                </a>
+                <a
+                  href="/media/martins-investments-founder-profile.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-3 border border-border px-7 py-4 text-xs tracking-[0.18em] uppercase transition-colors hover:border-gold hover:text-gold"
+                >
+                  <ArrowUpRight className="size-4" /> View PDF
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
