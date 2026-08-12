@@ -17,9 +17,9 @@ export function SiteFooter() {
           <div>
             <Link to="/" aria-label="Martins Investments — home" className="inline-flex">
               <img
-                src="/footer-logo.png"
+                src="/logo.png"
                 alt="Martins Investments"
-                className="h-auto w-48 object-contain brightness-110 contrast-105 drop-shadow-sm"
+                className="site-brand-logo h-auto w-48 object-contain"
               />
             </Link>
             <p className="mt-7 max-w-sm text-sm leading-relaxed text-muted-foreground">

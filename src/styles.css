@@ -42,6 +42,7 @@
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
   --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
   --color-gold-soft: var(--gold-soft);
   --color-gold-deep: var(--gold-deep);
   --color-onyx: var(--onyx);
@@ -77,6 +78,7 @@
   --gold: oklch(0.58 0.105 78);
   --gold-soft: oklch(0.72 0.095 84);
   --gold-deep: oklch(0.43 0.085 72);
+  --gold-foreground: oklch(0.16 0.018 72);
 
   --primary: oklch(0.43 0.085 72);
   --primary-foreground: oklch(0.985 0.006 88);
@@ -206,20 +208,13 @@
 }
 
 @layer components {
-  [data-reveal="pending"] {
-    opacity: 0;
-    transform: translateY(34px);
-    will-change: opacity, transform;
+  .site-brand-logo {
+    filter: brightness(0.58) saturate(1.3) contrast(1.16);
+    transition: filter 300ms ease;
   }
 
-  [data-reveal="visible"] {
-    opacity: 1;
-    transform: translateY(0);
-    transition:
-      opacity 820ms var(--transition-luxe),
-      transform 820ms var(--transition-luxe);
-    transition-delay: var(--reveal-delay, 0ms);
-    will-change: auto;
+  .dark .site-brand-logo {
+    filter: brightness(1.1) contrast(1.05) drop-shadow(0 1px 1px oklch(0 0 0 / 20%));
   }
 
   .sister-card {
@@ -275,7 +270,7 @@
   }
 
   .hero-cube-reveal {
-    animation: hero-cube-reveal 1.35s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+    animation: hero-cube-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
     backface-visibility: hidden;
     transform-origin: right center;
     will-change: transform, opacity;
@@ -329,12 +324,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-reveal] {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-
     .sister-card {
       animation: none;
     }
@@ -360,15 +349,11 @@
 @keyframes hero-cube-reveal {
   from {
     opacity: 0;
-    transform: perspective(1400px) rotateY(-88deg) scale(0.92);
-  }
-  65% {
-    opacity: 1;
-    transform: perspective(1400px) rotateY(7deg) scale(1.015);
+    transform: scale(1.035);
   }
   to {
     opacity: 1;
-    transform: perspective(1400px) rotateY(0deg) scale(1);
+    transform: scale(1);
   }
 }
 
@@ -448,6 +433,7 @@
   --border: oklch(0.24 0.014 78 / 18%);
   --elevated: oklch(0.985 0.006 88);
   --onyx: oklch(0.9 0.012 88);
+  --background: oklch(0.985 0.006 88);
 }
 
 .dark .section-ivory {
@@ -461,6 +447,7 @@
   --border: oklch(0.24 0.014 78 / 18%);
   --elevated: oklch(0.98 0.006 88);
   --onyx: oklch(0.9 0.012 88);
+  --background: oklch(0.975 0.007 88);
 }
 
 @utility veil {

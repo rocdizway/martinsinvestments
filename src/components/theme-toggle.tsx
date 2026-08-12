@@ -11,9 +11,7 @@ function getInitialTheme(): Theme {
   const stored = window.localStorage.getItem(storageKey);
   if (stored === "light" || stored === "dark") return stored;
 
-  return window.matchMedia("(prefers-color-scheme: light)").matches
-    ? "light"
-    : "dark";
+  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
 }
 
 function applyTheme(theme: Theme) {
@@ -44,7 +42,7 @@ export function ThemeToggle() {
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
       onClick={toggleTheme}
-      className="fixed right-5 bottom-5 z-[60] grid size-14 place-items-center border border-gold/45 bg-background/88 text-gold shadow-[0_20px_60px_-28px_oklch(0_0_0_/_75%)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-gold hover:bg-gold hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background md:right-8 md:bottom-8"
+      className="fixed right-5 bottom-5 z-[60] grid size-14 place-items-center border border-gold/45 bg-background/88 text-gold shadow-[0_20px_60px_-28px_oklch(0_0_0_/_75%)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:bg-gold hover:text-gold-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background md:right-8 md:bottom-8"
     >
       <span className="absolute inset-1 border border-gold/15" />
       <Sun
