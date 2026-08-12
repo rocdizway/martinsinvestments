@@ -178,7 +178,7 @@ function Founder() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-onyx py-20 lg:py-24">
+      <section className="border-y border-border bg-background py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="max-w-2xl">
             <p className="eyebrow">The founder’s timeline</p>
@@ -194,7 +194,7 @@ function Founder() {
                 key={`${era}-${title}`}
                 className="relative border-b border-border py-7 pl-8 last:border-b-0 sm:min-h-52 sm:border-t sm:border-b-0 sm:px-6 sm:py-8 sm:first:pl-0"
               >
-                <span className="absolute top-9 -left-1.5 size-3 rounded-full border border-gold bg-onyx sm:top-[-0.4rem] sm:left-6" />
+                <span className="absolute top-9 -left-1.5 size-3 rounded-full border border-gold bg-background sm:top-[-0.4rem] sm:left-6" />
                 <p className="text-[0.62rem] tracking-[0.22em] text-gold uppercase">{era}</p>
                 <h3 className="mt-3 text-xl">{title}</h3>
                 <p className="mt-3 max-w-xs text-sm leading-6 text-muted-foreground">
@@ -337,9 +337,9 @@ function Founder() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-onyx py-20 lg:py-24">
+      <section className="border-y border-border bg-background py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid overflow-hidden border border-border bg-background lg:grid-cols-[0.72fr_1.28fr]">
+          <div className="grid overflow-hidden border border-border bg-elevated shadow-[0_28px_80px_-58px_oklch(0_0_0_/_45%)] lg:grid-cols-[0.72fr_1.28fr]">
             <div className="flex min-h-72 flex-col justify-between bg-[#0c0c0c] p-8 text-white sm:p-10 lg:p-12">
               <div className="flex items-start justify-between gap-6">
                 <FileText className="size-9 text-gold" strokeWidth={1.25} />
@@ -395,7 +395,7 @@ function Founder() {
         </div>
       </section>
 
-      <section className="bg-background py-24 lg:py-32">
+      <section className="border-y border-border bg-onyx py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="max-w-3xl">
             <p className="eyebrow">Founder’s gallery</p>
