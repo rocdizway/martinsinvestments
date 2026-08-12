@@ -1,5 +1,5 @@
 import { useLocation } from "@tanstack/react-router";
-import { useLayoutEffect, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 const revealSelector = [
   "[data-scroll-reveal]",
@@ -17,7 +17,7 @@ type RevealProps = {
 function RevealController() {
   const location = useLocation();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const animated = new WeakSet<Element>();

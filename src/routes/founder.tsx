@@ -1,458 +1,600 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDown, ArrowUpRight, Crown, Download, FileText, Play } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { GoldLink } from "@/components/gold-link";
+import { ArrowLeft, ArrowRight, BookOpen, Crown, Download, Menu, Play, X } from "lucide-react";
+import { Fragment, useEffect, useState } from "react";
+import { founderChapters } from "@/data/founder-story";
 
 export const Route = createFileRoute("/founder")({
   head: () => ({
     meta: [
-      { title: "Bobby Martins — Founder, Artist & Entrepreneur | Martins Investments" },
+      { title: "The Founder’s Story | Bobby Martins · Roc Boss" },
       {
         name: "description",
         content:
-          "The official story of Bobby Martins BA (Hons), known as Roc Boss: recording artist, entrepreneur and founder of Martins Investments.",
+          "The eight-chapter story of Bobby Martins—Roc Boss, recording artist, entrepreneur and founder of Martins Investments.",
       },
     ],
   }),
-  component: Founder,
+  component: FounderStorybook,
 });
 
-const timeline = [
-  ["Early years", "Nigeria", "A creative life shaped by music, fashion and culture."],
-  ["1982", "Dark Alley", "The debut album is released through His Master’s Voice."],
-  ["Next chapter", "Britain", "A new life begins and creative instinct evolves into enterprise."],
-  [
-    "Education",
-    "First-Class Honours",
-    "Business Management at the University of Sunderland in London.",
-  ],
-  ["2009", "Roc*Parties", "Events, experiences and lifestyle become a growing venture."],
-  ["Portfolio", "RocDizWay & Roc*Away", "Fashion, culture and hospitality join the wider vision."],
-  ["2022", "Martins Investments", "The ventures come together under a parent-company philosophy."],
-  ["The future", "Legacy in motion", "Building distinctive brands designed to endure."],
-];
+function FounderStorybook() {
+  const [page, setPage] = useState(-1);
+  const [direction, setDirection] = useState<"next" | "previous">("next");
+  const [contentsOpen, setContentsOpen] = useState(false);
+  const chapter = page >= 0 ? founderChapters[page] : undefined;
 
-const tracks = ["Dark Alley", "Take It Slowly", "Crazy Love", "Hot Coco", "Stay", "Poor Not Crazy"];
+  useEffect(() => {
+    const hash = window.location.hash.replace("#chapter-", "");
+    const index = founderChapters.findIndex((item) => item.slug === hash);
+    if (index >= 0) setPage(index);
+  }, []);
 
-const credits = [
-  ["Bobby Martins", "Lead vocals · editing · design concept"],
-  ["Berkley Jones", "Producer"],
-  ["Monday Oki · Olubayo Aro", "Engineering · mixing"],
-  ["Ed Jatto · Sunny Uka", "Assistant engineers"],
-  ["Nkono Teles · Lemmy Jackson", "Synthesizers"],
-  ["Basil Barap", "Bass guitar"],
-  ["Oscar · Sol", "Guitars"],
-  ["Moustique", "Drums"],
-  ["Laolu “Akins” Akintobi · Chiko Ab.", "Cowbell · percussion"],
-  ["Charlimo · Ajayi Kanayo Mokwenyei", "Photography · sleeve design"],
-];
+  const goTo = (nextPage: number) => {
+    setDirection(nextPage >= page ? "next" : "previous");
+    setPage(nextPage);
+    setContentsOpen(false);
+    const nextChapter = founderChapters[nextPage];
+    history.replaceState(
+      null,
+      "",
+      nextChapter ? `#chapter-${nextChapter.slug}` : window.location.pathname,
+    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-const chapters = [
-  {
-    number: "01",
-    title: "Nigeria — the journey begins",
-    kicker: "Before the businesses, there was creativity.",
-    body: [
-      "Growing up in Nigeria, Bobby Martins came of age during an important period in the country’s cultural development. Music and fashion were powerful forms of expression, and the creative environment around him helped shape his perspective.",
-      "Those early influences led him into the recording industry. Music would become more than a career: it became the first chapter of a much larger story.",
-    ],
-  },
-  {
-    number: "02",
-    title: "Britain — reinvention and education",
-    kicker: "The artist began to evolve into the entrepreneur.",
-    body: [
-      "Following his music career, Bobby relocated to the United Kingdom. The transition from artist to entrepreneur was not a rejection of the past, but an evolution of it: creativity and cultural awareness remained, while his focus shifted towards business, strategy and brand development.",
-      "He studied Business Management at the University of Sunderland in London, graduating with First-Class Honours. Formal study in strategy, marketing, leadership, entrepreneurship, finance and innovation gave structure to a lifetime of creative instinct.",
-    ],
-  },
-  {
-    number: "03",
-    title: "Entrepreneurship — ideas become brands",
-    kicker: "Music taught creativity. Business introduced discipline.",
-    body: [
-      "Bobby’s entrepreneurial journey developed across entertainment, fashion, hospitality and commerce. The objective grew beyond individual projects: to create distinct businesses with a common philosophy and the freedom to retain their own identities.",
-      "Roc*Parties, whose origins date to 2009, builds VIP events, concierge, lifestyle and hospitality experiences. RocDizWay curates authentic archive and Y2K-era fashion as culture worth preserving. Roc*Away brings food, music, warmth and atmosphere together.",
-    ],
-  },
-  {
-    number: "04",
-    title: "Martins Investments — the wider vision",
-    kicker: "Create. Build. Evolve.",
-    body: [
-      "Martins Investments is the parent-company expression of that journey: a premium portfolio in which RocDizWay, Roc*Parties and Roc*Away each serve a different audience while contributing to a larger story.",
-      "The ambition is not simply to build bigger, but to build better: brands with identity, businesses with purpose, opportunities for others and experiences that remain valuable tomorrow.",
-    ],
-  },
-];
+  if (!chapter)
+    return (
+      <BookCover
+        onOpen={() => goTo(0)}
+        onContents={() => setContentsOpen(true)}
+        contentsOpen={contentsOpen}
+        closeContents={() => setContentsOpen(false)}
+        goTo={goTo}
+      />
+    );
 
-const gallery = [
-  ["/founder/archive/bobby-childhood.jpeg", "Early years", "Nigeria · The first chapter"],
-  ["/founder/archive/bobby-young-artist.jpeg", "The artist", "A creative life begins"],
-  ["/founder/archive/bobby-contemplative.jpeg", "Roc Boss", "Culture · identity · perspective"],
-  ["/founder/archive/bobby-evening.jpeg", "The founder today", "London · The story continues"],
-];
-
-function Founder() {
   return (
-    <main className="bg-background text-foreground">
-      <section className="relative min-h-[96svh] overflow-hidden bg-[#0c0c0c] pt-20 text-white">
-        <div className="absolute inset-0 lg:left-[44%]">
+    <main className="min-h-screen overflow-hidden bg-background text-foreground" data-no-reveal>
+      <header className="fixed inset-x-0 top-20 z-40 border-b border-border bg-background/90 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
+          <button
+            onClick={() => goTo(-1)}
+            className="flex items-center gap-2 text-[0.65rem] tracking-[0.18em] text-muted-foreground uppercase hover:text-gold"
+          >
+            <BookOpen className="size-4" /> Cover
+          </button>
+          <p className="text-[0.62rem] tracking-[0.2em] text-gold uppercase">
+            Chapter {chapter.number} of 08
+          </p>
+          <button
+            onClick={() => setContentsOpen(true)}
+            className="flex items-center gap-2 text-[0.65rem] tracking-[0.18em] text-muted-foreground uppercase hover:text-gold"
+          >
+            <Menu className="size-4" /> Contents
+          </button>
+        </div>
+      </header>
+
+      <div
+        key={chapter.slug}
+        className={direction === "next" ? "founder-page-turn-next" : "founder-page-turn-previous"}
+      >
+        <Chapter chapter={chapter} />
+      </div>
+
+      <nav className="border-y border-border bg-onyx" aria-label="Founder story navigation">
+        <div className="mx-auto grid max-w-7xl grid-cols-2">
+          <button
+            onClick={() => goTo(page - 1)}
+            className="group border-r border-border p-7 text-left sm:p-10"
+          >
+            <span className="flex items-center gap-3 text-[0.62rem] tracking-[0.2em] text-gold uppercase">
+              <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />{" "}
+              {page === 0 ? "Book cover" : "Previous chapter"}
+            </span>
+            <span className="mt-4 block font-display text-xl sm:text-3xl">
+              {page === 0 ? "The Founder’s Story" : founderChapters[page - 1]?.title}
+            </span>
+          </button>
+          <button
+            onClick={() => (page === founderChapters.length - 1 ? goTo(-1) : goTo(page + 1))}
+            className="group p-7 text-right sm:p-10"
+          >
+            <span className="flex items-center justify-end gap-3 text-[0.62rem] tracking-[0.2em] text-gold uppercase">
+              {page === founderChapters.length - 1 ? "Close the book" : "Next chapter"}
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            </span>
+            <span className="mt-4 block font-display text-xl sm:text-3xl">
+              {page === founderChapters.length - 1
+                ? "The story continues"
+                : founderChapters[page + 1]?.title}
+            </span>
+          </button>
+        </div>
+      </nav>
+      <Contents open={contentsOpen} onClose={() => setContentsOpen(false)} goTo={goTo} />
+    </main>
+  );
+}
+
+type ChapterType = (typeof founderChapters)[number];
+
+function BookCover({
+  onOpen,
+  onContents,
+  contentsOpen,
+  closeContents,
+  goTo,
+}: {
+  onOpen: () => void;
+  onContents: () => void;
+  contentsOpen: boolean;
+  closeContents: () => void;
+  goTo: (page: number) => void;
+}) {
+  return (
+    <main className="bg-background text-foreground" data-no-reveal>
+      <section className="relative min-h-[100svh] overflow-hidden bg-black pt-20 text-white">
+        <div className="absolute inset-0 lg:left-[42%]">
           <img
             src="/founder/archive/bobby-portrait.jpeg"
-            alt="Bobby Martins, founder and chief executive officer of Martins Investments"
+            alt="Bobby Martins, known professionally as Roc Boss"
             className="hero-ken-burns h-full w-full object-cover object-[50%_18%]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/5" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/5" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20 lg:hidden" />
         </div>
-        <div className="relative mx-auto flex min-h-[calc(96svh-5rem)] max-w-7xl items-end px-6 pb-14 lg:items-center lg:px-10 lg:pb-0">
+        <div className="relative mx-auto flex min-h-[calc(100svh-5rem)] max-w-7xl items-end px-6 pb-14 lg:items-center lg:px-10 lg:pb-0">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 text-gold">
               <Crown className="size-4" />
-              <p className="eyebrow">The official founder’s biography</p>
+              <p className="eyebrow">An official Martins Investments story</p>
             </div>
-            <h1 className="mt-7 text-5xl leading-[0.92] sm:text-7xl lg:text-[7.2rem]">
+            <h1 className="mt-7 text-5xl leading-[0.9] sm:text-7xl lg:text-[7rem]">
               Bobby <span className="text-gold-gradient">Martins.</span>
             </h1>
-            <p className="mt-7 font-display text-xl text-white/85 sm:text-2xl">
-              Music. Business. Culture. Legacy.
+            <p className="mt-7 font-display text-2xl text-white/85 sm:text-3xl">Roc Boss</p>
+            <p className="mt-3 text-xs tracking-[0.26em] text-white/55 uppercase">
+              The Founder’s Story
             </p>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-white/65 sm:text-base">
-              Founder · Entrepreneur · Recording Artist · Business Strategist
-            </p>
-            <a
-              href="#story"
-              className="mt-10 inline-flex items-center gap-3 text-[0.7rem] tracking-[0.24em] uppercase text-gold hover:text-gold-soft"
-            >
-              Enter the story <ArrowDown className="size-4" />
-            </a>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <button
+                onClick={onOpen}
+                className="inline-flex items-center gap-4 bg-gold px-7 py-4 text-xs tracking-[0.2em] text-gold-foreground uppercase hover:bg-gold-soft"
+              >
+                <BookOpen className="size-4" /> Explore the profile
+              </button>
+              <button
+                onClick={onContents}
+                className="inline-flex items-center gap-3 border border-white/25 px-7 py-4 text-xs tracking-[0.18em] uppercase hover:border-gold hover:text-gold"
+              >
+                <Menu className="size-4" /> View chapters
+              </button>
+            </div>
           </div>
         </div>
-        <p className="absolute right-10 bottom-10 hidden text-[0.65rem] tracking-[0.3em] text-white/40 uppercase lg:block">
-          Defy trends. Define legacy.
-        </p>
       </section>
+      <Contents open={contentsOpen} onClose={closeContents} goTo={goTo} />
+    </main>
+  );
+}
 
-      <section id="story" className="section-ivory py-24 lg:py-32">
-        <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24 lg:px-10">
-          <div>
-            <p className="eyebrow">A life built in chapters</p>
-            <p className="mt-8 font-display text-3xl leading-snug text-gold-deep md:text-4xl">
-              “Some people follow a career. Others create a journey.”
+function Chapter({ chapter }: { chapter: ChapterType }) {
+  const isLegacy = chapter.slug === "legacy";
+  return (
+    <>
+      <section className="relative min-h-[88svh] overflow-hidden bg-black pt-36 text-white">
+        <img
+          src={chapter.image}
+          alt={chapter.imageAlt}
+          className="absolute inset-0 h-full w-full object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/25" />
+        <div className="relative mx-auto flex min-h-[calc(88svh-9rem)] max-w-7xl items-end px-6 pb-16 lg:px-10 lg:pb-20">
+          <div className="max-w-4xl">
+            <p className="text-[0.68rem] tracking-[0.28em] text-gold uppercase">
+              The Founder’s Story · Chapter {chapter.number}
             </p>
+            <h1 className="mt-6 text-5xl leading-[0.94] sm:text-7xl lg:text-8xl">
+              {chapter.title}
+            </h1>
+            <p className="mt-6 font-display text-2xl text-white/75 sm:text-3xl">
+              {chapter.subtitle}
+            </p>
+            <p className="mt-5 text-xs tracking-[0.2em] text-white/45 uppercase">{chapter.year}</p>
           </div>
+        </div>
+      </section>
+      <article className="section-ivory py-24 lg:py-32">
+        <div className="mx-auto max-w-5xl px-6 lg:px-10">
+          <blockquote className="max-w-4xl font-display text-3xl leading-snug text-gold-deep sm:text-4xl lg:text-5xl">
+            “{chapter.quote}”
+          </blockquote>
+          <div className="mt-20 space-y-20">
+            {chapter.sections.map((section, index) => (
+              <Fragment key={`${chapter.slug}-${index}`}>
+                <section className="grid gap-8 border-t border-border pt-10 md:grid-cols-[0.42fr_1fr] md:gap-16">
+                  <div>
+                    <p className="text-[0.62rem] tracking-[0.22em] text-gold uppercase">
+                      {chapter.number}.{String(index + 1).padStart(2, "0")}
+                    </p>
+                    {section.heading ? (
+                      <h2 className="mt-4 text-2xl sm:text-3xl">{section.heading}</h2>
+                    ) : null}
+                  </div>
+                  <div className="space-y-6 text-base leading-8 text-muted-foreground sm:text-lg">
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                </section>
+                <ChapterInterlude slug={chapter.slug} sectionIndex={index} />
+              </Fragment>
+            ))}
+          </div>
+        </div>
+      </article>
+      {chapter.slug === "roc-boss" ? <RocBossStatement /> : null}
+      {isLegacy ? <MediaResource /> : null}
+    </>
+  );
+}
+
+function Contents({
+  open,
+  onClose,
+  goTo,
+}: {
+  open: boolean;
+  onClose: () => void;
+  goTo: (page: number) => void;
+}) {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-[70] bg-black/70 p-4 backdrop-blur-sm">
+      <div className="founder-contents-in ml-auto h-full w-full max-w-xl overflow-y-auto bg-background p-7 text-foreground shadow-2xl sm:p-10">
+        <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-4xl leading-tight md:text-6xl">From vinyl to vision.</h2>
-            <div className="mt-8 space-y-5 text-base leading-8 text-muted-foreground">
-              <p>
-                The story of Bobby Martins, known professionally as Roc Boss, is one of creativity,
-                reinvention, entrepreneurship and an enduring relationship with culture.
-              </p>
-              <p>
-                It began in Nigeria with music. It developed through education, evolved through
-                business and continues today through a growing portfolio under Martins Investments.
-              </p>
-            </div>
-            <div className="mt-10 grid grid-cols-2 gap-px bg-border sm:grid-cols-4">
-              {[
-                "Music / beginning",
-                "Business / evolution",
-                "Culture / constant",
-                "Legacy / objective",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="bg-background px-4 py-5 text-[0.68rem] tracking-[0.12em] uppercase"
-                >
-                  {item}
+            <p className="eyebrow">The Founder’s Story</p>
+            <h2 className="mt-3 text-3xl">Contents</h2>
+          </div>
+          <button
+            onClick={onClose}
+            aria-label="Close contents"
+            className="grid size-11 place-items-center border border-border hover:border-gold"
+          >
+            <X className="size-5" />
+          </button>
+        </div>
+        <ol className="mt-10 border-t border-border">
+          {founderChapters.map((item, index) => (
+            <li key={item.slug} className="border-b border-border">
+              <button
+                onClick={() => goTo(index)}
+                className="group grid w-full grid-cols-[3rem_1fr_auto] items-center py-5 text-left"
+              >
+                <span className="font-display text-gold">{item.number}</span>
+                <span>
+                  <span className="block font-display text-xl">{item.title}</span>
+                  <span className="mt-1 block text-xs text-muted-foreground">{item.subtitle}</span>
+                </span>
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  );
+}
+
+function ChapterInterlude({ slug, sectionIndex }: { slug: string; sectionIndex: number }) {
+  const photographs: Record<
+    string,
+    Record<number, { src: string; alt: string; label: string; caption: string }>
+  > = {
+    nigeria: {
+      0: {
+        src: "/founder/archive/bobby-childhood.jpeg",
+        alt: "Bobby Martins during his childhood in Nigeria",
+        label: "Personal archive · Nigeria",
+        caption: "Bobby Martins in childhood—the earliest surviving chapter of the story.",
+      },
+    },
+    "dark-alley": {
+      1: {
+        src: "/founder/archive/bobby-young-artist.jpeg",
+        alt: "A young Bobby Martins during his recording career",
+        label: "Artist archive · The music years",
+        caption: "Bobby Martins during the creative period from which Dark Alley emerged.",
+      },
+    },
+    britain: {
+      0: {
+        src: "/founder/archive/bobby-contemplative.jpeg",
+        alt: "Bobby Martins in a reflective portrait",
+        label: "Personal archive · Reinvention",
+        caption: "A reflective portrait from the wider journey between artist and entrepreneur.",
+      },
+    },
+    education: {
+      0: {
+        src: "/founder/archive/bobby-portrait.jpeg",
+        alt: "Portrait of Bobby Martins",
+        label: "Founder archive · London",
+        caption: "Bobby Martins—creative experience strengthened by formal business education.",
+      },
+    },
+    entrepreneurship: {
+      0: {
+        src: "/founder/archive/bobby-evening.jpeg",
+        alt: "Bobby Martins in London",
+        label: "Personal archive · The entrepreneurial years",
+        caption: "Bobby Martins as the creative journey expanded into brands and experiences.",
+      },
+    },
+    "martins-investments": {
+      1: {
+        src: "/founder/archive/bobby-portrait.jpeg",
+        alt: "Bobby Martins, Founder and Chief Executive Officer",
+        label: "Founder portrait · Martins Investments",
+        caption: "Bobby Martins, Founder and Chief Executive Officer of Martins Investments.",
+      },
+    },
+    "roc-boss": {
+      0: {
+        src: "/founder/archive/bobby-lifestyle.jpeg",
+        alt: "Bobby Martins, known professionally as Roc Boss",
+        label: "Personal archive · Roc Boss",
+        caption: "Roc Boss—the identity connecting music, culture, personal style and business.",
+      },
+    },
+    legacy: {
+      0: {
+        src: "/founder/archive/bobby-contemplative.jpeg",
+        alt: "Bobby Martins reflecting on a life across music, culture and business",
+        label: "Founder archive · The story continues",
+        caption: "A life shaped across music, culture, enterprise and the work still to come.",
+      },
+    },
+  };
+
+  const photograph = photographs[slug]?.[sectionIndex];
+  const darkAlley = slug === "dark-alley" && sectionIndex < 3;
+  const venture = slug === "entrepreneurship" && sectionIndex > 0;
+
+  if (!photograph && !darkAlley && !venture) return null;
+
+  return (
+    <div className="space-y-10">
+      {photograph ? <FounderPhotoFeature {...photograph} /> : null}
+      {darkAlley ? <DarkAlleyArchive part={sectionIndex} /> : null}
+      {venture ? <BusinessPortfolio ventureIndex={sectionIndex - 1} /> : null}
+    </div>
+  );
+}
+
+function FounderPhotoFeature({
+  src,
+  alt,
+  label,
+  caption,
+}: {
+  src: string;
+  alt: string;
+  label: string;
+  caption: string;
+}) {
+  return (
+    <figure className="overflow-hidden border border-border bg-black">
+      <div className="grid lg:grid-cols-[1.35fr_0.65fr] lg:items-stretch">
+        <div className="flex min-h-[28rem] items-center justify-center bg-black p-4 sm:p-8">
+          <img src={src} alt={alt} loading="lazy" className="max-h-[44rem] w-full object-contain" />
+        </div>
+        <figcaption className="flex flex-col justify-end border-t border-white/10 p-7 text-white sm:p-10 lg:border-t-0 lg:border-l">
+          <p className="text-[0.62rem] tracking-[0.2em] text-gold uppercase">{label}</p>
+          <p className="mt-5 font-display text-2xl leading-snug text-white/85">{caption}</p>
+          <p className="mt-8 text-[0.6rem] tracking-[0.16em] text-white/40 uppercase">
+            Martins Investments founder archive
+          </p>
+        </figcaption>
+      </div>
+    </figure>
+  );
+}
+
+function DarkAlleyArchive({ part }: { part: number }) {
+  const credits = [
+    ["Bobby Martins", "Lead vocals · editing · design concept"],
+    ["Berkley Jones", "Producer"],
+    ["Monday Oki", "Audio engineer"],
+    ["Olubayo Aro", "Audio engineer · mixing"],
+    ["Ed Jatto", "Assistant engineer"],
+    ["Sunny Uka", "Assistant engineer"],
+    ["Nkono Teles", "Synthesizer"],
+    ["Lemmy Jackson", "Additional synthesizer"],
+    ["Basil Barap", "Bass guitar"],
+    ["Oscar", "Guitar"],
+    ["Sol", "Guitar"],
+    ["Moustique", "Drums"],
+    ["Laolu “Akins” Akintobi", "Cowbell"],
+    ["Chiko Ab.", "Percussion"],
+    ["Charlimo", "Photography"],
+    ["Ajayi Kanayo Mokwenyei", "Sleeve design"],
+  ];
+
+  if (part === 0) {
+    const tracks = [
+      "Dark Alley",
+      "Take It Slowly",
+      "Crazy Love",
+      "Hot Coco",
+      "Stay",
+      "Poor Not Crazy",
+    ];
+    return (
+      <aside className="overflow-hidden border border-border bg-black text-white">
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+          <figure>
+            <img
+              src="/founder/archive/dark-alley-cover.jpeg"
+              alt="Dark Alley by Bobby Martins, archival album artwork"
+              className="h-full min-h-80 w-full object-cover"
+            />
+            <figcaption className="sr-only">Dark Alley archival album image, 1982</figcaption>
+          </figure>
+          <div className="p-7 sm:p-10">
+            <p className="eyebrow">Archive 001 · HMV (N) 025</p>
+            <h3 className="mt-5 text-4xl">Inside the record.</h3>
+            <div className="mt-8 grid grid-cols-2 gap-8">
+              {["Side A", "Side B"].map((side, sideIndex) => (
+                <div key={side}>
+                  <p className="font-display text-xl">{side}</p>
+                  <ol className="mt-4 space-y-3 text-sm text-white/60">
+                    {tracks.slice(sideIndex * 3, sideIndex * 3 + 3).map((track, index) => (
+                      <li key={track} className="flex gap-3">
+                        <span className="text-gold">0{index + 1}</span>
+                        {track}
+                      </li>
+                    ))}
+                  </ol>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </section>
+      </aside>
+    );
+  }
 
-      <section className="border-y border-border bg-background py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="max-w-2xl">
-            <p className="eyebrow">The founder’s timeline</p>
-            <h2 className="mt-5 text-3xl sm:text-4xl">The journey at a glance.</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">
-              Eight defining milestones—from Bobby’s early creative years in Nigeria to the
-              continuing vision behind Martins Investments.
-            </p>
-          </div>
-          <ol className="relative mt-12 border-l border-gold/35 sm:grid sm:grid-cols-2 sm:border-l-0 lg:grid-cols-4">
-            {timeline.map(([era, title, description], index) => (
-              <li
-                key={`${era}-${title}`}
-                className="relative border-b border-border py-7 pl-8 last:border-b-0 sm:min-h-52 sm:border-t sm:border-b-0 sm:px-6 sm:py-8 sm:first:pl-0"
-              >
-                <span className="absolute top-9 -left-1.5 size-3 rounded-full border border-gold bg-background sm:top-[-0.4rem] sm:left-6" />
-                <p className="text-[0.62rem] tracking-[0.22em] text-gold uppercase">{era}</p>
-                <h3 className="mt-3 text-xl">{title}</h3>
-                <p className="mt-3 max-w-xs text-sm leading-6 text-muted-foreground">
-                  {description}
-                </p>
-                <span className="absolute top-7 right-5 font-display text-3xl text-foreground/[0.07]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="bg-[#0c0c0c] py-24 text-white lg:py-36">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-24">
-            <div className="relative">
-              <img
-                src="/founder/archive/bobby-young-artist.jpeg"
-                alt="A young Bobby Martins during his early music years"
-                className="aspect-square w-full object-cover grayscale"
-              />
-              <div className="absolute -right-4 -bottom-4 border border-gold/40 bg-[#111] px-7 py-5 sm:-right-8 sm:-bottom-8">
-                <p className="font-display text-4xl text-gold">1982</p>
-                <p className="mt-1 text-[0.62rem] tracking-[0.22em] text-white/50 uppercase">
-                  Nigeria
-                </p>
-              </div>
-            </div>
-            <div>
-              <p className="eyebrow">The music years · Archive 001</p>
-              <h2 className="mt-6 text-5xl leading-none md:text-7xl">Dark Alley.</h2>
-              <p className="mt-7 max-w-xl text-lg leading-8 text-white/65">
-                Bobby Martins’ first major creative expression—and an enduring physical document
-                from the beginning of his story.
-              </p>
-              <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 border-y border-white/10 py-8 text-sm">
-                {[
-                  ["Label", "His Master’s Voice"],
-                  ["Catalogue", "HMV (N) 025"],
-                  ["Format", "LP / Album"],
-                  ["Country", "Nigeria"],
-                ].map(([term, value]) => (
-                  <div key={term}>
-                    <dt className="text-[0.6rem] tracking-[0.2em] text-gold uppercase">{term}</dt>
-                    <dd className="mt-2 text-white/80">{value}</dd>
-                  </div>
-                ))}
-              </dl>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a
-                  href="https://www.youtube.com/results?search_query=Bobby+Martins+Dark+Alley+RocDizWay"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-3 bg-gold px-6 py-4 text-xs tracking-[0.16em] text-gold-foreground uppercase hover:bg-gold-soft"
-                >
-                  <Play className="size-4" /> Find the RocDizWay archive
-                </a>
-                <a
-                  href="https://www.afrosunny.com/bobby-dark-alley-80s-nigerian-boogie-disco-funk-soul-music-album-lp/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-3 border border-white/25 px-6 py-4 text-xs tracking-[0.16em] uppercase hover:border-gold"
-                >
-                  <ArrowUpRight className="size-4" /> Collector record
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-24 grid gap-12 border-t border-white/10 pt-14 lg:grid-cols-2">
-            <div>
-              <p className="eyebrow">The record</p>
-              <div className="mt-7 grid grid-cols-2 gap-8">
-                {["Side A", "Side B"].map((side, sideIndex) => (
-                  <div key={side}>
-                    <p className="font-display text-2xl">{side}</p>
-                    <ol className="mt-5 space-y-3 text-sm text-white/60">
-                      {tracks.slice(sideIndex * 3, sideIndex * 3 + 3).map((track, index) => (
-                        <li key={track} className="flex gap-4">
-                          <span className="text-gold">0{index + 1}</span>
-                          {track}
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="eyebrow">The people behind Dark Alley</p>
-              <div className="mt-7 grid gap-x-6 sm:grid-cols-2">
-                {credits.map(([name, role]) => (
-                  <div key={name} className="border-t border-white/10 py-4">
-                    <p className="text-sm text-white/85">{name}</p>
-                    <p className="mt-1 text-xs leading-5 text-white/45">{role}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-ivory py-24 lg:py-32">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24 lg:px-10">
+  if (part === 1) {
+    return (
+      <aside className="border-y border-border bg-background py-2">
+        <div className="mb-5 flex items-end justify-between gap-4">
           <div>
-            <p className="eyebrow">The founder’s story</p>
-            <h2 className="mt-6 text-4xl leading-tight md:text-6xl">Read the chapters.</h2>
-            <p className="mt-6 max-w-sm leading-7 text-muted-foreground">
-              Open each chapter to explore the full journey without losing the shape of the story.
-            </p>
+            <p className="eyebrow">Original recording credits</p>
+            <h3 className="mt-3 text-3xl">The people behind the music.</h3>
           </div>
-          <Accordion
-            type="single"
-            collapsible
-            defaultValue="chapter-0"
-            className="border-t border-border"
-          >
-            {chapters.map((chapter, index) => (
-              <AccordionItem key={chapter.number} value={`chapter-${index}`}>
-                <AccordionTrigger className="gap-5 py-7 hover:no-underline">
-                  <span className="text-gold">{chapter.number}</span>
-                  <span className="mr-auto font-display text-xl font-normal sm:text-2xl">
-                    {chapter.title}
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="pb-8 pl-0 sm:pl-14">
-                  <p className="font-display text-xl text-gold-deep">{chapter.kicker}</p>
-                  <div className="mt-4 max-w-2xl space-y-4 leading-7 text-muted-foreground">
-                    {chapter.body.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <span className="hidden text-[0.62rem] tracking-[0.18em] text-muted-foreground uppercase sm:block">
+            Nigeria · 1982
+          </span>
         </div>
-      </section>
-
-      <section className="border-y border-border bg-background py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid overflow-hidden border border-border bg-elevated shadow-[0_28px_80px_-58px_oklch(0_0_0_/_45%)] lg:grid-cols-[0.72fr_1.28fr]">
-            <div className="flex min-h-72 flex-col justify-between bg-[#0c0c0c] p-8 text-white sm:p-10 lg:p-12">
-              <div className="flex items-start justify-between gap-6">
-                <FileText className="size-9 text-gold" strokeWidth={1.25} />
-                <span className="border border-white/15 px-3 py-2 text-[0.6rem] tracking-[0.2em] text-white/55 uppercase">
-                  PDF · 16 MB
-                </span>
-              </div>
-              <div className="mt-16">
-                <p className="text-[0.65rem] tracking-[0.22em] text-gold uppercase">
-                  Official media document
-                </p>
-                <p className="mt-4 font-display text-3xl">Founder Profile</p>
-                <p className="mt-2 text-sm text-white/50">Martins Investments</p>
-              </div>
+        <div className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+          {credits.map(([name, role]) => (
+            <div key={name} className="border-t border-border py-5">
+              <p className="text-sm">{name}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{role}</p>
             </div>
-
-            <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-14">
-              <p className="eyebrow">Press &amp; media resource</p>
-              <h2 className="mt-5 max-w-2xl text-3xl leading-tight sm:text-4xl">
-                The definitive profile of Bobby Martins.
-              </h2>
-              <p className="mt-6 max-w-2xl leading-7 text-muted-foreground">
-                Prepared by Martins Investments, this official profile presents the Founder’s story
-                in full—from his early creative life and recording career in Nigeria to his
-                education in Britain, entrepreneurial journey and the vision shaping the group
-                today.
-              </p>
-              <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
-                It is the authorised biographical reference for journalists, editors, producers and
-                research teams preparing features, interviews, programme notes and institutional
-                coverage. Interview requests and enquiries for approved imagery or supporting
-                material may be directed to Martins Investments.
-              </p>
-              <div className="mt-9 flex flex-wrap gap-4">
-                <a
-                  href="/media/martins-investments-founder-profile.pdf"
-                  download="Martins_Investments_Founder_Profile.pdf"
-                  className="inline-flex items-center gap-3 bg-gold px-7 py-4 text-xs tracking-[0.18em] text-gold-foreground uppercase transition-colors hover:bg-gold-soft"
-                >
-                  <Download className="size-4" /> Download profile
-                </a>
-                <a
-                  href="/media/martins-investments-founder-profile.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-3 border border-border px-7 py-4 text-xs tracking-[0.18em] uppercase transition-colors hover:border-gold hover:text-gold"
-                >
-                  <ArrowUpRight className="size-4" /> View PDF
-                </a>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </aside>
+    );
+  }
 
-      <section className="border-y border-border bg-onyx py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="max-w-3xl">
-            <p className="eyebrow">Founder’s gallery</p>
-            <h2 className="mt-6 text-4xl md:text-6xl">A life in frames.</h2>
-          </div>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {gallery.map(([src, title, caption]) => (
-              <div key={src} className="group relative overflow-hidden bg-onyx">
-                <img
-                  src={src}
-                  alt={`${title} — ${caption}`}
-                  className="aspect-[3/4] w-full object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent p-5 pt-20 text-white">
-                  <p className="font-display text-xl">{title}</p>
-                  <p className="mt-1 text-xs text-white/55">{caption}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+  return (
+    <aside className="grid gap-8 border border-border bg-onyx p-7 sm:p-10 md:grid-cols-[0.72fr_1.28fr] md:items-center">
+      <div>
+        <p className="eyebrow">The archive lives on</p>
+        <h3 className="mt-4 text-3xl">Hear it. Trace it. Preserve it.</h3>
+      </div>
+      <div className="flex flex-wrap gap-3">
+        <a
+          href="https://www.youtube.com/results?search_query=Bobby+Martins+Dark+Alley+RocDizWay"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-3 bg-gold px-6 py-4 text-xs tracking-[0.16em] text-gold-foreground uppercase"
+        >
+          <Play className="size-4" /> RocDizWay video archive
+        </a>
+        <a
+          href="https://www.afrosunny.com/bobby-dark-alley-80s-nigerian-boogie-disco-funk-soul-music-album-lp/"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-3 border border-border px-6 py-4 text-xs tracking-[0.16em] uppercase hover:border-gold"
+        >
+          Collector reference <ArrowRight className="size-4" />
+        </a>
+      </div>
+    </aside>
+  );
+}
 
-      <section className="relative overflow-hidden border-y border-white/10 bg-black py-28 text-white lg:py-40">
+function BusinessPortfolio({ ventureIndex }: { ventureIndex: number }) {
+  const ventures = [
+    ["Roc*Parties", "Events · Experiences · Lifestyle", "More than an invitation."],
+    ["RocDizWay", "Fashion · Culture · Commerce", "Curated Sovereign."],
+    ["Roc*Away", "Food · Hospitality · Experiences", "Good food. Warm energy. Reasons to stay."],
+  ];
+  const venture = ventures[ventureIndex];
+  if (!venture) return null;
+  return (
+    <aside className="grid gap-6 border border-border bg-onyx p-7 sm:grid-cols-[1fr_auto] sm:items-end sm:p-10">
+      <div>
+        <p className="text-[0.62rem] tracking-[0.18em] text-gold uppercase">Portfolio chapter</p>
+        <h3 className="mt-4 text-4xl">{venture[0]}</h3>
+        <p className="mt-3 text-xs tracking-[0.16em] text-muted-foreground uppercase">
+          {venture[1]}
+        </p>
+      </div>
+      <p className="max-w-sm font-display text-2xl text-gold-deep sm:text-right">{venture[2]}</p>
+    </aside>
+  );
+}
+function RocBossStatement() {
+  return (
+    <section className="relative overflow-hidden bg-black py-28 text-center text-white">
+      <img
+        src="/founder/archive/bobby-contemplative.jpeg"
+        alt="Roc Boss"
+        className="absolute inset-0 h-full w-full object-cover opacity-20"
+      />
+      <div className="relative mx-auto max-w-4xl px-6">
+        <p className="eyebrow">Music · Business · Culture · Legacy</p>
+        <p className="mt-8 font-display text-5xl leading-tight sm:text-6xl">
+          Defy trends.
+          <br />
+          Define legacy.
+        </p>
+      </div>
+    </section>
+  );
+}
+function MediaResource() {
+  return (
+    <section className="border-y border-border bg-onyx py-20">
+      <div className="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
         <img
-          src="/founder/archive/bobby-lifestyle.jpeg"
-          alt="Bobby Martins, known professionally as Roc Boss"
-          className="absolute inset-0 h-full w-full object-cover opacity-20 blur-[1px]"
+          src="/founder/archive/official-biography-book.jpeg"
+          alt="Roc Boss: The Official Biography book presentation"
+          className="w-full border border-border object-cover shadow-2xl"
         />
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="relative mx-auto max-w-4xl px-6 text-center">
-          <p className="eyebrow">The founder’s philosophy</p>
-          <blockquote className="mt-8 font-display text-3xl leading-tight sm:text-5xl lg:text-6xl">
-            “I believe the greatest brands are built by preserving authenticity rather than simply
-            following trends.”
-          </blockquote>
-          <p className="mt-8 text-xs tracking-[0.25em] text-gold uppercase">— Bobby Martins</p>
-        </div>
-      </section>
-
-      <section className="section-ivory py-24 text-center lg:py-32">
-        <div className="mx-auto max-w-4xl px-6">
-          <p className="eyebrow">Vision for the future</p>
-          <h2 className="mt-7 text-4xl leading-tight md:text-6xl">
-            Building beyond today.
-            <br />
-            Creating a legacy for tomorrow.
-          </h2>
-          <p className="mx-auto mt-8 max-w-2xl leading-8 text-muted-foreground">
-            The greatest measure of success is not simply what can be built today. It is what can
-            still have value tomorrow. The next chapter remains unwritten.
+        <div>
+          <p className="eyebrow">Press &amp; media</p>
+          <h2 className="mt-4 text-3xl">The definitive profile of Bobby Martins.</h2>
+          <p className="mt-5 max-w-xl leading-7 text-muted-foreground">
+            Prepared by Martins Investments, the authorised media profile brings together the
+            Founder’s biography, archive, business history and approved editorial reference.
           </p>
-          <div className="mt-10 flex justify-center">
-            <GoldLink to="/portfolio">Explore the portfolio</GoldLink>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <a
+              href="/media/martins-investments-founder-profile.pdf"
+              download="Martins_Investments_Founder_Profile.pdf"
+              className="inline-flex w-fit items-center gap-3 bg-gold px-7 py-4 text-xs tracking-[0.18em] text-gold-foreground uppercase"
+            >
+              <Download className="size-4" /> Download profile
+            </a>
+            <a
+              href="/media/martins-investments-founder-profile.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-fit items-center gap-3 border border-border px-7 py-4 text-xs tracking-[0.18em] uppercase hover:border-gold hover:text-gold"
+            >
+              View PDF <ArrowRight className="size-4" />
+            </a>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }
