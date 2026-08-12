@@ -17,14 +17,14 @@ export function SiteFooter() {
           <div>
             <Link to="/" aria-label="Martins Investments — home" className="inline-flex">
               <img
-                src="/logo.png"
+                src="/footer-logo.png"
                 alt="Martins Investments"
-                className="site-brand-logo h-auto w-48 object-contain"
+                className="h-auto w-48 object-contain brightness-110 contrast-105 drop-shadow-sm"
               />
             </Link>
             <p className="mt-7 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Three businesses shaped by a shared feel for style, good company and memorable
-              experiences.
+              Martins Investments is a private holding company building and backing exceptional
+              businesses and future ventures.
             </p>
           </div>
           <div>
@@ -57,7 +57,20 @@ export function SiteFooter() {
         <div className="mt-16 rule-gold" />
         <div className="mt-8 flex flex-col gap-3 text-xs tracking-[0.12em] uppercase text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Martins Investments. All rights reserved.</p>
-          <p>Fashion · Experiences · Hospitality</p>
+          <p>INVESTING TODAY. BUILDING TOMORROW.</p>
+        </div>
+        <div className="mt-8 text-center">
+          <a
+            href="https://wa.me/2348031975415/"
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-2 text-[0.62rem] tracking-[0.18em] uppercase text-muted-foreground/70 transition-colors hover:text-gold"
+          >
+            <span>Digital craftsmanship by</span>
+            <span className="border-b border-gold/35 pb-0.5 text-gold transition-colors group-hover:border-gold">
+              Bevilon
+            </span>
+          </a>
         </div>
       </div>
     </footer>
