@@ -23,8 +23,8 @@ export function SiteFooter() {
               />
             </Link>
             <p className="mt-7 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Martins Investments is a private holding company building and backing exceptional
-              businesses and future ventures.
+              Martins Investments is an independent holding company building, backing and
+              developing businesses with long-term potential.
             </p>
           </div>
           <div>
@@ -47,7 +47,11 @@ export function SiteFooter() {
                   <Link to="/portfolio" className="transition-colors hover:text-gold">
                     <span className="text-foreground">{holding.name}</span>
                     <br />
-                    <span className="text-xs">{holding.category}</span>
+                    <span className="text-xs">
+                      {holding.slug === "roc-away"
+                        ? "Restaurant · Lounge · Travel · Lifestyle"
+                        : holding.category}
+                    </span>
                   </Link>
                 </li>
               ))}
