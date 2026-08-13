@@ -102,12 +102,14 @@ function Home() {
             <p className="eyebrow">Independent Holding Company</p>
           </div>
           <h1 className="max-w-5xl text-5xl leading-[.98] md:text-7xl lg:text-[6.4rem]">
-            INVESTING TODAY. <span className="text-gold-gradient">BUILDING TOMORROW.</span>
+            INVESTING TODAY
+            <br />
+            <span className="text-gold-gradient">BUILDING TOMORROW</span>
           </h1>
           <div className="mt-10 flex max-w-4xl flex-col gap-8 border-t border-white/20 pt-8 md:flex-row md:items-end md:justify-between">
             <p className="max-w-xl text-base leading-relaxed text-white/72 md:text-lg">
-              Martins Investments is a private holding company building and backing businesses that
-              inspire, serve and stand the test of time.
+              Martins Investments is a private holding company building and backing businesses with
+              purpose — businesses that inspire, serve and stand the test of time.
             </p>
             <GoldLink to="/portfolio">Explore the portfolio</GoldLink>
           </div>
@@ -145,8 +147,9 @@ function Home() {
 
             <div className="flex items-end">
               <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                We are long-term thinkers with a clear focus on quality ideas, strong execution and
-                the freedom to build something real.
+                We are long-term thinkers focused on quality ideas, strong execution and the freedom
+                to build businesses with purpose — creating lasting value that stands the test of
+                time.
               </p>
             </div>
           </div>
@@ -155,22 +158,22 @@ function Home() {
             {[
               {
                 title: "Strategic Investment",
-                body: "We identify and back ideas with real potential.",
+                body: "We identify and back ideas with the potential to become enduring businesses.",
                 icon: Lightbulb,
               },
               {
                 title: "Active Partnership",
-                body: "We work alongside founders and management teams.",
+                body: "We work alongside founders and leadership teams to build, strengthen and grow lasting businesses.",
                 icon: Handshake,
               },
               {
                 title: "Sustainable Growth",
-                body: "We build businesses with enduring value.",
+                body: "We build businesses designed to create lasting value and stand the test of time.",
                 icon: TrendingUp,
               },
               {
                 title: "Excellence in Everything",
-                body: "We hold high standards across all we do.",
+                body: "We hold ourselves to the highest standards in everything we do.",
                 icon: Award,
               },
             ].map(({ title, body, icon: Icon }, index) => (
@@ -208,8 +211,8 @@ function Home() {
             </h2>
             <div className="mt-10 grid gap-8 text-base leading-relaxed text-muted-foreground md:grid-cols-2">
               <p>
-                The best businesses have a point of view. Ours begin with a clear feel for the
-                people, places and moments that move culture forward.
+                The best businesses have a clear point of view. Ours begins with a deep
+                understanding of people, places and the moments that shape culture.
               </p>
               <p>
                 The group brings commercial focus and a steady hand behind the scenes. Out front,
@@ -231,10 +234,10 @@ function Home() {
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="eyebrow">Our core holdings</p>
-              <h2 className="mt-6 text-3xl md:text-5xl">Three businesses. One purpose.</h2>
+              <h2 className="mt-6 text-3xl md:text-5xl">Three businesses. One long-term vision.</h2>
             </div>
             <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-              Distinct by design. United by values. Built for long-term impact.
+              Distinct by design. United by values. Built to create lasting value.
             </p>
           </div>
           <div className="mt-16 grid gap-6 lg:grid-cols-3">
@@ -286,22 +289,22 @@ function Home() {
               [
                 "01",
                 "Backing ideas that matter",
-                "We invest in ideas with purpose, potential and real-world impact.",
+                "We invest in ideas with purpose, potential and the ability to create meaningful, lasting impact.",
               ],
               [
                 "02",
-                "Building with integrity",
-                "We believe trust, transparency and discipline create lasting values.",
+                "BUILDING WITH PURPOSE",
+                "We build with clarity, discipline and a long-term commitment to creating businesses that matter.",
               ],
               [
                 "03",
                 "Freedom to create",
-                "We give our businesses the space and support to grow and lead.",
+                "We give our businesses the space, support and independence to grow, evolve and lead.",
               ],
               [
                 "04",
                 "Legacy as the goal",
-                "We build for the long term — for people, for communities and for generations.",
+                "We build for the long term — creating value that can endure for people, communities and generations.",
               ],
             ].map(([number, title, body]) => (
               <div key={title} className="bg-background p-9 lg:p-12">
@@ -328,8 +331,7 @@ function Home() {
             The next chapter is already beginning.
           </h2>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
-            We continue to look forward — exploring new ideas, entering new markets and building the
-            next generation of Martins Investments businesses.
+            We look ahead with purpose — exploring new ideas, entering new markets and building the next generation of Martins Investments businesses.
           </p>
           <Link
             to="/contact"
