@@ -114,7 +114,7 @@ function Home() {
   useEffect(() => {
     const timeout = window.setTimeout(() => {
       setHeroSlide((current) => (current + 1) % heroSlides.length);
-    }, 9_000);
+    }, 5_000);
 
     return () => window.clearTimeout(timeout);
   }, [heroSlide]);
@@ -286,7 +286,7 @@ function Home() {
             </p>
           </div>
           <div className="mt-16 grid gap-6 lg:grid-cols-3">
-            {homepageHoldings.map((holding, index) => (
+            {homepageHoldings.map((holding) => (
               <article
                 key={holding.slug}
                 className="group overflow-hidden border border-border bg-background"
@@ -298,9 +298,6 @@ function Home() {
                     className="size-full object-cover transition duration-700 group-hover:scale-[1.035]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-transparent" />
-                  <span className="absolute left-6 top-6 text-[.62rem] tracking-[.22em] uppercase text-white/65">
-                    0{index + 1} · {holding.status}
-                  </span>
                   <div className="absolute inset-x-0 bottom-0 p-7 text-white">
                     <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-soft">
                       {holding.category}
