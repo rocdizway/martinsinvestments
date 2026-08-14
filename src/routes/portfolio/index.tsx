@@ -51,20 +51,14 @@ function Portfolio() {
                 <p className="mt-7 max-w-lg text-base leading-relaxed text-muted-foreground">
                   {holding.description}
                 </p>
-                {holding.website ? (
-                  <a
-                    href={holding.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-9 inline-flex items-center gap-3 text-xs tracking-[.2em] uppercase text-gold-deep"
-                  >
-                    Visit the business <ArrowUpRight className="size-4" />
-                  </a>
-                ) : (
-                  <p className="mt-9 text-xs tracking-[.2em] uppercase text-muted-foreground">
-                    Independent platform in development
-                  </p>
-                )}
+                <a
+                  href={holding.website ?? "/contact"}
+                  target={holding.website ? "_blank" : undefined}
+                  rel={holding.website ? "noreferrer" : undefined}
+                  className="mt-9 inline-flex items-center gap-3 text-xs tracking-[.2em] uppercase text-gold-deep"
+                >
+                  Visit the business <ArrowUpRight className="size-4" />
+                </a>
               </div>
             </article>
           ))}
