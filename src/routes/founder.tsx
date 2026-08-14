@@ -500,15 +500,15 @@ function DarkAlleyArchive({ part }: { part: number }) {
       </div>
       <div className="flex flex-wrap gap-3">
         <a
-          href="https://www.youtube.com/results?search_query=Bobby+Martins+Dark+Alley+RocDizWay"
+          href="https://www.discogs.com/release/4951569-Bobby-Dark-Alley"
           target="_blank"
           rel="noreferrer"
           className="inline-flex items-center gap-3 bg-gold px-6 py-4 text-xs tracking-[0.16em] text-gold-foreground uppercase"
         >
-          <Play className="size-4" /> RocDizWay video archive
+          <Play className="size-4" /> Listen To Dark Alley Album
         </a>
         <a
-          href="https://www.afrosunny.com/bobby-dark-alley-80s-nigerian-boogie-disco-funk-soul-music-album-lp/"
+          href="https://www.discogs.com/artist/5309699-Bobby-Martins"
           target="_blank"
           rel="noreferrer"
           className="inline-flex items-center gap-3 border border-border px-6 py-4 text-xs tracking-[0.16em] uppercase hover:border-gold"

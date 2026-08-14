@@ -25,6 +25,7 @@ export type Holding = {
   positioning: string;
   description: string;
   image: string;
+  imageAlt: string;
   status: "Operating" | "In development";
   website?: string;
 };
@@ -37,7 +38,8 @@ export const holdings: Holding[] = [
     positioning: "Premium online fashion and lifestyle.",
     description:
       "Premium online fashion and lifestyle-curated designer clothing, footwear and accessories.",
-    image: "/sister-companies/roc-diz-way.png",
+    image: "/sister-companies/roc-diz-way-curated-fashion-holding.jpeg",
+    imageAlt: "Roc Diz Way curated fashion collection and premium retail display",
     status: "Operating",
     website: "https://rocdizway.com/",
   },
@@ -48,7 +50,8 @@ export const holdings: Holding[] = [
     positioning: "Unforgettable occasions, considered from beginning to end.",
     description:
       "VIP events, experiences, concierge and lifestyle management for unforgettable occasions.",
-    image: "/sister-companies/roc-parties.png",
+    image: "/sister-companies/roc-parties-nightlife-events-holding.jpeg",
+    imageAlt: "Roc Parties luxury nightlife and VIP events experience",
     status: "Operating",
   },
   {
@@ -58,7 +61,8 @@ export const holdings: Holding[] = [
     positioning: "Food, atmosphere and culture in one experience.",
     description:
       "Restaurant, lounge and hospitality experiences built around food, atmosphere and culture.",
-    image: "/sister-companies/roc-away.png",
+    image: "/sister-companies/roc-away-hospitality-lifestyle-holding.jpeg",
+    imageAlt: "Roc Away restaurant, lounge and lifestyle hospitality experience",
     status: "Operating",
   },
 ];

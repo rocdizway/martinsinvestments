@@ -33,6 +33,61 @@ const homepageHoldings = holdings.map((holding) => {
   return { ...holding, ...copy };
 });
 
+const heroSlides = [
+  {
+    src: "/images/homepage-slides/martins-investments-executive-boardroom-city-view.jpeg",
+    alt: "Martins Investments executive boardroom overlooking a city skyline",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-luxury-boardroom-founder-wall.jpeg",
+    alt: "Luxury Martins Investments boardroom with founder portrait wall",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-modern-corporate-office.jpeg",
+    alt: "Modern Martins Investments corporate office with glass meeting rooms",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-premium-open-plan-office.jpeg",
+    alt: "Premium open-plan Martins Investments office interior",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-headquarters-entrance.jpeg",
+    alt: "Martins Investments headquarters entrance illuminated at night",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-illuminated-brand-feature-wall.jpeg",
+    alt: "Illuminated Martins Investments brand feature wall and marble staircase",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-private-roundtable-meeting-room.jpeg",
+    alt: "Private Martins Investments roundtable meeting room overlooking the city",
+  },
+  {
+    src: "/images/homepage-slides/roc-boss-executive-terrace-sunset.jpeg",
+    alt: "Roc Boss executive terrace with panoramic sunset city views",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-founder-executive-boardroom.jpeg",
+    alt: "Martins Investments founder executive boardroom with city skyline",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-headquarters-luxury-lobby.jpeg",
+    alt: "Luxury lobby inside the Martins Investments corporate headquarters",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-city-view-conference-room.jpeg",
+    alt: "Martins Investments conference room with evening city views",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-corporate-headquarters-exterior.jpeg",
+    alt: "Martins Investments corporate headquarters exterior at night",
+  },
+  {
+    src: "/images/homepage-slides/martins-investments-roc-boss-headquarters-entrance.jpeg",
+    alt: "Martins Investments and Roc Boss headquarters entrance illuminated at night",
+  },
+] as const;
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -54,13 +109,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const [heroSlide, setHeroSlide] = useState<0 | 1>(0);
+  const [heroSlide, setHeroSlide] = useState(0);
 
   useEffect(() => {
-    const timeout = window.setTimeout(
-      () => setHeroSlide((current) => ((current + 1) % 2) as 0 | 1),
-      heroSlide === 0 ? 33_000 : 9_000,
-    );
+    const timeout = window.setTimeout(() => {
+      setHeroSlide((current) => (current + 1) % heroSlides.length);
+    }, 9_000);
 
     return () => window.clearTimeout(timeout);
   }, [heroSlide]);
@@ -68,32 +122,23 @@ function Home() {
   return (
     <>
       <section className="relative min-h-screen overflow-hidden bg-black text-white">
-        <div
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            heroSlide === 0 ? "opacity-55" : "opacity-0"
-          }`}
-          aria-hidden={heroSlide !== 0}
-        >
-          <iframe
-            className="hero-video-frame"
-            src="https://www.youtube.com/embed/InHfN22wA9s?autoplay=1&mute=1&controls=0&loop=1&playlist=InHfN22wA9s&playsinline=1&rel=0&modestbranding=1"
-            title="Martins Investments hero video"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            tabIndex={-1}
-          />
-        </div>
-        <div
-          className={`absolute inset-0 overflow-hidden transition-opacity duration-1000 ${
-            heroSlide === 1 ? "opacity-55" : "opacity-0"
-          }`}
-          aria-hidden={heroSlide !== 1}
-        >
-          <img
-            src="/hero-0.jpg"
-            alt=""
-            className={`size-full object-cover ${heroSlide === 1 ? "hero-cube-reveal" : ""}`}
-          />
-        </div>
+        {heroSlides.map((slide, index) => (
+          <div
+            key={slide.src}
+            className={`absolute inset-0 overflow-hidden transition-opacity duration-1000 ${
+              heroSlide === index ? "opacity-55" : "opacity-0"
+            }`}
+            aria-hidden={heroSlide !== index}
+          >
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              fetchPriority={index === 0 ? "high" : "auto"}
+              loading={index === 0 ? "eager" : "lazy"}
+              className={`size-full object-cover ${heroSlide === index ? "hero-cube-reveal" : ""}`}
+            />
+          </div>
+        ))}
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,6,.94)_0%,rgba(7,7,6,.62)_52%,rgba(7,7,6,.28)_100%)]" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-20 pt-40 lg:px-10 lg:pb-24">
@@ -114,15 +159,15 @@ function Home() {
             <GoldLink to="/portfolio">Explore the portfolio</GoldLink>
           </div>
           <div className="mt-8 flex gap-2" aria-label="Hero slides">
-            {[0, 1].map((slide) => (
+            {heroSlides.map((slide, index) => (
               <button
-                key={slide}
+                key={slide.src}
                 type="button"
-                aria-label={`Show hero slide ${slide + 1}`}
-                aria-current={heroSlide === slide}
-                onClick={() => setHeroSlide(slide as 0 | 1)}
+                aria-label={`Show hero slide ${index + 1}: ${slide.alt}`}
+                aria-current={heroSlide === index}
+                onClick={() => setHeroSlide(index)}
                 className={`h-0.5 transition-all duration-500 ${
-                  heroSlide === slide ? "w-12 bg-gold" : "w-7 bg-white/40 hover:bg-white/70"
+                  heroSlide === index ? "w-12 bg-gold" : "w-7 bg-white/40 hover:bg-white/70"
                 }`}
               />
             ))}
@@ -249,7 +294,7 @@ function Home() {
                 <div className="relative aspect-[4/5] overflow-hidden bg-black">
                   <img
                     src={holding.image}
-                    alt={`${holding.name} brand`}
+                    alt={holding.imageAlt}
                     className="size-full object-cover transition duration-700 group-hover:scale-[1.035]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-transparent" />

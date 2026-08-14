@@ -36,7 +36,7 @@ function Portfolio() {
               >
                 <img
                   src={holding.image}
-                  alt={`${holding.name} brand`}
+                  alt={holding.imageAlt}
                   className="absolute inset-0 size-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
