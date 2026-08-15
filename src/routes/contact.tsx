@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
 import { PageHero } from "@/components/page-hero";
+import { CONSENT_EVENT, readConsent } from "@/lib/consent";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -30,16 +32,7 @@ function Contact() {
         intro="Connect with us about a core holding, a purposeful business opportunity or a partnership aligned with our long-term vision."
       />
 
-      <section className="relative h-[420px] w-full overflow-hidden border-y border-border lg:h-[560px]">
-        <iframe
-          title="Martins Investments office on Google Maps"
-          src="https://www.google.com/maps?q=207%20Regent%20Street%2C%20London%20W1B%203HH&output=embed"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          className="absolute inset-0 size-full border-0"
-          allowFullScreen
-        />
-      </section>
+      <ConsentAwareMap />
 
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
         <div className="grid gap-16 lg:grid-cols-[1fr_0.8fr]">
@@ -116,6 +109,47 @@ function Contact() {
         </div>
       </section>
     </>
+  );
+}
+
+function ConsentAwareMap() {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const update = () => setEnabled(Boolean(readConsent()?.externalMedia));
+    update();
+    window.addEventListener(CONSENT_EVENT, update);
+    return () => window.removeEventListener(CONSENT_EVENT, update);
+  }, []);
+
+  return (
+    <section className="relative flex h-[420px] w-full items-center justify-center overflow-hidden border-y border-border bg-onyx lg:h-[560px]">
+      {enabled ? (
+        <iframe
+          title="Martins Investments office on Google Maps"
+          src="https://www.google.com/maps?q=207%20Regent%20Street%2C%20London%20W1B%203HH&output=embed"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="absolute inset-0 size-full border-0"
+          allowFullScreen
+        />
+      ) : (
+        <div className="max-w-lg px-6 text-center">
+          <p className="eyebrow">External media disabled</p>
+          <h2 className="mt-4 text-3xl">Enable maps to view our location.</h2>
+          <p className="mt-4 text-sm leading-6 text-muted-foreground">
+            Google Maps is blocked until you allow external media in your privacy choices.
+          </p>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("martins-open-cookie-settings"))}
+            className="mt-7 border border-gold px-6 py-3 text-xs tracking-[.16em] uppercase text-gold"
+          >
+            Cookie settings
+          </button>
+        </div>
+      )}
+    </section>
   );
 }
 

@@ -23,8 +23,8 @@ export function SiteFooter() {
               />
             </Link>
             <p className="mt-7 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Martins Investments is an independent holding company building, backing and
-              developing businesses with long-term potential.
+              Martins Investments is an independent holding company building, backing and developing
+              businesses with long-term potential.
             </p>
           </div>
           <div>
@@ -61,7 +61,21 @@ export function SiteFooter() {
         <div className="mt-16 rule-gold" />
         <div className="mt-8 flex flex-col gap-3 text-xs tracking-[0.12em] uppercase text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Martins Investments. All rights reserved.</p>
-          <p>INVESTING TODAY. BUILDING TOMORROW.</p>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            <Link to="/privacy" className="transition-colors hover:text-gold">
+              Privacy
+            </Link>
+            <Link to="/cookies" className="transition-colors hover:text-gold">
+              Cookies
+            </Link>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("martins-open-cookie-settings"))}
+              className="text-left transition-colors hover:text-gold"
+            >
+              Cookie settings
+            </button>
+          </div>
         </div>
         <div className="mt-8 text-center">
           <a

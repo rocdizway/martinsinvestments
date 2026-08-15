@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -16,6 +17,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Toaster } from "@/components/ui/sonner";
+import { CookieConsent } from "@/components/cookie-consent";
+import { SITE_URL } from "@/lib/site";
 
 function NotFoundComponent() {
   return (
@@ -90,7 +93,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "Martins Investments" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Martins Investments" },
+      { property: "og:locale", content: "en_GB" },
+      { property: "og:image", content: `${SITE_URL}/logo.png` },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITE_URL}/logo.png` },
     ],
     links: [
       { rel: "icon", type: "image/png", href: "/favicon.png" },
@@ -117,6 +124,38 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const canonical = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "Martins Investments",
+        legalName: "Bobby Martins Investments Limited",
+        url: SITE_URL,
+        logo: `${SITE_URL}/logo.png`,
+        founder: { "@type": "Person", name: "Bobby Martins" },
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "3rd Floor, 207 Regent Street",
+          addressLocality: "London",
+          postalCode: "W1B 3HH",
+          addressCountry: "GB",
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: "Martins Investments",
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        inLanguage: "en-GB",
+      },
+    ],
+  };
+
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
@@ -124,6 +163,12 @@ function RootShell({ children }: { children: ReactNode }) {
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('martins-theme');var d=t?t==='dark':!matchMedia('(prefers-color-scheme: light)').matches;document.documentElement.classList.toggle('dark',d);document.documentElement.style.colorScheme=d?'dark':'light'}catch(e){}})();`,
           }}
+        />
+        <link rel="canonical" href={canonical} />
+        <meta property="og:url" content={canonical} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <HeadContent />
       </head>
@@ -149,6 +194,7 @@ function RootComponent() {
       <SiteFooter />
       <ThemeToggle />
       <Toaster position="bottom-right" />
+      <CookieConsent />
     </QueryClientProvider>
   );
 }

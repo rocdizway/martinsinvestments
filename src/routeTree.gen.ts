@@ -13,7 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApproachRouteImport } from './routes/approach'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as FounderRouteImport } from './routes/founder'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as BusinessesIndexRouteImport } from './routes/businesses/index'
 import { Route as BusinessesBusinessRouteImport } from './routes/businesses/$business'
 import { Route as InsightsIndexRouteImport } from './routes/insights/index'
@@ -41,9 +43,19 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FounderRoute = FounderRouteImport.update({
   id: '/founder',
   path: '/founder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BusinessesIndexRoute = BusinessesIndexRouteImport.update({
@@ -82,7 +94,9 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/founder': typeof FounderRoute
+  '/privacy': typeof PrivacyRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
@@ -95,7 +109,9 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/founder': typeof FounderRoute
+  '/privacy': typeof PrivacyRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
@@ -109,7 +125,9 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/founder': typeof FounderRoute
+  '/privacy': typeof PrivacyRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
@@ -124,7 +142,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/approach'
     | '/contact'
+    | '/cookies'
     | '/founder'
+    | '/privacy'
     | '/businesses/$business'
     | '/insights/$slug'
     | '/portfolio/$sector'
@@ -137,7 +157,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/approach'
     | '/contact'
+    | '/cookies'
     | '/founder'
+    | '/privacy'
     | '/businesses/$business'
     | '/insights/$slug'
     | '/portfolio/$sector'
@@ -150,7 +172,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/approach'
     | '/contact'
+    | '/cookies'
     | '/founder'
+    | '/privacy'
     | '/businesses/$business'
     | '/insights/$slug'
     | '/portfolio/$sector'
@@ -164,7 +188,9 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ApproachRoute: typeof ApproachRoute
   ContactRoute: typeof ContactRoute
+  CookiesRoute: typeof CookiesRoute
   FounderRoute: typeof FounderRoute
+  PrivacyRoute: typeof PrivacyRoute
   BusinessesBusinessRoute: typeof BusinessesBusinessRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   PortfolioSectorRoute: typeof PortfolioSectorRoute
@@ -203,11 +229,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/founder': {
       id: '/founder'
       path: '/founder'
       fullPath: '/founder'
       preLoaderRoute: typeof FounderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/businesses/': {
@@ -260,7 +300,9 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ApproachRoute: ApproachRoute,
   ContactRoute: ContactRoute,
+  CookiesRoute: CookiesRoute,
   FounderRoute: FounderRoute,
+  PrivacyRoute: PrivacyRoute,
   BusinessesBusinessRoute: BusinessesBusinessRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   PortfolioSectorRoute: PortfolioSectorRoute,
