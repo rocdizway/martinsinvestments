@@ -39,18 +39,6 @@ const heroSlides = [
     alt: "Martins Investments executive boardroom overlooking a city skyline",
   },
   {
-    src: "/images/homepage-slides/martins-investments-luxury-boardroom-founder-wall.jpeg",
-    alt: "Luxury Martins Investments boardroom with founder portrait wall",
-  },
-  {
-    src: "/images/homepage-slides/martins-investments-modern-corporate-office.jpeg",
-    alt: "Modern Martins Investments corporate office with glass meeting rooms",
-  },
-  {
-    src: "/images/homepage-slides/martins-investments-premium-open-plan-office.jpeg",
-    alt: "Premium open-plan Martins Investments office interior",
-  },
-  {
     src: "/images/homepage-slides/martins-investments-headquarters-entrance.jpeg",
     alt: "Martins Investments headquarters entrance illuminated at night",
   },
@@ -59,32 +47,12 @@ const heroSlides = [
     alt: "Illuminated Martins Investments brand feature wall and marble staircase",
   },
   {
-    src: "/images/homepage-slides/martins-investments-private-roundtable-meeting-room.jpeg",
-    alt: "Private Martins Investments roundtable meeting room overlooking the city",
-  },
-  {
     src: "/images/homepage-slides/roc-boss-executive-terrace-sunset.jpeg",
     alt: "Roc Boss executive terrace with panoramic sunset city views",
   },
   {
-    src: "/images/homepage-slides/martins-investments-founder-executive-boardroom.jpeg",
-    alt: "Martins Investments founder executive boardroom with city skyline",
-  },
-  {
     src: "/images/homepage-slides/martins-investments-headquarters-luxury-lobby.jpeg",
     alt: "Luxury lobby inside the Martins Investments corporate headquarters",
-  },
-  {
-    src: "/images/homepage-slides/martins-investments-city-view-conference-room.jpeg",
-    alt: "Martins Investments conference room with evening city views",
-  },
-  {
-    src: "/images/homepage-slides/martins-investments-corporate-headquarters-exterior.jpeg",
-    alt: "Martins Investments corporate headquarters exterior at night",
-  },
-  {
-    src: "/images/homepage-slides/martins-investments-roc-boss-headquarters-entrance.jpeg",
-    alt: "Martins Investments and Roc Boss headquarters entrance illuminated at night",
   },
 ] as const;
 
@@ -112,12 +80,12 @@ function Home() {
   const [heroSlide, setHeroSlide] = useState(0);
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => {
+    const interval = window.setInterval(() => {
       setHeroSlide((current) => (current + 1) % heroSlides.length);
-    }, 5_000);
+    }, 3_000);
 
-    return () => window.clearTimeout(timeout);
-  }, [heroSlide]);
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -126,7 +94,7 @@ function Home() {
           <div
             key={slide.src}
             className={`absolute inset-0 overflow-hidden transition-opacity duration-1000 ${
-              heroSlide === index ? "opacity-55" : "opacity-0"
+              heroSlide === index ? "opacity-75" : "opacity-0"
             }`}
             aria-hidden={heroSlide !== index}
           >
@@ -139,8 +107,8 @@ function Home() {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,6,.94)_0%,rgba(7,7,6,.62)_52%,rgba(7,7,6,.28)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,6,.72)_0%,rgba(7,7,6,.4)_52%,rgba(7,7,6,.14)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/55 to-transparent" />
         <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-20 pt-40 lg:px-10 lg:pb-24">
           <div className="mb-10 flex items-center gap-4">
             <span className="h-px w-12 bg-gold" />
