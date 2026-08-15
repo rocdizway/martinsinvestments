@@ -28,6 +28,11 @@ export type Holding = {
   imageAlt: string;
   status: "Operating" | "In development";
   website?: string;
+  overview: string[];
+  highlights: string[];
+  showcaseImage: string;
+  showcase: { title: string; description: string }[];
+  featuredPartner?: { name: string; description: string };
 };
 
 export const holdings: Holding[] = [
@@ -42,6 +47,38 @@ export const holdings: Holding[] = [
     imageAlt: "Roc Diz Way curated fashion collection and premium retail display",
     status: "Operating",
     website: "https://rocdizway.com/",
+    overview: [
+      "Roc Diz Way is an online fashion destination built around authentic designer clothing, footwear and accessories. Its collections span men, women and younger shoppers, bringing recognisable labels and distinctive pieces together in one accessible store.",
+      "The brand is for customers who see personal style as an expression of confidence. With authenticity and a money-back guarantee at the heart of its offer, Roc Diz Way makes discovering the right piece feel straightforward and assured.",
+    ],
+    highlights: [
+      "Authentic designer fashion",
+      "Styles for men, women and children",
+      "Footwear and accessories",
+    ],
+    showcaseImage: "/images/brand-showcases/rocdizway-showcase.png",
+    showcase: [
+      {
+        title: "Roc Casual",
+        description:
+          "Relaxed statement pieces for everyday wear, bringing together distinctive jackets, premium layers and confident street-inspired style.",
+      },
+      {
+        title: "Roc Accessories",
+        description:
+          "The finishing edit: authentic footwear, bags, watches and accessories chosen to give every outfit its individual character.",
+      },
+      {
+        title: "Roc Select",
+        description:
+          "A considered selection of standout fashion for shoppers who want quality pieces that feel personal rather than predictable.",
+      },
+    ],
+    featuredPartner: {
+      name: "Curated Sovereign",
+      description:
+        "Roc Diz Way also showcases selected products from Curated Sovereign, bringing its distinctive point of view into a wider edit of fashion, footwear and accessories.",
+    },
   },
   {
     slug: "roc-parties",
@@ -53,6 +90,34 @@ export const holdings: Holding[] = [
     image: "/sister-companies/roc-parties-nightlife-events-holding.jpeg",
     imageAlt: "Roc Parties luxury nightlife and VIP events experience",
     status: "Operating",
+    website: "https://rocparties.com/",
+    overview: [
+      "Roc*Parties opens the door to sought-after experiences across London. From nightlife and dining to major sporting and cultural occasions, the brand helps clients enjoy the city with the details already considered.",
+      "Its wider concierge offer can support the complete journey around an occasion, including hotels, airport collection, theatre seats, personal shopping and premium travel arrangements. The idea is simple: spend more time living the experience and less time organising it.",
+    ],
+    highlights: [
+      "VIP nightlife and event access",
+      "London lifestyle concierge",
+      "Travel, dining and occasion planning",
+    ],
+    showcaseImage: "/images/brand-showcases/roc-parties-showcase.png",
+    showcase: [
+      {
+        title: "Roc Nights",
+        description:
+          "VIP access to sought-after London clubs and nightlife, with the arrival and guest experience considered from the outset.",
+      },
+      {
+        title: "Roc Occasions",
+        description:
+          "Private dining, celebrations and special-event experiences shaped around the people, place and purpose of the occasion.",
+      },
+      {
+        title: "Roc Concierge",
+        description:
+          "Personal support for hotel bookings, airport collection, theatre seats, premium travel and the details surrounding a memorable stay.",
+      },
+    ],
   },
   {
     slug: "roc-away",
@@ -64,8 +129,38 @@ export const holdings: Holding[] = [
     image: "/sister-companies/roc-away-hospitality-lifestyle-holding.jpeg",
     imageAlt: "Roc Away restaurant, lounge and lifestyle hospitality experience",
     status: "Operating",
+    website: "https://rocaway.co.uk/",
+    overview: [
+      "Roc*Away is a hospitality and lifestyle concept shaped around the way a place makes people feel. Food, music, atmosphere and service come together to create an experience that moves naturally from dining into the rest of the evening.",
+      "Designed as more than a restaurant or lounge alone, Roc*Away is about warm welcomes, considered details and the freedom to settle in. It is a social destination where culture and hospitality share the same table.",
+    ],
+    highlights: [
+      "Restaurant-led hospitality",
+      "Lounge and social experiences",
+      "Food, atmosphere and culture",
+    ],
+    showcaseImage: "/images/brand-showcases/roc-away-showcase.png",
+    showcase: [
+      {
+        title: "Roc Kitchen",
+        description:
+          "Contemporary dishes built on thoughtful ingredients, careful preparation and the pleasure of food made to be remembered.",
+      },
+      {
+        title: "Roc Dining",
+        description:
+          "A warm restaurant experience where considered service, crafted drinks and an inviting table set the pace for the evening.",
+      },
+      {
+        title: "Roc Lounge",
+        description:
+          "An easygoing social setting shaped by music, atmosphere and good company—a place designed for guests to settle in and stay.",
+      },
+    ],
   },
 ];
+
+export const getHolding = (slug: string) => holdings.find((holding) => holding.slug === slug);
 
 export const groupIntro =
   "Martins Investments is all about working with you to lift your capabilities and turn dreams to reality. Whether you are looking for business support or help to make your quality personal time richer and more relaxing, contact us and let us help you today.";

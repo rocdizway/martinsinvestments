@@ -310,10 +310,11 @@ function Home() {
                     {holding.description}
                   </p>
                   <Link
-                    to="/portfolio"
+                    to="/businesses/$business"
+                    params={{ business: holding.slug }}
                     className="mt-7 inline-flex items-center gap-2 text-[.65rem] tracking-[.2em] uppercase text-gold"
                   >
-                    View holding <ArrowUpRight className="size-3.5" />
+                    Discover the brand <ArrowUpRight className="size-3.5" />
                   </Link>
                 </div>
               </article>
@@ -373,7 +374,8 @@ function Home() {
             The next chapter is already beginning.
           </h2>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
-            We look ahead with purpose — exploring new ideas, entering new markets and building the next generation of Martins Investments businesses.
+            We look ahead with purpose — exploring new ideas, entering new markets and building the
+            next generation of Martins Investments businesses.
           </p>
           <Link
             to="/contact"

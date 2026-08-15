@@ -7,7 +7,7 @@ export type FounderChapter = {
   image: string;
   imageAlt: string;
   quote: string;
-  sections: { heading?: string; paragraphs: string[] }[];
+  sections: { heading?: string; paragraphs: string[]; cta?: string }[];
 };
 
 export const founderChapters: FounderChapter[] = [
@@ -236,9 +236,35 @@ export const founderChapters: FounderChapter[] = [
       {
         heading: "The Founder today",
         paragraphs: [
-          "Bobby Martins BA (Hons), known professionally as Roc Boss, is Founder and Chief Executive Officer of Bobby Martins Investments Limited; Founder of RocDizWay—Curated Sovereign; Founder of Roc*Parties; and Founder and portfolio founder of Roc*Away.",
-          "He is a Business Management and Strategy professional, former recording artist and First-Class Honours graduate of the University of Sunderland in London. Music. Business. Culture. Legacy.",
+          "Bobby Martins BA (Hons), known professionally as Roc Boss, is the Founder and Chief Executive Officer of Bobby Martins Investments Limited, and continues to lead the company as it builds, develops and backs businesses with long-term potential.",
+          "Today, Bobby operates with the flexibility of an entrepreneur, business strategist and commercial professional. Rather than being confined to a single industry or role, he is open to opportunities where his experience, knowledge and perspective can create value.",
         ],
+      },
+      {
+        heading: "Consulting, advisory and speaking",
+        paragraphs: [
+          "His current professional work includes business consulting and strategic advisory, helping businesses and entrepreneurs think more clearly about their direction, positioning, customers, sales and growth.",
+          "He also undertakes paid speaking engagements, sharing practical insight and experience across sales, management, marketing, business strategy, entrepreneurship and leadership.",
+          "Available for consulting, advisory and speaking engagements.",
+        ],
+        cta: "Book Bobby Martins",
+      },
+      {
+        heading: "Strategy into action",
+        paragraphs: [
+          "His approach is straightforward: understand the objective, understand the market, identify what works, and turn strategy into action.",
+          "For Bobby, business is not simply about creating something that works today. It is about understanding when to adapt, knowing when to take a different direction and having the vision to build something that can endure.",
+        ],
+      },
+      {
+        heading: "Looking Ahead",
+        paragraphs: [
+          "The next chapter remains open.",
+          "Bobby continues to build through Martins Investments, develop his own ventures, advise businesses, share his knowledge and explore new opportunities across different industries and markets.",
+          "The position is flexible. The ambition is not.",
+          "Build with purpose. Create value. Stay authentic. Think independently. Keep moving forward.",
+        ],
+        cta: "Start a conversation",
       },
     ],
   },
