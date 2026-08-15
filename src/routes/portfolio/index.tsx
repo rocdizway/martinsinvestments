@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
 import { holdings } from "@/data/group";
 
@@ -51,14 +52,13 @@ function Portfolio() {
                 <p className="mt-7 max-w-lg text-base leading-relaxed text-muted-foreground">
                   {holding.description}
                 </p>
-                <a
-                  href={holding.website ?? "/contact"}
-                  target={holding.website ? "_blank" : undefined}
-                  rel={holding.website ? "noreferrer" : undefined}
+                <Link
+                  to="/businesses/$business"
+                  params={{ business: holding.slug }}
                   className="mt-9 inline-flex items-center gap-3 text-xs tracking-[.2em] uppercase text-gold-deep"
                 >
-                  Visit the business <ArrowUpRight className="size-4" />
-                </a>
+                  Discover the brand <ArrowUpRight className="size-4" />
+                </Link>
               </div>
             </article>
           ))}

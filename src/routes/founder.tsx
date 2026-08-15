@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, BookOpen, Crown, Download, Menu, Play, X } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 import { founderChapters } from "@/data/founder-story";
@@ -227,6 +227,14 @@ function Chapter({ chapter }: { chapter: ChapterType }) {
                     {section.paragraphs.map((paragraph) => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
+                    {section.cta ? (
+                      <Link
+                        to="/contact"
+                        className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-4 text-xs tracking-[0.18em] text-gold-foreground uppercase transition-colors hover:bg-gold-soft"
+                      >
+                        {section.cta} <ArrowRight className="size-4" />
+                      </Link>
+                    ) : null}
                   </div>
                 </section>
                 <ChapterInterlude slug={chapter.slug} sectionIndex={index} />
