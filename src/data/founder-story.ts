@@ -158,7 +158,7 @@ export const founderChapters: FounderChapter[] = [
       {
         heading: "RocDizWay",
         paragraphs: [
-          "RocDizWay brings together music, culture, fashion and commerce. Built around authentic archive and Y2K-era designer clothing and accessories, its Curated Sovereign philosophy treats every piece as an artefact with identity, history and significance—not simply an item to be sold.",
+          "RocDizWay brings together music, culture, fashion and commerce. Built around authentic archive and Y2K-era designer clothing and accessories, its Curated Sovereign👑 philosophy treats every piece as an artefact with identity, history and significance—not simply an item to be sold.",
           "Every piece has a story. Some represent an era; some represent a movement; some may never be available again. They are curated not simply to be sold, but to be remembered.",
         ],
       },

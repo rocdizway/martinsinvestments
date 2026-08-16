@@ -38,18 +38,18 @@ export type Holding = {
 export const holdings: Holding[] = [
   {
     slug: "rocdizway",
-    name: "Roc Diz Way",
-    category: "Curated Sovereign",
+    name: "RocDizWay",
+    category: "Curated Sovereign👑",
     positioning: "Premium online fashion and lifestyle.",
     description:
       "Premium online fashion and lifestyle-curated designer clothing, footwear and accessories.",
     image: "/sister-companies/roc-diz-way-curated-fashion-holding.jpeg",
-    imageAlt: "Roc Diz Way curated fashion collection and premium retail display",
+    imageAlt: "RocDizWay curated fashion collection and premium retail display",
     status: "Operating",
     website: "https://rocdizway.com/",
     overview: [
-      "Roc Diz Way is an online fashion destination built around authentic designer clothing, footwear and accessories. Its collections span men, women and younger shoppers, bringing recognisable labels and distinctive pieces together in one accessible store.",
-      "The brand is for customers who see personal style as an expression of confidence. With authenticity and a money-back guarantee at the heart of its offer, Roc Diz Way makes discovering the right piece feel straightforward and assured.",
+      "RocDizWay is an online fashion destination built around authentic designer clothing, footwear and accessories. Its collections span men, women and younger shoppers, bringing recognisable labels and distinctive pieces together in one accessible store.",
+      "The brand is for customers who see personal style as an expression of confidence. With authenticity and a money-back guarantee at the heart of its offer, RocDizWay makes discovering the right piece feel straightforward and assured.",
     ],
     highlights: [
       "Authentic designer fashion",
@@ -75,9 +75,9 @@ export const holdings: Holding[] = [
       },
     ],
     featuredPartner: {
-      name: "Curated Sovereign",
+      name: "RocDizWay",
       description:
-        "Roc Diz Way also showcases selected products from Curated Sovereign, bringing its distinctive point of view into a wider edit of fashion, footwear and accessories.",
+        "RocDizWay — Curated Sovereign👑 — brings a distinctive point of view to its wider edit of fashion, footwear and accessories.",
     },
   },
   {
@@ -273,13 +273,13 @@ export const businesses: Business[] = [
     slug: "fashion",
     name: "Fashion",
     sector: "creative-digital",
-    tagline: "Online fashion through Roc Diz Way, with great designs for the whole family.",
+    tagline: "Online fashion through RocDizWay, with great designs for the whole family.",
     description:
-      "Fashion at Martins Investments is built around the Roc Diz Way online fashion store. The service invites customers to love their look with designs for the whole family, while also calling for models interested in available modelling work.",
+      "Fashion at Martins Investments is built around the RocDizWay online fashion store. The service invites customers to love their look with designs for the whole family, while also calling for models interested in available modelling work.",
     stage: "Operating",
     website: "https://rocdizway.com/",
     highlights: [
-      "Roc Diz Way online fashion store",
+      "RocDizWay online fashion store",
       "Great designs for the whole family",
       "Model recruitment for available modelling work",
     ],
@@ -386,7 +386,7 @@ export const insights = [
       "The best archive fashion carries more than a logo. It holds a time, an attitude and a story worth wearing again.",
     body: [
       "A sought-after piece of Y2K streetwear is never only about nostalgia. The cut, the weight, the branding and the memory around it all say something that a quick imitation cannot.",
-      "Roc Diz Way exists for that distinction: finding authentic pieces with enough character to feel relevant without pretending they were made yesterday.",
+      "RocDizWay exists for that distinction: finding authentic pieces with enough character to feel relevant without pretending they were made yesterday.",
     ],
   },
   {

@@ -14,7 +14,7 @@ import { holdings } from "@/data/group";
 const homepageHoldings = holdings.map((holding) => {
   const copy = {
     rocdizway: {
-      category: "Curated sovereign",
+      category: "Curated Sovereign👑",
       description:
         "Premium online fashion and lifestyle-curated designer clothing, footwear and accessories.",
     },
@@ -103,7 +103,7 @@ function Home() {
               alt={slide.alt}
               fetchPriority={index === 0 ? "high" : "auto"}
               loading={index === 0 ? "eager" : "lazy"}
-              className={`size-full object-cover ${heroSlide === index ? "hero-cube-reveal" : ""}`}
+              className={`size-full object-cover ${heroSlide === index ? "hero-ken-burns" : ""}`}
             />
           </div>
         ))}
@@ -267,10 +267,10 @@ function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-7 text-white">
-                    <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-soft">
+                    <h3 className="text-3xl uppercase">{holding.name}</h3>
+                    <p className="mt-3 whitespace-nowrap text-[.62rem] tracking-[.22em] uppercase text-gold-soft">
                       {holding.category}
                     </p>
-                    <h3 className="mt-3 text-3xl uppercase">{holding.name}</h3>
                   </div>
                 </div>
                 <div className="p-7">
