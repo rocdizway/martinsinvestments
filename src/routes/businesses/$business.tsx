@@ -304,19 +304,21 @@ function RocDizWayProfile({ holding }: { holding: LoadedHolding }) {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-onyx py-20 text-white sm:py-24 lg:py-28">
+      <section className="border-y border-border bg-onyx py-20 text-foreground sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <p className="eyebrow">At a glance</p>
-          <div className="mt-9 grid divide-y divide-white/12 border-y border-white/12 md:grid-cols-3 md:divide-x md:divide-y-0">
+          <div className="mt-9 grid divide-y divide-border border-y border-border md:grid-cols-3 md:divide-x md:divide-y-0">
             {rocdizwayPromises.map((promise) => (
               <div key={promise.title} className="py-8 md:px-8 lg:px-10 first:pl-0 last:pr-0">
                 <span className="flex size-8 items-center justify-center rounded-full border border-gold/45 text-gold">
                   <Check className="size-4" strokeWidth={1.5} />
                 </span>
-                <h3 className="mt-6 text-sm tracking-[.14em] uppercase text-white">
+                <h3 className="mt-6 text-sm tracking-[.14em] uppercase text-foreground">
                   {promise.title}
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-white/58">{promise.description}</p>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                  {promise.description}
+                </p>
               </div>
             ))}
           </div>
