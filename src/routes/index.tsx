@@ -7,7 +7,7 @@ import {
   Lightbulb,
   TrendingUp,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GoldLink } from "@/components/gold-link";
 import { holdings } from "@/data/group";
 
@@ -78,10 +78,28 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const [heroSlide, setHeroSlide] = useState(0);
+  const [previousHeroSlide, setPreviousHeroSlide] = useState<number | null>(null);
+  const heroSlideRef = useRef(0);
+
+  const showHeroSlide = (nextSlide: number) => {
+    const next = (nextSlide + heroSlides.length) % heroSlides.length;
+    const current = heroSlideRef.current;
+
+    if (next === current) return;
+
+    setPreviousHeroSlide(current);
+    heroSlideRef.current = next;
+    setHeroSlide(next);
+  };
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setHeroSlide((current) => (current + 1) % heroSlides.length);
+      const current = heroSlideRef.current;
+      const next = (current + 1) % heroSlides.length;
+
+      setPreviousHeroSlide(current);
+      heroSlideRef.current = next;
+      setHeroSlide(next);
     }, 3_000);
 
     return () => window.clearInterval(interval);
@@ -93,25 +111,28 @@ function Home() {
         {heroSlides.map((slide, index) => (
           <div
             key={slide.src}
-            className={`absolute inset-0 overflow-hidden transition-opacity duration-1000 ${
-              heroSlide === index ? "opacity-75" : "opacity-0"
+            className={`absolute inset-0 overflow-hidden transition-opacity duration-[1800ms] ease-[cubic-bezier(.45,0,.2,1)] ${
+              heroSlide === index || previousHeroSlide === index ? "opacity-100" : "opacity-0"
             }`}
             aria-hidden={heroSlide !== index}
+            style={{
+              zIndex: heroSlide === index ? 20 : previousHeroSlide === index ? 10 : 0,
+            }}
           >
             <img
               src={slide.src}
               alt={slide.alt}
               fetchPriority={index === 0 ? "high" : "auto"}
               loading={index === 0 ? "eager" : "lazy"}
-              className={`h-full max-w-none object-cover ${
-                heroSlide === index ? "hero-ken-burns" : "w-full"
+              className={`hero-pan-image h-full max-w-none object-cover ${
+                heroSlide === index ? "hero-ken-burns" : "hero-pan-rest"
               }`}
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,6,.72)_0%,rgba(7,7,6,.4)_52%,rgba(7,7,6,.14)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/55 to-transparent" />
-        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-20 pt-40 lg:px-10 lg:pb-24">
+        <div className="absolute inset-0 z-30 bg-[linear-gradient(90deg,rgba(7,7,6,.72)_0%,rgba(7,7,6,.4)_52%,rgba(7,7,6,.14)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 z-30 h-48 bg-gradient-to-t from-black/55 to-transparent" />
+        <div className="relative z-40 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-20 pt-40 lg:px-10 lg:pb-24">
           <div className="mb-10 flex items-center gap-4">
             <span className="h-px w-12 bg-gold" />
             <p className="eyebrow">Independent Holding Company</p>
@@ -135,7 +156,7 @@ function Home() {
                 type="button"
                 aria-label={`Show hero slide ${index + 1}: ${slide.alt}`}
                 aria-current={heroSlide === index}
-                onClick={() => setHeroSlide(index)}
+                onClick={() => showHeroSlide(index)}
                 className={`h-0.5 transition-all duration-500 ${
                   heroSlide === index ? "w-12 bg-gold" : "w-7 bg-white/40 hover:bg-white/70"
                 }`}
