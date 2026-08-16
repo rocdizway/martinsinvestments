@@ -35,24 +35,40 @@ const homepageHoldings = holdings.map((holding) => {
 
 const heroSlides = [
   {
-    src: "/images/homepage-slides/martins-investments-executive-boardroom-city-view.jpeg",
-    alt: "Martins Investments executive boardroom overlooking a city skyline",
+    src: "/images/homepage-slides/slide-01.jpeg",
+    alt: "Martins Investments headquarters entrance at night",
   },
   {
-    src: "/images/homepage-slides/martins-investments-headquarters-entrance.jpeg",
-    alt: "Martins Investments headquarters entrance illuminated at night",
+    src: "/images/homepage-slides/slide-02.jpeg",
+    alt: "Roc Boss terrace overlooking the city at sunset",
   },
   {
-    src: "/images/homepage-slides/martins-investments-illuminated-brand-feature-wall.jpeg",
-    alt: "Illuminated Martins Investments brand feature wall and marble staircase",
+    src: "/images/homepage-slides/slide-03.jpeg",
+    alt: "Martins Investments illuminated marble feature wall",
   },
   {
-    src: "/images/homepage-slides/roc-boss-executive-terrace-sunset.jpeg",
-    alt: "Roc Boss executive terrace with panoramic sunset city views",
+    src: "/images/homepage-slides/slide-04.jpeg",
+    alt: "Martins Investments executive boardroom overlooking the city",
   },
   {
-    src: "/images/homepage-slides/martins-investments-headquarters-luxury-lobby.jpeg",
-    alt: "Luxury lobby inside the Martins Investments corporate headquarters",
+    src: "/images/homepage-slides/slide-05.jpeg",
+    alt: "Martins Investments boardroom with Roc Boss portrait",
+  },
+  {
+    src: "/images/homepage-slides/slide-06.jpeg",
+    alt: "Martins Investments conference room and founder feature wall",
+  },
+  {
+    src: "/images/homepage-slides/slide-07.jpeg",
+    alt: "Martins Investments premium open-plan office",
+  },
+  {
+    src: "/images/homepage-slides/slide-08.jpeg",
+    alt: "Martins Investments luxury headquarters lobby",
+  },
+  {
+    src: "/images/homepage-slides/slide-09.jpeg",
+    alt: "Martins Investments headquarters exterior with Roc Boss display",
   },
 ] as const;
 
