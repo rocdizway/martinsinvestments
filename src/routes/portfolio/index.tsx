@@ -46,8 +46,8 @@ function Portfolio() {
                 </p>
               </div>
               <div className="flex flex-col justify-center p-9 lg:p-16">
-                <p className="eyebrow">{holding.category}</p>
-                <h2 className="mt-6 text-4xl text-foreground md:text-5xl">{holding.name}</h2>
+                <h2 className="text-4xl text-foreground md:text-5xl">{holding.name}</h2>
+                <p className="eyebrow mt-3 whitespace-nowrap">{holding.category}</p>
                 <p className="mt-4 font-display text-xl text-gold-deep">{holding.positioning}</p>
                 <p className="mt-7 max-w-lg text-base leading-relaxed text-muted-foreground">
                   {holding.description}

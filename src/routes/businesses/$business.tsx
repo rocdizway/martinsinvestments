@@ -42,10 +42,10 @@ function BusinessProfile() {
           >
             <ArrowLeft className="size-3.5" /> Our core holdings
           </Link>
-          <p className="eyebrow">{holding.category}</p>
-          <h1 className="mt-6 max-w-4xl text-5xl uppercase leading-none md:text-7xl lg:text-8xl">
+          <h1 className="max-w-4xl text-5xl uppercase leading-none md:text-7xl lg:text-8xl">
             {holding.name}
           </h1>
+          <p className="eyebrow mt-6 whitespace-nowrap">{holding.category}</p>
           <p className="mt-7 max-w-2xl font-display text-xl leading-relaxed text-white/80 md:text-2xl">
             {holding.positioning}
           </p>
@@ -71,9 +71,12 @@ function BusinessProfile() {
             {holding.featuredPartner ? (
               <aside className="mt-10 border-l-2 border-gold bg-background p-7 shadow-[var(--shadow-luxe)] sm:p-9">
                 <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-deep">
-                  Showcasing products from
+                  Brand signature
                 </p>
                 <h3 className="mt-3 text-2xl text-foreground">{holding.featuredPartner.name}</h3>
+                <p className="mt-1 whitespace-nowrap text-xs tracking-[.16em] uppercase text-gold-deep">
+                  {holding.category}
+                </p>
                 <p className="mt-4 text-sm leading-7 text-muted-foreground sm:text-base">
                   {holding.featuredPartner.description}
                 </p>

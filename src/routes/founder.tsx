@@ -531,7 +531,7 @@ function DarkAlleyArchive({ part }: { part: number }) {
 function BusinessPortfolio({ ventureIndex }: { ventureIndex: number }) {
   const ventures = [
     ["Roc*Parties", "Events · Experiences · Lifestyle", "More than an invitation."],
-    ["RocDizWay", "Fashion · Culture · Commerce", "Curated Sovereign."],
+    ["RocDizWay", "Fashion · Culture · Commerce", "Curated Sovereign👑"],
     ["Roc*Away", "Food · Hospitality · Experiences", "Good food. Warm energy. Reasons to stay."],
   ];
   const venture = ventures[ventureIndex];

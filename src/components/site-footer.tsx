@@ -47,7 +47,7 @@ export function SiteFooter() {
                   <Link to="/portfolio" className="transition-colors hover:text-gold">
                     <span className="text-foreground">{holding.name}</span>
                     <br />
-                    <span className="text-xs">
+                    <span className="whitespace-nowrap text-xs">
                       {holding.slug === "roc-away"
                         ? "Restaurant · Lounge · Travel · Lifestyle"
                         : holding.category}
