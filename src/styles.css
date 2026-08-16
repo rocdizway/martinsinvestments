@@ -265,10 +265,10 @@
   }
 
   .hero-ken-burns {
-    animation: hero-ken-burns 9s ease-out both;
+    animation: hero-ken-burns 3s linear both;
     max-width: none;
     transform-origin: left center;
-    width: 106%;
+    width: 130%;
     will-change: transform;
   }
 
@@ -345,7 +345,7 @@
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(-5.66%, 0, 0);
+    transform: translate3d(-22.75%, 0, 0);
   }
 }
 
