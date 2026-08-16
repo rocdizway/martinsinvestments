@@ -103,7 +103,9 @@ function Home() {
               alt={slide.alt}
               fetchPriority={index === 0 ? "high" : "auto"}
               loading={index === 0 ? "eager" : "lazy"}
-              className={`size-full object-cover ${heroSlide === index ? "hero-ken-burns" : ""}`}
+              className={`h-full max-w-none object-cover ${
+                heroSlide === index ? "hero-ken-burns" : "w-full"
+              }`}
             />
           </div>
         ))}
