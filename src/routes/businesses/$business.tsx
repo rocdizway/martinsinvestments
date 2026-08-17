@@ -1,6 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Play } from "lucide-react";
 import { getHolding } from "@/data/group";
+import { Dialog, DialogContent, DialogOverlay } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/businesses/$business")({
   loader: ({ params }) => {
@@ -184,11 +188,11 @@ function BusinessProfile() {
 type LoadedHolding = NonNullable<ReturnType<typeof getHolding>>;
 
 const rocdizwayCollections = [
-  { title: "Men’s fashion", position: "94% center" },
-  { title: "Women’s fashion", position: "16% center" },
-  { title: "Footwear", position: "50% center" },
-  { title: "Accessories", position: "67% center" },
-  { title: "Selected pieces", position: "32% center" },
+  { title: "Men’s fashion", video: "/videos/rocdizway/men-fashion.mp4" },
+  { title: "Women’s fashion", video: "/videos/rocdizway/women-fashion.mp4" },
+  { title: "Footwear", video: "/videos/rocdizway/footwear.mp4" },
+  { title: "Accessories", video: "/videos/rocdizway/accessories.mp4" },
+  { title: "Selected pieces", video: "/videos/rocdizway/selected-pieces.mp4" },
 ] as const;
 
 const rocdizwayPromises = [
@@ -205,6 +209,66 @@ const rocdizwayPromises = [
     description: "Money-back guarantee and secure checkout.",
   },
 ] as const;
+
+interface VideoCardProps {
+  title: string;
+  video: string;
+}
+
+function VideoCard({ title, video }: VideoCardProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const videoRef = useState<HTMLVideoElement | null>(null)[1];
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="group relative aspect-[4/5] overflow-hidden bg-black cursor-pointer text-left"
+      >
+        <video
+          src={video}
+          muted
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          className="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.035]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-transparent" />
+        
+        {/* Play Button */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="flex size-16 items-center justify-center rounded-full bg-gold/90 text-black shadow-lg backdrop-blur-sm transition-transform group-hover:scale-110">
+            <Play className="size-7 fill-current" />
+          </div>
+        </div>
+
+        {/* Title */}
+        <div className="absolute inset-x-0 bottom-0 flex flex-col items-start justify-end gap-4 p-6 text-white sm:p-7 text-left">
+          <div className="flex w-full items-start justify-between">
+            <h3 className="font-display text-2xl text-left">{title}</h3>
+            <ArrowUpRight className="mb-1 size-4 shrink-0 text-gold-soft transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+          </div>
+        </div>
+      </button>
+
+      {/* Video Modal */}
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="border-0 bg-transparent p-0 shadow-none w-[90vw] max-w-5xl max-h-[90vh] flex items-center justify-center">
+          <div className="relative w-full h-full flex items-center justify-center">
+            <video
+              ref={videoRef}
+              src={video}
+              autoPlay
+              controls
+              playsInline
+              className="w-full h-full max-h-[85vh] object-contain rounded-lg"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
 
 function RocDizWayProfile({ holding }: { holding: LoadedHolding }) {
   return (
@@ -274,7 +338,7 @@ function RocDizWayProfile({ holding }: { holding: LoadedHolding }) {
 
       <section className="bg-background py-20 sm:py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl text-left">
             <p className="eyebrow">Shop the edit</p>
             <h2 className="mt-5 text-4xl leading-tight text-foreground sm:text-5xl">
               Find your next signature piece.
@@ -283,26 +347,11 @@ function RocDizWayProfile({ holding }: { holding: LoadedHolding }) {
 
           <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
             {rocdizwayCollections.map((collection) => (
-              <a
+              <VideoCard
                 key={collection.title}
-                href={holding.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative aspect-[4/5] overflow-hidden bg-black"
-              >
-                <img
-                  src={holding.showcaseImage}
-                  alt={`${collection.title} at RocDizWay`}
-                  loading="lazy"
-                  className="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.035]"
-                  style={{ objectPosition: collection.position }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 text-white sm:p-7">
-                  <h3 className="font-display text-2xl">{collection.title}</h3>
-                  <ArrowUpRight className="mb-1 size-4 shrink-0 text-gold-soft transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-                </div>
-              </a>
+                title={collection.title}
+                video={collection.video}
+              />
             ))}
           </div>
         </div>

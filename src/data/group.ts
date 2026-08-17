@@ -56,7 +56,7 @@ export const holdings: Holding[] = [
       "Styles for men, women and children",
       "Footwear and accessories",
     ],
-    showcaseImage: "/images/brand-showcases/rocdizway-showcase.png",
+    showcaseImage: "/images/brand-showcases/rocdizway-business-banner.jpeg",
     showcase: [
       {
         title: "Roc Casual",
