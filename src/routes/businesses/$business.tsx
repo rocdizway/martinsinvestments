@@ -188,8 +188,8 @@ function BusinessProfile() {
 type LoadedHolding = NonNullable<ReturnType<typeof getHolding>>;
 
 const rocdizwayCollections = [
-  { title: "Men’s fashion", video: "/videos/rocdizway/men-fashion.mp4" },
-  { title: "Women’s fashion", video: "/videos/rocdizway/women-fashion.mp4" },
+  { title: "Men's fashion", video: "/videos/rocdizway/men-fashion.mp4" },
+  { title: "Women's fashion", video: "/videos/rocdizway/women-fashion.mp4" },
   { title: "Footwear", video: "/videos/rocdizway/footwear.mp4" },
   { title: "Accessories", video: "/videos/rocdizway/accessories.mp4" },
   { title: "Selected pieces", video: "/videos/rocdizway/selected-pieces.mp4" },
