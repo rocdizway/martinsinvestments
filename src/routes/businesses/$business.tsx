@@ -229,7 +229,7 @@ function VideoCard({ title, video }: VideoCardProps) {
           src={video}
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           aria-hidden="true"
           className="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.035]"
         />
