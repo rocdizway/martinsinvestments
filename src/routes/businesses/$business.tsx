@@ -217,13 +217,17 @@ interface VideoCardProps {
 
 function VideoCard({ title, video }: VideoCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [videoEnded, setVideoEnded] = useState(false);
   const videoRef = useState<HTMLVideoElement | null>(null)[1];
 
   return (
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="group relative aspect-[4/5] overflow-hidden bg-black cursor-pointer text-left"
+        className="group relative aspect-[4/5] overflow-hidden cursor-pointer text-left"
+        style={{
+          background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)'
+        }}
       >
         <video
           src={video}
@@ -252,7 +256,10 @@ function VideoCard({ title, video }: VideoCardProps) {
       </button>
 
       {/* Video Modal */}
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog open={isOpen} onOpenChange={(open) => {
+        setIsOpen(open);
+        if (!open) setVideoEnded(false);
+      }}>
         <DialogContent className="border-0 bg-transparent p-0 shadow-none w-[90vw] max-w-5xl max-h-[90vh] flex items-center justify-center">
           <div className="relative w-full h-full flex items-center justify-center">
             <video
@@ -261,8 +268,21 @@ function VideoCard({ title, video }: VideoCardProps) {
               autoPlay
               controls
               playsInline
+              onEnded={() => setVideoEnded(true)}
               className="w-full h-full max-h-[85vh] object-contain rounded-lg"
             />
+            {videoEnded && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/95 rounded-lg">
+                <a
+                  href="https://rocdizway.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-4 border-2 border-gold bg-gold/10 px-8 py-4 text-lg tracking-[.2em] uppercase text-gold-soft transition hover:bg-gold hover:text-black font-display rounded-lg"
+                >
+                  SHOP NOW <ArrowUpRight className="size-5" />
+                </a>
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
