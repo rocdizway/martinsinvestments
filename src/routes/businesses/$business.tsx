@@ -188,11 +188,31 @@ function BusinessProfile() {
 type LoadedHolding = NonNullable<ReturnType<typeof getHolding>>;
 
 const rocdizwayCollections = [
-  { title: "Men's fashion", video: "/videos/rocdizway/men-fashion.mp4" },
-  { title: "Women's fashion", video: "/videos/rocdizway/women-fashion.mp4" },
-  { title: "Footwear", video: "/videos/rocdizway/footwear.mp4" },
-  { title: "Accessories", video: "/videos/rocdizway/accessories.mp4" },
-  { title: "Selected pieces", video: "/videos/rocdizway/selected-pieces.mp4" },
+  {
+    title: "Men's fashion",
+    video: "/videos/rocdizway/men-fashion.mp4",
+    poster: "/images/rocdizway/men-fashion.jpg",
+  },
+  {
+    title: "Women's fashion",
+    video: "/videos/rocdizway/women-fashion.mp4",
+    poster: "/images/rocdizway/women-fashion.jpg",
+  },
+  {
+    title: "Footwear",
+    video: "/videos/rocdizway/footwear.mp4",
+    poster: "/images/rocdizway/footwears.jpg",
+  },
+  {
+    title: "Accessories",
+    video: "/videos/rocdizway/accessories.mp4",
+    poster: "/images/rocdizway/accessories.jpg",
+  },
+  {
+    title: "Selected pieces",
+    video: "/videos/rocdizway/selected-pieces.mp4",
+    poster: "/images/rocdizway/selected-pieces.jpg",
+  },
 ] as const;
 
 const rocdizwayPromises = [
@@ -213,9 +233,10 @@ const rocdizwayPromises = [
 interface VideoCardProps {
   title: string;
   video: string;
+  poster: string;
 }
 
-function VideoCard({ title, video }: VideoCardProps) {
+function VideoCard({ title, video, poster }: VideoCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
   const videoRef = useState<HTMLVideoElement | null>(null)[1];
@@ -231,6 +252,7 @@ function VideoCard({ title, video }: VideoCardProps) {
       >
         <video
           src={video}
+          poster={poster}
           muted
           playsInline
           preload="auto"
@@ -265,6 +287,7 @@ function VideoCard({ title, video }: VideoCardProps) {
             <video
               ref={videoRef}
               src={video}
+              poster={poster}
               autoPlay
               controls
               playsInline
@@ -371,6 +394,7 @@ function RocDizWayProfile({ holding }: { holding: LoadedHolding }) {
                 key={collection.title}
                 title={collection.title}
                 video={collection.video}
+                poster={collection.poster}
               />
             ))}
           </div>
