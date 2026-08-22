@@ -29,7 +29,7 @@ function RevealController() {
           if (!entry.isIntersecting || animated.has(entry.target)) return;
 
           const element = entry.target as HTMLElement;
-          const delay = Number(element.dataset.revealDelay ?? 0);
+          const delay = Number(element.dataset["revealDelay"] ?? 0);
           animated.add(element);
           observer.unobserve(element);
           const animation = element.animate(

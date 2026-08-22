@@ -62,3 +62,22 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Headless WordPress
+
+Perspectives reads published posts from the WordPress REST API on the server. Set the API root in
+`.env.local`:
+
+```sh
+VITE_WORDPRESS_API_URL=https://cms.example.com/wp-json/wp/v2
+```
+
+The URL must use HTTPS outside local development and must end in `/wp-json/wp/v2`. Published posts
+do not require WordPress credentials. Each post should have an excerpt, category, featured image,
+featured-image alt text, and a stable slug. Existing Perspectives URLs can be preserved by using the
+current slugs when those posts are recreated in WordPress.
+
+When the variable is omitted, the application keeps using the three local posts in
+`src/data/group.ts`, which allows local development before the CMS is connected. If the variable is
+present but WordPress is unavailable, the site shows a retryable error instead of silently serving
+stale local content.

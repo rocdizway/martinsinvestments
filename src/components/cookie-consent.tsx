@@ -42,7 +42,7 @@ export function CookieConsent() {
     const script = document.createElement("script");
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    script.dataset.martinsAnalytics = "true";
+    script.dataset["martinsAnalytics"] = "true";
     document.head.appendChild(script);
     window.dataLayer = window.dataLayer || [];
     window.gtag = (...args: unknown[]) => window.dataLayer?.push(args);

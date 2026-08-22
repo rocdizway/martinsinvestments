@@ -16,6 +16,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as FounderRouteImport } from './routes/founder'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as BusinessesIndexRouteImport } from './routes/businesses/index'
 import { Route as BusinessesBusinessRouteImport } from './routes/businesses/$business'
 import { Route as InsightsIndexRouteImport } from './routes/insights/index'
@@ -58,6 +59,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BusinessesIndexRoute = BusinessesIndexRouteImport.update({
   id: '/businesses/',
   path: '/businesses/',
@@ -97,6 +103,7 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof CookiesRoute
   '/founder': typeof FounderRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
@@ -112,6 +119,7 @@ export interface FileRoutesByTo {
   '/cookies': typeof CookiesRoute
   '/founder': typeof FounderRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/cookies': typeof CookiesRoute
   '/founder': typeof FounderRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/businesses/$business': typeof BusinessesBusinessRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/portfolio/$sector': typeof PortfolioSectorRoute
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/founder'
     | '/privacy'
+    | '/sitemap.xml'
     | '/businesses/$business'
     | '/insights/$slug'
     | '/portfolio/$sector'
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/founder'
     | '/privacy'
+    | '/sitemap.xml'
     | '/businesses/$business'
     | '/insights/$slug'
     | '/portfolio/$sector'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/founder'
     | '/privacy'
+    | '/sitemap.xml'
     | '/businesses/$business'
     | '/insights/$slug'
     | '/portfolio/$sector'
@@ -191,6 +203,7 @@ export interface RootRouteChildren {
   CookiesRoute: typeof CookiesRoute
   FounderRoute: typeof FounderRoute
   PrivacyRoute: typeof PrivacyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   BusinessesBusinessRoute: typeof BusinessesBusinessRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   PortfolioSectorRoute: typeof PortfolioSectorRoute
@@ -250,6 +263,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/businesses/': {
       id: '/businesses/'
       path: '/businesses'
@@ -303,6 +323,7 @@ const rootRouteChildren: RootRouteChildren = {
   CookiesRoute: CookiesRoute,
   FounderRoute: FounderRoute,
   PrivacyRoute: PrivacyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   BusinessesBusinessRoute: BusinessesBusinessRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   PortfolioSectorRoute: PortfolioSectorRoute,
