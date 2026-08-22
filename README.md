@@ -1,83 +1,137 @@
-# Martins Holdings Vision
+# Martins Investments
 
-I want to clarify the vision for Martins Investments so that the website is positioned correctly from the beginning.
+The official corporate website and content platform for Martins Investments, a portfolio-focused
+holding company operating across culture, experience and enterprise.
 
-Martins Investments is the holding company, so the website should primarily present the company as a modern, premium and forward-looking business group, rather than simply being a website listing different services.
+The application presents the group, its investment approach, its businesses, the founder's story
+and the Perspectives editorial platform within a responsive black-and-gold design system.
 
-The website should communicate that Martins Investments is the parent company behind a growing portfolio of businesses and ventures across areas such as:
+## Key features
 
-* Fashion & E-commerce
+- Corporate pages for the group, portfolio, businesses, approach and contact information.
+- Dedicated profiles for RocDizWay, Roc\*Parties and Roc\*Away.
+- An interactive, chapter-based founder profile with archival media and video.
+- A headless WordPress integration for Perspectives articles, including pagination, rich-content
+  sanitisation, featured-image heroes and static fallback content.
+- Server-rendered metadata, canonical URLs, structured data and a dynamic XML sitemap.
+- Consent-aware analytics, cookie preferences and responsive light and dark themes.
 
-* Lifestyle
+## Technology
 
-* Entertainment & Events
+- React 19 and TypeScript
+- TanStack Start, Router and Query
+- Vite 8 and Nitro
+- Tailwind CSS 4
+- Radix UI primitives
+- Zod and `sanitize-html` for WordPress response validation and content sanitisation
 
-* Property
+## Local development
 
-* Mobility
+### Requirements
 
-* Media
+- Node.js `^20.19.0` or `>=22.12.0`
+- npm
 
-* Future Ventures
+### Setup
 
-I would like the overall design to feel premium, sophisticated, modern, corporate and international, with a strong visual identity and a refined black-and-gold aesthetic.
+1. Clone the repository and enter the project directory.
+2. Install dependencies:
 
-Suggested Website Structure
+   ```sh
+   npm ci
+   ```
 
-The main navigation could include:
+3. Create `.env.local` from `.env.example` and configure the required values.
+4. Start the development server:
 
-Home | About | Our Portfolio | Our Businesses | Our Approach | News & Insights | Contact
+   ```sh
+   npm run dev
+   ```
 
-The Our Portfolio / Our Businesses section should be structured so that additional companies, brands and ventures can easily be added in the future without requiring the entire website to be redesigned.
+Vite prints the local URL after the server starts.
 
-For example, RocDizWay Roc*Away and Roc*Parties should be presented as businesses within the wider Martins Investments group, rather than making the Martins Investments website itself feel like an e-commerce or entertainment website.
+## Environment variables
 
-The homepage should have a strong premium hero section, followed by sections introducing the group, portfolio, business areas, approach and future vision.
+| Variable                 | Required   | Purpose                                                                                                      |
+| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------ |
+| `VITE_SITE_URL`          | Production | Canonical public origin, without a trailing slash.                                                           |
+| `VITE_GA_MEASUREMENT_ID` | No         | Google Analytics measurement ID. Analytics remains disabled when omitted and requires visitor consent.       |
+| `VITE_WORDPRESS_API_URL` | No         | Public WordPress REST API root ending in `/wp-json/wp/v2`. Static Perspectives content is used when omitted. |
 
-I also want the website to be future-proof, allowing individual subsidiaries to eventually have their own dedicated websites or platforms while remaining clearly connected to Martins Investments as the parent company.
-
-Important
-
-The initial website should focus on creating a high-quality corporate holding-company platform. Any additional functionality or development outside the agreed scope should be discussed with me and approved before any additional cost is incurred.
-
-Please use this direction alongside your technical recommendations when developing the website. build the inner pages too
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/93c63593-d47a-433a-ae9d-819c7c044791).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+Variables prefixed with `VITE_` are public application configuration and must never contain secrets.
+Keep `.env.local` out of version control. Configure production values in the hosting platform before
+building and deploying the application.
 
 ## Headless WordPress
 
-Perspectives reads published posts from the WordPress REST API on the server. Set the API root in
-`.env.local`:
+Perspectives retrieves published posts from the WordPress REST API on the server. A typical local
+configuration is:
 
-```sh
+```env
 VITE_WORDPRESS_API_URL=https://cms.example.com/wp-json/wp/v2
 ```
 
-The URL must use HTTPS outside local development and must end in `/wp-json/wp/v2`. Published posts
-do not require WordPress credentials. Each post should have an excerpt, category, featured image,
-featured-image alt text, and a stable slug. Existing Perspectives URLs can be preserved by using the
-current slugs when those posts are recreated in WordPress.
+The endpoint must use HTTPS outside local development and must not contain credentials, a query
+string or a fragment. Public posts do not require WordPress authentication.
 
-When the variable is omitted, the application keeps using the three local posts in
-`src/data/group.ts`, which allows local development before the CMS is connected. If the variable is
-present but WordPress is unavailable, the site shows a retryable error instead of silently serving
-stale local content.
+For consistent article presentation, each published post should include:
+
+- A stable slug, excerpt and category.
+- A featured image with meaningful alternative text.
+- Inline images uploaded through the WordPress Media Library and served from a public HTTPS URL.
+- Headings and captions that follow a clear document hierarchy.
+
+The featured image is used as the article hero. If the same file is also present in the post body,
+the duplicate body image is removed; other inline images are retained. Do not insert images with
+`localhost` or development-only URLs because they will not load on the production website.
+
+When `VITE_WORDPRESS_API_URL` is omitted, the application uses the three static Perspectives posts
+in `src/data/group.ts`. If the variable is configured but WordPress is unavailable or returns an
+invalid response, the application displays a retryable error rather than silently substituting
+fallback content.
+
+## Available commands
+
+| Command             | Description                                         |
+| ------------------- | --------------------------------------------------- |
+| `npm run dev`       | Start the local development server.                 |
+| `npm run build`     | Create the production client, SSR and Nitro output. |
+| `npm run build:dev` | Create a development-mode build.                    |
+| `npm run preview`   | Preview the generated application locally.          |
+| `npm run lint`      | Run ESLint across the repository.                   |
+| `npm run format`    | Format supported files with Prettier.               |
+
+Before merging or deploying changes, run:
+
+```sh
+npm run lint
+npm run build
+```
+
+## Project structure
+
+```text
+public/              Static images, videos, documents and site icons
+src/components/      Shared layout, navigation and UI components
+src/data/            Structured corporate and fallback editorial content
+src/lib/             Site configuration, WordPress integration and shared utilities
+src/routes/          TanStack Start pages and server-rendered routes
+src/styles.css       Global styles and design-system tokens
+```
+
+## Deployment
+
+The current Nitro configuration targets a Cloudflare-compatible deployment through the Lovable
+TanStack configuration. `npm run build` generates the deployable application in `.output`.
+
+Set production environment variables in the deployment platform before the build begins. Do not
+upload or commit `.env.local` as a deployment mechanism.
+
+## Lovable workflow
+
+This repository is connected to the
+[Lovable project](https://lovable.dev/projects/93c63593-d47a-433a-ae9d-819c7c044791).
+Commits pushed to the connected branch are synchronised with the Lovable editor.
+
+Do not force-push, rebase, amend or squash commits that have already been published to the connected
+branch. Rewriting published history can remove the corresponding project history from Lovable.
