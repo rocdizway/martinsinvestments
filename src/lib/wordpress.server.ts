@@ -354,8 +354,40 @@ function normalizeExcerpt(value: string): string {
   return `${candidate.slice(0, end).replace(/[,:;.!?\s-]+$/u, "")}…`;
 }
 
-function sanitizeContent(value: string): string {
-  return sanitizeHtml(value, contentSanitizerOptions);
+function getMediaFileName(value: string, baseUrl?: string): string | null {
+  try {
+    const pathname = new URL(value, baseUrl).pathname;
+    const fileName = pathname.split("/").filter(Boolean).at(-1);
+    return fileName ? decodeURIComponent(fileName).toLocaleLowerCase("en") : null;
+  } catch {
+    return null;
+  }
+}
+
+function sanitizeContent(value: string, featuredImageUrl?: string): string {
+  const featuredFileName = featuredImageUrl
+    ? getMediaFileName(featuredImageUrl, featuredImageUrl)
+    : null;
+
+  return sanitizeHtml(value, {
+    ...contentSanitizerOptions,
+    ...(featuredFileName
+      ? {
+          exclusiveFilter: (frame: sanitizeHtml.IFrame) => {
+            if (frame.tag === "img") {
+              const source = frame.attribs["src"];
+              return source
+                ? getMediaFileName(source, featuredImageUrl) === featuredFileName
+                : false;
+            }
+
+            return (
+              frame.tag === "figure" && frame.mediaChildren.length === 0 && frame.text.trim() === ""
+            );
+          },
+        }
+      : {}),
+  });
 }
 
 function normalizeDate(value: string): string {
@@ -390,9 +422,10 @@ function normalizePostSummary(post: WordPressPostSummary): BlogPostSummary {
 }
 
 function normalizePost(post: WordPressPost): BlogPost {
+  const summary = normalizePostSummary(post);
   return {
-    ...normalizePostSummary(post),
-    contentHtml: sanitizeContent(post.content.rendered),
+    ...summary,
+    contentHtml: sanitizeContent(post.content.rendered, summary.featuredImage?.url),
   };
 }
 
