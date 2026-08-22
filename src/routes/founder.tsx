@@ -227,6 +227,10 @@ function Chapter({ chapter }: { chapter: ChapterType }) {
                     {section.paragraphs.map((paragraph) => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
+                    {chapter.slug === "roc-boss" &&
+                    section.heading === "Consulting, advisory and speaking" ? (
+                      <FounderConsultingVideo />
+                    ) : null}
                     {section.cta ? (
                       <Link
                         to="/contact"
@@ -246,6 +250,30 @@ function Chapter({ chapter }: { chapter: ChapterType }) {
       {chapter.slug === "roc-boss" ? <RocBossStatement /> : null}
       {isLegacy ? <MediaResource /> : null}
     </>
+  );
+}
+
+function FounderConsultingVideo() {
+  return (
+    <figure className="overflow-hidden border border-border bg-black shadow-2xl">
+      <video
+        controls
+        playsInline
+        preload="metadata"
+        poster="/founder/bobby-martins-consulting-poster.png"
+        aria-label="Bobby Martins discussing consulting, advisory and speaking"
+        className="aspect-[690/463] w-full bg-black object-contain"
+      >
+        <source src="/founder/bobby-martins-consulting.mp4" type="video/mp4" />
+        Your browser does not support embedded video.
+      </video>
+      <figcaption className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-5 py-4 text-white sm:px-6">
+        <span className="text-[0.62rem] tracking-[0.2em] text-gold uppercase">
+          Founder perspective
+        </span>
+        <span className="text-xs text-white/55">Consulting · Advisory · Speaking</span>
+      </figcaption>
+    </figure>
   );
 }
 
