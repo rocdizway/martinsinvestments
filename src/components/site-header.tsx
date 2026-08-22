@@ -84,7 +84,7 @@ export function SiteHeader() {
                 inactiveProps={{
                   className: useSolidHeader ? "text-muted-foreground" : "text-white/82",
                 }}
-                activeOptions={{ exact: item.to === "/" }}
+                activeOptions={{ exact: false }}
                 className="text-[0.8rem] tracking-[0.14em] uppercase transition-colors hover:text-gold"
               >
                 {item.label}
