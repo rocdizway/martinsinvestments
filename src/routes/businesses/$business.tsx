@@ -33,6 +33,10 @@ function BusinessProfile() {
     return <RocDizWayProfile holding={holding} />;
   }
 
+  if (holding.slug === "roc-parties") {
+    return <RocPartiesProfile holding={holding} />;
+  }
+
   if (holding.slug === "roc-away") {
     return <RocAwayProfile holding={holding} />;
   }
@@ -186,6 +190,434 @@ function BusinessProfile() {
 }
 
 type LoadedHolding = NonNullable<ReturnType<typeof getHolding>>;
+
+const rocNightsFeatures = [
+  {
+    title: "VIP ACCESS",
+    description: "Access to selected nightlife experiences and sought-after venues.",
+  },
+  {
+    title: "SEAMLESS ARRIVAL",
+    description: "A considered arrival experience from the moment you step through the door.",
+  },
+  {
+    title: "PREMIUM ATMOSPHERE",
+    description: "Exceptional settings, elevated surroundings and unforgettable nights.",
+  },
+] as const;
+
+const rocOccasionsFeatures = [
+  {
+    title: "CURATED DINING",
+    description: "Distinctive dining experiences selected around your occasion and preferences.",
+  },
+  {
+    title: "PRIVATE CELEBRATIONS",
+    description: "Elegant settings and considered details for moments worth celebrating.",
+  },
+  {
+    title: "SPECIAL EVENTS",
+    description: "Premium experiences surrounding major cultural, sporting and social occasions.",
+  },
+  {
+    title: "BESPOKE OCCASIONS",
+    description: "Personalised arrangements designed around your guests, schedule and vision.",
+  },
+] as const;
+
+const rocConciergeServices = [
+  {
+    title: "HOTELS & PREMIUM STAYS",
+    description: "Carefully selected accommodation suited to your plans, preferences and occasion.",
+  },
+  {
+    title: "PRIVATE AIRPORT COLLECTION",
+    description: "Seamless airport transfers and collection arrangements for a refined arrival.",
+  },
+  {
+    title: "THEATRE & ENTERTAINMENT",
+    description: "Access to selected performances, shows and entertainment experiences.",
+  },
+  {
+    title: "PREMIUM TRAVEL",
+    description: "Travel arrangements thoughtfully coordinated around your itinerary.",
+  },
+  {
+    title: "PERSONAL SHOPPING",
+    description: "Personalised shopping assistance for occasions, travel and lifestyle needs.",
+  },
+  {
+    title: "TAILORED CONCIERGE SUPPORT",
+    description:
+      "From the essential details to the finishing touches, assistance can be shaped around your individual requirements.",
+  },
+] as const;
+
+const rocPartiesHighlights = [
+  {
+    title: "VIP NIGHTLIFE & EVENT ACCESS",
+    description:
+      "Access to sought-after nightlife, exclusive events and premium experiences across London.",
+  },
+  {
+    title: "LONDON LIFESTYLE CONCIERGE",
+    description:
+      "Personalised support for the places, services and experiences that elevate London living.",
+  },
+  {
+    title: "TRAVEL, DINING & OCCASION PLANNING",
+    description:
+      "From premium stays and dining to private celebrations and special occasions, every detail can be thoughtfully coordinated.",
+  },
+] as const;
+
+function RocPartiesProfile({ holding }: { holding: LoadedHolding }) {
+  return (
+    <>
+      <section className="relative min-h-[78vh] overflow-hidden bg-black text-white">
+        <img
+          src={holding.image}
+          alt={holding.imageAlt}
+          className="absolute inset-0 size-full object-cover opacity-70"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,5,4,.94)_0%,rgba(5,5,4,.66)_52%,rgba(5,5,4,.28)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-black/85 to-transparent" />
+        <div className="relative mx-auto flex min-h-[78vh] max-w-7xl flex-col justify-end px-6 pb-20 pt-40 lg:px-10 lg:pb-24">
+          <Link
+            to="/portfolio"
+            className="mb-10 inline-flex w-fit items-center gap-3 text-[.65rem] tracking-[.2em] uppercase text-white/70 transition-colors hover:text-gold-soft"
+          >
+            <ArrowLeft className="size-3.5" /> Our core holdings
+          </Link>
+          <h1 className="max-w-4xl text-5xl uppercase leading-none md:text-7xl lg:text-8xl">
+            {holding.name}
+          </h1>
+          <p className="eyebrow mt-6 whitespace-nowrap">{holding.category}</p>
+          <p className="mt-7 max-w-2xl font-display text-xl leading-relaxed text-white/80 md:text-2xl">
+            {holding.positioning}
+          </p>
+        </div>
+      </section>
+
+      <section className="section-ivory py-20 sm:py-24 lg:py-32">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[.72fr_1.28fr] lg:gap-24 lg:px-10">
+          <div>
+            <p className="eyebrow">THE BRAND</p>
+            <h2 className="mt-6 text-4xl leading-tight text-foreground sm:text-5xl">
+              Distinct by design.
+              <br />
+              <span className="text-gold-gradient">Built with purpose.</span>
+            </h2>
+          </div>
+          <div className="space-y-6 text-base leading-8 text-muted-foreground sm:text-lg">
+            <p>
+              Roc*Parties is a premium lifestyle and experiences brand created for those who value
+              exceptional moments, seamless service and considered detail.
+            </p>
+            <p>
+              From London’s nightlife and fine dining to major sporting events, cultural occasions
+              and private celebrations, we connect clients with experiences worth remembering.
+            </p>
+            <p>
+              Our concierge service extends beyond the occasion itself, helping coordinate the wider
+              experience — from premium hotels and airport collection to theatre seats, personal
+              shopping and tailored travel arrangements.
+            </p>
+            <p>One vision. One trusted service. Every detail considered.</p>
+            <p className="border-l-2 border-gold pl-6 font-display text-xl leading-relaxed text-foreground sm:text-2xl">
+              Spend less time organising and more time enjoying the experience.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-background py-20 sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="grid gap-8 border-b border-border pb-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-24">
+            <div>
+              <p className="eyebrow">THE EXPERIENCE</p>
+              <h2 className="mt-6 text-4xl leading-tight text-foreground sm:text-5xl">
+                What Roc*Parties brings to life.
+              </h2>
+            </div>
+            <p className="self-end text-base leading-8 text-muted-foreground sm:text-lg">
+              A curated world of premium nightlife, events, dining and lifestyle experiences —
+              designed around access, atmosphere and exceptional service.
+            </p>
+          </div>
+
+          <div className="mt-12 grid overflow-hidden border border-border bg-onyx lg:grid-cols-[.92fr_1.08fr]">
+            <figure className="relative min-h-[24rem] overflow-hidden bg-black sm:min-h-[32rem]">
+              <img
+                src={holding.showcaseImage}
+                alt="VIP nightlife and seamless arrival with Roc Nights"
+                loading="lazy"
+                className="absolute inset-0 size-full object-cover object-left"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+            </figure>
+            <div className="flex flex-col justify-center p-8 sm:p-12 lg:p-14 xl:p-16">
+              <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-deep dark:text-gold-soft">
+                ROC NIGHTS
+              </p>
+              <h3 className="mt-5 text-3xl leading-tight text-foreground sm:text-4xl">
+                VIP nightlife, elevated.
+              </h3>
+              <div className="mt-6 space-y-5 text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
+                <p>
+                  Experience sought-after London nightlife with VIP access, premium venues and a
+                  seamless arrival-to-departure experience.
+                </p>
+                <p>
+                  From entry and guestlist arrangements to the atmosphere inside, every detail is
+                  considered so you can focus on enjoying the night.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 grid divide-y divide-border border-y border-border md:grid-cols-3 md:divide-x md:divide-y-0">
+            {rocNightsFeatures.map((feature) => (
+              <article key={feature.title} className="py-8 md:px-8 lg:px-10 first:pl-0 last:pr-0">
+                <span className="flex size-8 items-center justify-center rounded-full border border-gold/45 text-gold">
+                  <Check className="size-4" strokeWidth={1.5} />
+                </span>
+                <h4 className="mt-6 text-sm tracking-[.14em] uppercase text-foreground">
+                  {feature.title}
+                </h4>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                  {feature.description}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-deep dark:text-gold-soft">
+              THE ROC NIGHTS STANDARD
+            </p>
+            <p className="mt-5 font-display text-3xl text-foreground sm:text-4xl">
+              Arrive. Experience. Remember.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-onyx py-20 sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-20">
+            <div>
+              <p className="eyebrow">FEATURED OFFERING</p>
+              <h2 className="mt-5 text-4xl text-foreground sm:text-5xl">Roc Occasions</h2>
+              <p className="mt-5 font-display text-2xl leading-relaxed text-gold-deep dark:text-gold-soft sm:text-3xl">
+                Private dining. Celebrations. Exceptional moments.
+              </p>
+              <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
+                Thoughtfully curated experiences for birthdays, anniversaries, milestone
+                celebrations, private dinners and special occasions — shaped around the people,
+                place and purpose of every event.
+              </p>
+            </div>
+            <figure className="relative min-h-[23rem] overflow-hidden border border-gold/25 bg-black shadow-[var(--shadow-luxe)] sm:min-h-[30rem]">
+              <img
+                src={holding.showcaseImage}
+                alt="A private dining occasion curated by Roc*Parties"
+                loading="lazy"
+                className="absolute inset-0 size-full object-cover object-center"
+              />
+            </figure>
+          </div>
+
+          <p className="mt-14 text-[.62rem] tracking-[.22em] uppercase text-gold-deep dark:text-gold-soft">
+            THE ROC OCCASIONS EXPERIENCE
+          </p>
+          <div className="mt-7 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {rocOccasionsFeatures.map((feature) => (
+              <article key={feature.title} className="bg-background p-7 sm:p-8">
+                <span className="block h-px w-9 bg-gold" />
+                <h3 className="mt-5 text-sm tracking-[.14em] uppercase text-foreground">
+                  {feature.title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                  {feature.description}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-14 grid gap-8 border-t border-border pt-10 md:grid-cols-[.72fr_1.28fr] md:gap-16">
+            <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-deep dark:text-gold-soft">
+              MORE THAN AN OCCASION
+            </p>
+            <div>
+              <p className="text-base leading-8 text-muted-foreground sm:text-lg">
+                Every detail matters — from the setting and dining experience to the atmosphere and
+                service.
+              </p>
+              <p className="mt-7 font-display text-2xl leading-relaxed text-foreground sm:text-3xl">
+                You bring the occasion.
+                <br />
+                <span className="text-gold-gradient">Roc*Parties brings it to life.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-background py-20 sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="grid gap-12 lg:grid-cols-[.95fr_1.05fr] lg:items-center lg:gap-20">
+            <figure className="relative min-h-[23rem] overflow-hidden border border-border bg-black shadow-[var(--shadow-luxe)] sm:min-h-[30rem]">
+              <img
+                src={holding.showcaseImage}
+                alt="Personal concierge service for a seamless Roc*Parties experience"
+                loading="lazy"
+                className="absolute inset-0 size-full object-cover object-right"
+              />
+            </figure>
+            <div>
+              <p className="eyebrow">ROC CONCIERGE</p>
+              <h2 className="mt-5 text-4xl leading-tight text-foreground sm:text-5xl">
+                Effortless by design.
+                <br />
+                <span className="text-gold-gradient">Exceptional by detail.</span>
+              </h2>
+              <p className="mt-7 text-base leading-8 text-muted-foreground sm:text-lg">
+                Roc Concierge provides personalised support for the details surrounding your stay,
+                journey or occasion — bringing together premium accommodation, travel, entertainment
+                and lifestyle arrangements through one considered service.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-14 grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+            {rocConciergeServices.map((service) => (
+              <article key={service.title} className="bg-onyx p-7 sm:p-8 lg:p-9">
+                <span className="flex size-8 items-center justify-center rounded-full border border-gold/45 text-gold">
+                  <Check className="size-4" strokeWidth={1.5} />
+                </span>
+                <h3 className="mt-6 text-sm tracking-[.14em] uppercase text-foreground">
+                  {service.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                  {service.description}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-14 border-y border-border py-10 text-center sm:py-12">
+            <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-deep dark:text-gold-soft">
+              THE ROC CONCIERGE STANDARD
+            </p>
+            <p className="mt-5 text-sm tracking-[.2em] uppercase text-foreground sm:text-base">
+              DISCREET. PERSONAL. SEAMLESS.
+            </p>
+            <p className="mt-7 font-display text-2xl leading-relaxed text-foreground sm:text-3xl">
+              You enjoy the experience.
+              <br />
+              <span className="text-gold-gradient">We take care of the details.</span>
+            </p>
+            <a
+              href={holding.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-9 inline-flex items-center gap-3 border-b border-gold pb-2 text-[.68rem] tracking-[.18em] uppercase text-gold-deep dark:text-gold-soft"
+            >
+              VISIT ROC*CONCIERGE →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-onyx py-20 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <p className="eyebrow">AT A GLANCE</p>
+          <div className="mt-9 grid divide-y divide-border border-y border-border md:grid-cols-3 md:divide-x md:divide-y-0">
+            {rocPartiesHighlights.map((highlight) => (
+              <article key={highlight.title} className="py-8 md:px-8 lg:px-10 first:pl-0 last:pr-0">
+                <span className="flex size-8 items-center justify-center rounded-full border border-gold/45 text-gold">
+                  <Check className="size-4" strokeWidth={1.5} />
+                </span>
+                <h3 className="mt-6 text-sm tracking-[.14em] uppercase text-foreground">
+                  {highlight.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                  {highlight.description}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mx-auto mt-16 max-w-4xl text-center">
+            <p className="text-[.62rem] tracking-[.22em] uppercase text-gold-deep dark:text-gold-soft">
+              THE ROC*PARTIES EXPERIENCE
+            </p>
+            <h2 className="mt-6 text-3xl uppercase leading-tight text-foreground sm:text-5xl">
+              ACCESS. CONCIERGE. EXPERIENCES.
+            </h2>
+            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
+              One destination for exceptional moments, personalised service and seamless planning —
+              designed so you can enjoy more and organise less.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-ivory py-24 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-4xl px-6 text-center lg:px-10">
+          <p className="eyebrow">EXPLORE ROC*PARTIES</p>
+          <h2 className="mt-7 text-4xl leading-tight text-foreground sm:text-6xl">
+            Ready to discover more?
+          </h2>
+          <div className="mx-auto mt-7 max-w-3xl space-y-5 text-base leading-8 text-muted-foreground sm:text-lg">
+            <p>
+              Step into the world of Roc*Parties — a curated destination for premium nightlife,
+              private occasions, dining, travel and lifestyle experiences across London.
+            </p>
+            <p>
+              Discover our latest offerings, explore exceptional experiences and find out how
+              Roc*Parties can help make your next occasion effortless.
+            </p>
+          </div>
+          <a
+            href={holding.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-10 inline-flex items-center gap-4 border-b border-gold pb-3 text-xs tracking-[.2em] uppercase text-gold-deep"
+          >
+            VISIT ROC*PARTIES →
+          </a>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-black py-28 text-white sm:py-36">
+        <img
+          src={holding.image}
+          alt="The Roc*Parties experience"
+          loading="lazy"
+          className="absolute inset-0 size-full object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-black/72" />
+        <div className="relative mx-auto max-w-5xl px-6 text-center lg:px-10">
+          <h2 className="text-4xl uppercase leading-tight sm:text-6xl">
+            YOUR EXPERIENCE.
+            <br />
+            <span className="text-gold-gradient">CONSIDERED FROM BEGINNING TO END.</span>
+          </h2>
+          <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-white/68 sm:text-lg">
+            Whether you’re planning a night out, celebrating a milestone, arranging a private
+            occasion or looking for something exceptional, Roc*Parties brings together access,
+            service and attention to detail.
+          </p>
+          <p className="mt-8 font-display text-2xl text-gold-soft sm:text-3xl">
+            Discover more. Experience better.
+          </p>
+        </div>
+      </section>
+    </>
+  );
+}
 
 const rocdizwayCollections = [
   {
