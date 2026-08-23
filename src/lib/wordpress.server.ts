@@ -36,6 +36,21 @@ const slugSchema = z
 
 const slugInputSchema = z.object({ slug: slugSchema }).strict();
 
+type PaginationInput = z.infer<typeof paginationInputSchema>;
+type SlugInput = z.infer<typeof slugInputSchema>;
+
+function validatePaginationInput(input: unknown): PaginationInput {
+  const parsed = paginationInputSchema.safeParse(input);
+  if (!parsed.success) throw new Error("Invalid pagination request.");
+  return parsed.data;
+}
+
+function validateSlugInput(input: unknown): SlugInput {
+  const parsed = slugInputSchema.safeParse(input);
+  if (!parsed.success) throw new Error("Invalid perspective request.");
+  return parsed.data;
+}
+
 const renderedSchema = z.object({ rendered: z.string() });
 const wordpressDateSchema = z.string().refine((value) => {
   if (!WORDPRESS_DATE.test(value)) return false;
@@ -102,6 +117,13 @@ const wordpressPostsSchema = z.array(wordpressPostSchema);
 type WordPressPostSummary = z.infer<typeof wordpressPostSummarySchema>;
 type WordPressPost = z.infer<typeof wordpressPostSchema>;
 
+class WordPressPageOutOfRangeError extends Error {
+  constructor() {
+    super("The requested WordPress page is out of range.");
+    this.name = "WordPressPageOutOfRangeError";
+  }
+}
+
 const contentSanitizerOptions: sanitizeHtml.IOptions = {
   allowedTags: [
     "p",
@@ -126,6 +148,10 @@ const contentSanitizerOptions: sanitizeHtml.IOptions = {
     "figure",
     "figcaption",
     "img",
+    "video",
+    "source",
+    "track",
+    "iframe",
     "pre",
     "code",
     "hr",
@@ -152,12 +178,25 @@ const contentSanitizerOptions: sanitizeHtml.IOptions = {
     h5: ["id"],
     h6: ["id"],
     img: ["src", "alt", "title", "width", "height", "loading", "decoding"],
+    iframe: [
+      "src",
+      "title",
+      "width",
+      "height",
+      "loading",
+      "allow",
+      "allowfullscreen",
+      "referrerpolicy",
+    ],
     ol: ["start", "reversed", "type"],
     pre: ["class"],
+    source: ["src", "type"],
     span: ["class"],
     table: ["class"],
     td: ["colspan", "rowspan"],
     th: ["colspan", "rowspan", "scope"],
+    track: ["src", "kind", "srclang", "label", "default"],
+    video: ["src", "poster", "controls", "preload", "width", "height", "playsinline"],
   },
   allowedClasses: {
     "*": [
@@ -166,13 +205,24 @@ const contentSanitizerOptions: sanitizeHtml.IOptions = {
       /^has-[a-z0-9-]+$/u,
       /^is-style-[a-z0-9-]+$/u,
       /^language-[a-z0-9-]+$/u,
+      /^wp-(?:embed-aspect-\d+-\d+|has-aspect-ratio)$/u,
     ],
   },
   allowedSchemes: ["http", "https", "mailto"],
   allowedSchemesByTag: {
-    img: ["http", "https"],
+    iframe: ["https"],
+    img: ["https"],
+    source: ["https"],
+    track: ["https"],
+    video: ["https"],
   },
-  allowedSchemesAppliedToAttributes: ["href", "src", "cite"],
+  allowedSchemesAppliedToAttributes: ["href", "src", "cite", "poster"],
+  allowedIframeHostnames: [
+    "youtube.com",
+    "www.youtube.com",
+    "www.youtube-nocookie.com",
+    "player.vimeo.com",
+  ],
   allowProtocolRelative: false,
   enforceHtmlBoundary: true,
   nonTextTags: ["style", "script", "textarea", "option", "noscript"],
@@ -189,10 +239,6 @@ const contentSanitizerOptions: sanitizeHtml.IOptions = {
 
       return { tagName, attribs: safeAttributes };
     },
-    img: sanitizeHtml.simpleTransform("img", {
-      loading: "lazy",
-      decoding: "async",
-    }),
   },
 };
 
@@ -244,6 +290,22 @@ function isRetryableNetworkError(error: unknown): boolean {
   );
 }
 
+async function isOutOfRangeResponse(response: Response): Promise<boolean> {
+  if (response.status !== 400 && response.status !== 404) return false;
+
+  try {
+    const payload: unknown = await response.clone().json();
+    return (
+      typeof payload === "object" &&
+      payload !== null &&
+      "code" in payload &&
+      payload.code === "rest_post_invalid_page_number"
+    );
+  } catch {
+    return false;
+  }
+}
+
 async function fetchWordPress(url: URL): Promise<Response> {
   for (let attempt = 0; attempt < 2; attempt += 1) {
     let response: Response;
@@ -266,6 +328,7 @@ async function fetchWordPress(url: URL): Promise<Response> {
     if (attempt === 0 && RETRYABLE_STATUS_CODES.has(response.status)) continue;
 
     if (!response.ok) {
+      if (await isOutOfRangeResponse(response)) throw new WordPressPageOutOfRangeError();
       throw new Error(`WordPress API request failed with HTTP ${response.status}.`);
     }
 
@@ -364,29 +427,119 @@ function getMediaFileName(value: string, baseUrl?: string): string | null {
   }
 }
 
-function sanitizeContent(value: string, featuredImageUrl?: string): string {
+/** Returns an absolute HTTPS media URL, or null when the source is unsafe. */
+export function normalizeWordPressMediaUrl(
+  value: string | undefined,
+  baseUrl?: string,
+): string | null {
+  if (!value) return null;
+
+  try {
+    const url = baseUrl ? new URL(value, baseUrl) : new URL(value);
+    if (url.protocol !== "https:" || url.username || url.password) return null;
+    return url.href;
+  } catch {
+    return null;
+  }
+}
+
+export function normalizeWordPressEmbedUrl(value: string | undefined): string | null {
+  const normalized = normalizeWordPressMediaUrl(value);
+  if (!normalized) return null;
+
+  const url = new URL(normalized);
+  const hostname = url.hostname.toLocaleLowerCase("en");
+
+  if (
+    hostname === "youtube.com" ||
+    hostname === "www.youtube.com" ||
+    hostname === "www.youtube-nocookie.com"
+  ) {
+    return /^\/embed\/[a-z0-9_-]+\/?$/iu.test(url.pathname) ? url.href : null;
+  }
+
+  if (hostname === "player.vimeo.com") {
+    return /^\/video\/\d+\/?$/u.test(url.pathname) ? url.href : null;
+  }
+
+  return null;
+}
+
+function normalizeSourceAttributes(
+  tagName: string,
+  attributes: sanitizeHtml.Attributes,
+  baseUrl?: string,
+): sanitizeHtml.Tag {
+  const safeAttributes = { ...attributes };
+  const source = normalizeWordPressMediaUrl(safeAttributes["src"], baseUrl);
+
+  if (source) safeAttributes["src"] = source;
+  else delete safeAttributes["src"];
+
+  return { tagName, attribs: safeAttributes };
+}
+
+export function sanitizeWordPressContent(
+  value: string,
+  featuredImageUrl?: string,
+  mediaBaseUrl?: string,
+): string {
   const featuredFileName = featuredImageUrl
     ? getMediaFileName(featuredImageUrl, featuredImageUrl)
     : null;
 
   return sanitizeHtml(value, {
     ...contentSanitizerOptions,
-    ...(featuredFileName
-      ? {
-          exclusiveFilter: (frame: sanitizeHtml.IFrame) => {
-            if (frame.tag === "img") {
-              const source = frame.attribs["src"];
-              return source
-                ? getMediaFileName(source, featuredImageUrl) === featuredFileName
-                : false;
-            }
+    transformTags: {
+      ...(contentSanitizerOptions.transformTags ?? {}),
+      img: (tagName, attributes) => {
+        const transformed = normalizeSourceAttributes(tagName, attributes, mediaBaseUrl);
+        transformed.attribs["loading"] = "lazy";
+        transformed.attribs["decoding"] = "async";
+        transformed.attribs["alt"] ??= "";
+        return transformed;
+      },
+      iframe: (tagName, attributes) => {
+        const safeAttributes = { ...attributes };
+        const source = normalizeWordPressEmbedUrl(safeAttributes["src"]);
 
-            return (
-              frame.tag === "figure" && frame.mediaChildren.length === 0 && frame.text.trim() === ""
-            );
-          },
-        }
-      : {}),
+        if (source) safeAttributes["src"] = source;
+        else delete safeAttributes["src"];
+
+        safeAttributes["title"] = safeAttributes["title"]?.trim() || "Embedded video";
+        safeAttributes["loading"] = "lazy";
+        safeAttributes["referrerpolicy"] = "strict-origin-when-cross-origin";
+        safeAttributes["allow"] = "encrypted-media; picture-in-picture";
+        safeAttributes["allowfullscreen"] = "";
+        return { tagName, attribs: safeAttributes };
+      },
+      source: (tagName, attributes) => normalizeSourceAttributes(tagName, attributes, mediaBaseUrl),
+      track: (tagName, attributes) => normalizeSourceAttributes(tagName, attributes, mediaBaseUrl),
+      video: (tagName, attributes) => {
+        const transformed = normalizeSourceAttributes(tagName, attributes, mediaBaseUrl);
+        const poster = normalizeWordPressMediaUrl(transformed.attribs["poster"], mediaBaseUrl);
+
+        if (poster) transformed.attribs["poster"] = poster;
+        else delete transformed.attribs["poster"];
+
+        transformed.attribs["controls"] = "";
+        transformed.attribs["playsinline"] = "";
+        transformed.attribs["preload"] = "metadata";
+        return transformed;
+      },
+    },
+    exclusiveFilter: (frame: sanitizeHtml.IFrame) => {
+      if (["iframe", "img", "source", "track"].includes(frame.tag) && !frame.attribs["src"]) {
+        return true;
+      }
+
+      if (frame.tag === "img" && featuredFileName) {
+        const source = frame.attribs["src"];
+        if (source && getMediaFileName(source, featuredImageUrl) === featuredFileName) return true;
+      }
+
+      return frame.tag === "figure" && frame.mediaChildren.length === 0 && frame.text.trim() === "";
+    },
   });
 }
 
@@ -395,10 +548,11 @@ function normalizeDate(value: string): string {
   return new Date(dateWithZone).toISOString();
 }
 
-function normalizePostSummary(post: WordPressPostSummary): BlogPostSummary {
+function normalizePostSummary(post: WordPressPostSummary, mediaBaseUrl?: string): BlogPostSummary {
   const category = post._embedded?.["wp:term"]?.flat().find((term) => term.taxonomy === "category");
   const author = post._embedded?.author?.[0];
   const media = post._embedded?.["wp:featuredmedia"]?.[0];
+  const mediaUrl = normalizeWordPressMediaUrl(media?.source_url, mediaBaseUrl);
   const dimensions = media?.media_details;
 
   return {
@@ -410,22 +564,27 @@ function normalizePostSummary(post: WordPressPostSummary): BlogPostSummary {
     modifiedAt: normalizeDate(post.modified_gmt),
     category: category ? toPlainText(category.name) || "Perspectives" : "Perspectives",
     author: author ? toPlainText(author.name) || "Martins Investments" : "Martins Investments",
-    featuredImage: media
-      ? {
-          url: media.source_url,
-          alt: toPlainText(media.alt_text ?? ""),
-          ...(dimensions?.width === undefined ? {} : { width: dimensions.width }),
-          ...(dimensions?.height === undefined ? {} : { height: dimensions.height }),
-        }
-      : null,
+    featuredImage:
+      media && mediaUrl
+        ? {
+            url: mediaUrl,
+            alt: toPlainText(media.alt_text ?? ""),
+            ...(dimensions?.width === undefined ? {} : { width: dimensions.width }),
+            ...(dimensions?.height === undefined ? {} : { height: dimensions.height }),
+          }
+        : null,
   };
 }
 
-function normalizePost(post: WordPressPost): BlogPost {
-  const summary = normalizePostSummary(post);
+function normalizePost(post: WordPressPost, mediaBaseUrl?: string): BlogPost {
+  const summary = normalizePostSummary(post, mediaBaseUrl);
   return {
     ...summary,
-    contentHtml: sanitizeContent(post.content.rendered, summary.featuredImage?.url),
+    contentHtml: sanitizeWordPressContent(
+      post.content.rendered,
+      summary.featuredImage?.url,
+      mediaBaseUrl,
+    ),
   };
 }
 
@@ -449,7 +608,7 @@ function getFallbackPosts(): BlogPost[] {
     category: toPlainText(post.category),
     author: "Martins Investments",
     featuredImage: null,
-    contentHtml: sanitizeContent(
+    contentHtml: sanitizeWordPressContent(
       post.body.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join(""),
     ),
   }));
@@ -469,65 +628,119 @@ function withoutContent(post: BlogPost): BlogPostSummary {
   };
 }
 
-export const getPublishedPosts = createServerFn({ method: "GET" })
-  .validator((input: unknown) => paginationInputSchema.parse(input))
-  .handler(async ({ data }): Promise<PaginatedPosts> => {
-    const apiBaseUrl = getApiBaseUrl();
-    if (!apiBaseUrl) {
-      const posts = getFallbackPosts().map(withoutContent);
-      const start = (data.page - 1) * data.perPage;
+async function getPaginationMetadata(
+  url: URL,
+): Promise<Pick<PaginatedPosts, "total" | "totalPages">> {
+  const metadataUrl = new URL(url);
+  metadataUrl.searchParams.set("page", "1");
+  metadataUrl.searchParams.set("per_page", "1");
+  metadataUrl.searchParams.delete("_embed");
+  metadataUrl.searchParams.set("_fields", "id");
 
-      return {
-        posts: posts.slice(start, start + data.perPage),
-        page: data.page,
-        perPage: data.perPage,
-        total: posts.length,
-        totalPages: Math.ceil(posts.length / data.perPage),
-      };
-    }
+  const response = await fetchWordPress(metadataUrl);
+  return {
+    total: parsePaginationHeader(response, "X-WP-Total"),
+    totalPages: parsePaginationHeader(response, "X-WP-TotalPages"),
+  };
+}
 
-    const url = createPostsUrl(apiBaseUrl);
-    url.searchParams.set("status", "publish");
-    url.searchParams.set("page", String(data.page));
-    url.searchParams.set("per_page", String(data.perPage));
-    url.searchParams.set("orderby", "date");
-    url.searchParams.set("order", "desc");
-    url.searchParams.set("_embed", "author,wp:featuredmedia,wp:term");
-    url.searchParams.set("_fields", "id,slug,date_gmt,modified_gmt,title,excerpt,_links,_embedded");
-
-    const response = await fetchWordPress(url);
-    const total = parsePaginationHeader(response, "X-WP-Total");
-    const totalPages = parsePaginationHeader(response, "X-WP-TotalPages");
-    const posts = await parsePostSummariesResponse(response);
+async function loadPublishedPosts(data: PaginationInput): Promise<PaginatedPosts> {
+  const apiBaseUrl = getApiBaseUrl();
+  if (!apiBaseUrl) {
+    const posts = getFallbackPosts().map(withoutContent);
+    const start = (data.page - 1) * data.perPage;
 
     return {
-      posts: posts.map(normalizePostSummary),
+      posts: posts.slice(start, start + data.perPage),
+      page: data.page,
+      perPage: data.perPage,
+      total: posts.length,
+      totalPages: Math.ceil(posts.length / data.perPage),
+    };
+  }
+
+  const url = createPostsUrl(apiBaseUrl);
+  url.searchParams.set("status", "publish");
+  url.searchParams.set("page", String(data.page));
+  url.searchParams.set("per_page", String(data.perPage));
+  url.searchParams.set("orderby", "date");
+  url.searchParams.set("order", "desc");
+  url.searchParams.set("_embed", "wp:featuredmedia,wp:term");
+  url.searchParams.set("_fields", "id,slug,date_gmt,modified_gmt,title,excerpt,_links,_embedded");
+
+  let response: Response;
+  try {
+    response = await fetchWordPress(url);
+  } catch (error) {
+    if (!(error instanceof WordPressPageOutOfRangeError)) throw error;
+
+    const { total, totalPages } = await getPaginationMetadata(url);
+    return {
+      posts: [],
       page: data.page,
       perPage: data.perPage,
       total,
       totalPages,
     };
+  }
+
+  const total = parsePaginationHeader(response, "X-WP-Total");
+  const totalPages = parsePaginationHeader(response, "X-WP-TotalPages");
+  const posts = await parsePostSummariesResponse(response);
+  const mediaBaseUrl = `${apiBaseUrl.origin}/`;
+
+  return {
+    posts: posts.map((post) => normalizePostSummary(post, mediaBaseUrl)),
+    page: data.page,
+    perPage: data.perPage,
+    total,
+    totalPages,
+  };
+}
+
+async function loadPublishedPostBySlug(data: SlugInput): Promise<BlogPost | null> {
+  const apiBaseUrl = getApiBaseUrl();
+  if (!apiBaseUrl) {
+    return getFallbackPosts().find((post) => post.slug === data.slug) ?? null;
+  }
+
+  const url = createPostsUrl(apiBaseUrl);
+  url.searchParams.set("status", "publish");
+  url.searchParams.set("slug", data.slug);
+  url.searchParams.set("per_page", "1");
+  url.searchParams.set("_embed", "wp:featuredmedia,wp:term");
+  url.searchParams.set(
+    "_fields",
+    "id,slug,date_gmt,modified_gmt,title,excerpt,content,_links,_embedded",
+  );
+
+  const response = await fetchWordPress(url);
+  const posts = await parsePostsResponse(response);
+  return posts[0] ? normalizePost(posts[0], `${apiBaseUrl.origin}/`) : null;
+}
+
+function reportWordPressFailure(operation: string, error: unknown): void {
+  console.error(`[wordpress] ${operation} failed.`, error);
+}
+
+export const getPublishedPosts = createServerFn({ method: "GET" })
+  .validator(validatePaginationInput)
+  .handler(async ({ data }): Promise<PaginatedPosts> => {
+    try {
+      return await loadPublishedPosts(data);
+    } catch (error) {
+      reportWordPressFailure("Loading published posts", error);
+      throw new Error("The perspectives service is temporarily unavailable.");
+    }
   });
 
 export const getPublishedPostBySlug = createServerFn({ method: "GET" })
-  .validator((input: unknown) => slugInputSchema.parse(input))
+  .validator(validateSlugInput)
   .handler(async ({ data }): Promise<BlogPost | null> => {
-    const apiBaseUrl = getApiBaseUrl();
-    if (!apiBaseUrl) {
-      return getFallbackPosts().find((post) => post.slug === data.slug) ?? null;
+    try {
+      return await loadPublishedPostBySlug(data);
+    } catch (error) {
+      reportWordPressFailure("Loading a published post", error);
+      throw new Error("The perspective service is temporarily unavailable.");
     }
-
-    const url = createPostsUrl(apiBaseUrl);
-    url.searchParams.set("status", "publish");
-    url.searchParams.set("slug", data.slug);
-    url.searchParams.set("per_page", "1");
-    url.searchParams.set("_embed", "author,wp:featuredmedia,wp:term");
-    url.searchParams.set(
-      "_fields",
-      "id,slug,date_gmt,modified_gmt,title,excerpt,content,_links,_embedded",
-    );
-
-    const response = await fetchWordPress(url);
-    const posts = await parsePostsResponse(response);
-    return posts[0] ? normalizePost(posts[0]) : null;
   });

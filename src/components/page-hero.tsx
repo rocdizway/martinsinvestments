@@ -48,9 +48,7 @@ export function PageHero({
       />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <p className="eyebrow">{eyebrow}</p>
-        <h1 className="mt-6 max-w-4xl text-4xl leading-[1.08] md:text-6xl">
-          {title}
-        </h1>
+        <h1 className="mt-6 max-w-4xl text-4xl leading-[1.08] md:text-6xl">{title}</h1>
         {intro ? (
           <p
             className={`mt-8 max-w-2xl text-base leading-relaxed md:text-lg ${

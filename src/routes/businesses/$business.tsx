@@ -4,7 +4,8 @@ import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, Check, Play } from "lucide-react";
 import { getHolding } from "@/data/group";
-import { Dialog, DialogContent, DialogOverlay } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/businesses/$business")({
   loader: ({ params }) => {
@@ -19,7 +20,10 @@ export const Route = createFileRoute("/businesses/$business")({
           { name: "description", content: loaderData.description },
           { property: "og:title", content: `${loaderData.name} | Martins Investments` },
           { property: "og:description", content: loaderData.description },
-          { property: "og:image", content: loaderData.image },
+          {
+            property: "og:image",
+            content: new URL(loaderData.image, `${SITE_URL}/`).href,
+          },
         ]
       : [],
   }),
@@ -676,10 +680,12 @@ function VideoCard({ title, video, poster }: VideoCardProps) {
   return (
     <>
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
+        aria-label={`Play ${title} video`}
         className="group relative aspect-[4/5] overflow-hidden cursor-pointer text-left"
         style={{
-          background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)'
+          background: "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)",
         }}
       >
         <video
@@ -687,12 +693,12 @@ function VideoCard({ title, video, poster }: VideoCardProps) {
           poster={poster}
           muted
           playsInline
-          preload="auto"
+          preload="none"
           aria-hidden="true"
           className="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.035]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-transparent" />
-        
+
         {/* Play Button */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <div className="flex size-16 items-center justify-center rounded-full bg-gold/90 text-black shadow-lg backdrop-blur-sm transition-transform group-hover:scale-110">
@@ -710,12 +716,19 @@ function VideoCard({ title, video, poster }: VideoCardProps) {
       </button>
 
       {/* Video Modal */}
-      <Dialog open={isOpen} onOpenChange={(open) => {
-        setIsOpen(open);
-        if (!open) setVideoEnded(false);
-      }}>
+      <Dialog
+        open={isOpen}
+        onOpenChange={(open) => {
+          setIsOpen(open);
+          if (!open) setVideoEnded(false);
+        }}
+      >
         <DialogContent className="border-0 bg-transparent p-0 shadow-none w-[90vw] max-w-5xl max-h-[90vh] flex items-center justify-center">
           <div className="relative w-full h-full flex items-center justify-center">
+            <DialogTitle className="sr-only">{title} collection video</DialogTitle>
+            <DialogDescription className="sr-only">
+              A RocDizWay fashion preview featuring {title.toLowerCase()}.
+            </DialogDescription>
             <video
               ref={videoRef}
               src={video}
@@ -723,6 +736,8 @@ function VideoCard({ title, video, poster }: VideoCardProps) {
               autoPlay
               controls
               playsInline
+              preload="metadata"
+              aria-label={`${title} collection video`}
               onEnded={() => setVideoEnded(true)}
               className="w-full h-full max-h-[85vh] object-contain rounded-lg"
             />
@@ -865,7 +880,9 @@ function RocDizWayProfile({ holding }: { holding: LoadedHolding }) {
         <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-10">
           <p className="flex flex-col items-center gap-2 text-xs tracking-[.24em] uppercase text-gold-soft sm:flex-row sm:justify-center">
             <span>RocDizWay</span>
-            <span className="hidden sm:inline" aria-hidden="true">·</span>
+            <span className="hidden sm:inline" aria-hidden="true">
+              ·
+            </span>
             <span className="whitespace-nowrap">Curated Sovereign👑</span>
           </p>
           <h2 className="mt-7 text-4xl leading-tight sm:text-6xl">
@@ -954,7 +971,15 @@ const rocAwayMenu = [
   },
   {
     title: "Sides & bites",
-    items: ["Akara", "Moi Moi", "Chin Chin", "Nigerian Buns", "Fried Yam", "Fried Plantains", "Fried Chips"],
+    items: [
+      "Akara",
+      "Moi Moi",
+      "Chin Chin",
+      "Nigerian Buns",
+      "Fried Yam",
+      "Fried Plantains",
+      "Fried Chips",
+    ],
   },
 ] as const;
 
@@ -992,7 +1017,9 @@ function RocAwayProfile({ holding }: { holding: LoadedHolding }) {
             <ArrowLeft className="size-3.5" /> Our core holdings
           </Link>
           <div className="max-w-3xl">
-            <h1 className="text-5xl uppercase leading-none sm:text-7xl lg:text-[6.5rem]">Roc*Away</h1>
+            <h1 className="text-5xl uppercase leading-none sm:text-7xl lg:text-[6.5rem]">
+              Roc*Away
+            </h1>
             <p className="mt-5 text-xs tracking-[.2em] uppercase text-gold-soft sm:text-sm">
               Restaurant <span aria-hidden="true">•</span> Lounge <span aria-hidden="true">•</span>{" "}
               Lifestyle
@@ -1074,9 +1101,9 @@ function RocAwayProfile({ holding }: { holding: LoadedHolding }) {
             </p>
             <div className="mt-6 space-y-5 text-base leading-8 text-muted-foreground">
               <p>
-                As a single dad, it was always fish & chips or McDonald’s. I couldn’t even cook pasta
-                or boil an egg until my mother taught me how to use traditional ingredients and
-                methods to make the soul food I’d loved in childhood.
+                As a single dad, it was always fish & chips or McDonald’s. I couldn’t even cook
+                pasta or boil an egg until my mother taught me how to use traditional ingredients
+                and methods to make the soul food I’d loved in childhood.
               </p>
               <p>
                 What began with learning the food I grew up loving became the inspiration for
@@ -1129,15 +1156,18 @@ function RocAwayProfile({ holding }: { holding: LoadedHolding }) {
         <div className="absolute inset-0 bg-black/65" />
         <div className="relative mx-auto max-w-5xl px-6 text-center lg:px-10">
           <p className="text-xs tracking-[.22em] uppercase text-gold-soft">The experience</p>
-          <h2 className="mt-6 text-4xl leading-tight sm:text-6xl">More than a meal. An experience.</h2>
+          <h2 className="mt-6 text-4xl leading-tight sm:text-6xl">
+            More than a meal. An experience.
+          </h2>
           <p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-white/68 sm:text-lg">
             Roc*Away is where food, people, music and atmosphere come together. From the kitchen to
             the table, from dining to the lounge, every element is designed to make the experience
             memorable.
           </p>
           <p className="mt-10 text-[.65rem] tracking-[.18em] uppercase text-gold-soft sm:text-xs">
-            Food <span aria-hidden="true">•</span> Music <span aria-hidden="true">•</span> Atmosphere{" "}
-            <span aria-hidden="true">•</span> Culture <span aria-hidden="true">•</span> Hospitality
+            Food <span aria-hidden="true">•</span> Music <span aria-hidden="true">•</span>{" "}
+            Atmosphere <span aria-hidden="true">•</span> Culture <span aria-hidden="true">•</span>{" "}
+            Hospitality
           </p>
         </div>
       </section>
@@ -1295,7 +1325,9 @@ function RocAwayProfile({ holding }: { holding: LoadedHolding }) {
                 <h3 className="mt-6 text-sm tracking-[.14em] uppercase text-foreground">
                   {promise.title}
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">{promise.description}</p>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                  {promise.description}
+                </p>
               </div>
             ))}
           </div>

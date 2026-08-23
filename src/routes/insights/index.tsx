@@ -1,8 +1,9 @@
-import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect, useRouter } from "@tanstack/react-router";
 import type { ErrorComponentProps } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ImageIcon } from "lucide-react";
 
 import { PageHero } from "@/components/page-hero";
+import { isInsightsPageOutOfRange, normalizeInsightsPage } from "@/lib/insights-pagination";
 import { getPublishedPosts } from "@/lib/wordpress.server";
 import type { BlogPostSummary } from "@/lib/wordpress-types";
 
@@ -12,30 +13,33 @@ type InsightsSearch = {
   page?: number;
 };
 
-function parsePage(value: unknown): number | undefined {
-  const parsed =
-    typeof value === "number"
-      ? value
-      : typeof value === "string" && value.trim() !== ""
-        ? Number(value)
-        : Number.NaN;
-
-  if (!Number.isSafeInteger(parsed) || parsed < 1) return undefined;
-  return parsed === 1 ? undefined : parsed;
-}
-
 export const Route = createFileRoute("/insights/")({
   validateSearch: (search: Record<string, unknown>): InsightsSearch => {
-    const page = parsePage(search["page"]);
+    const page = normalizeInsightsPage(search["page"]);
     return page === undefined ? {} : { page };
   },
-  loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
+  beforeLoad: ({ search }) => {
+    const rawPage = (search as Record<string, unknown>)["page"];
+    if (rawPage !== undefined && normalizeInsightsPage(rawPage) === undefined) {
+      throw redirect({ to: "/insights", search: {}, statusCode: 301 });
+    }
+  },
+  // TanStack preserves unknown raw search keys in non-strict mode, so guard
+  // the loader dependency independently from validateSearch as well.
+  loaderDeps: ({ search }) => ({ page: normalizeInsightsPage(search.page) ?? 1 }),
   loader: async ({ deps }) => {
-    const result = await getPublishedPosts({
-      data: { page: deps.page, perPage: POSTS_PER_PAGE },
-    });
+    let result;
+    try {
+      result = await getPublishedPosts({
+        data: { page: deps.page, perPage: POSTS_PER_PAGE },
+      });
+    } catch {
+      // Server functions must not expose WordPress response bodies, schema
+      // diagnostics, or configuration details in the rendered error payload.
+      throw new Error("The perspectives service is temporarily unavailable.");
+    }
 
-    if (deps.page > 1 && deps.page > result.totalPages) throw notFound();
+    if (isInsightsPageOutOfRange(deps.page, result.totalPages)) throw notFound();
     return result;
   },
   staleTime: 60_000,

@@ -18,6 +18,7 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieConsent } from "@/components/cookie-consent";
+import { getInsightsCanonicalPath } from "@/lib/insights-pagination";
 import { SITE_URL } from "@/lib/site";
 
 function NotFoundComponent() {
@@ -102,18 +103,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       {
-        rel: "stylesheet",
-        href: appCss,
+        rel: "preload",
+        href: "/fonts/jost/Jost-Latin.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
+        rel: "preload",
+        href: "/fonts/marcellus/Marcellus-Latin.woff2",
+        as: "font",
+        type: "font/woff2",
         crossOrigin: "anonymous",
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap",
+        href: appCss,
       },
     ],
   }),
@@ -124,8 +129,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  const pathname = useLocation({ select: (location) => location.pathname });
-  const canonical = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
+  const router = useRouter();
+  const location = useLocation({
+    select: ({ pathname, search }) => ({ pathname, search }),
+  });
+  const nonce = router.options.ssr?.nonce;
+  const canonicalPath =
+    location.pathname === "/insights" || location.pathname === "/insights/"
+      ? getInsightsCanonicalPath((location.search as { page?: unknown }).page)
+      : location.pathname === "/"
+        ? ""
+        : location.pathname;
+  const canonical = `${SITE_URL}${canonicalPath}`;
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -160,6 +175,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <script
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('martins-theme');var d=t?t==='dark':!matchMedia('(prefers-color-scheme: light)').matches;document.documentElement.classList.toggle('dark',d);document.documentElement.style.colorScheme=d?'dark':'light'}catch(e){}})();`,
           }}
@@ -167,6 +183,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <link rel="canonical" href={canonical} />
         <meta property="og:url" content={canonical} />
         <script
+          nonce={nonce}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
