@@ -297,9 +297,15 @@ function RocPartiesProfile({ holding }: { holding: LoadedHolding }) {
             {holding.name}
           </h1>
           <p className="eyebrow mt-6 whitespace-nowrap">{holding.category}</p>
-          <p className="mt-7 max-w-2xl font-display text-xl leading-relaxed text-white/80 md:text-2xl">
-            {holding.positioning}
-          </p>
+          <div className="mt-7 max-w-3xl space-y-4 font-display text-xl leading-relaxed text-white/80 md:text-2xl">
+            <p>Your night. Our experience.</p>
+            <p>
+              From exclusive nightlife and private celebrations to curated dining and unforgettable
+              occasions, Roc*Parties creates experiences designed around you.
+              <br />
+              Unforgettable occasions, thoughtfully considered from beginning to end.
+            </p>
+          </div>
         </div>
       </section>
 
