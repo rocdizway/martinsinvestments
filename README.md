@@ -15,6 +15,8 @@ and the Perspectives editorial platform within a responsive black-and-gold desig
   sanitisation, featured-image heroes and static fallback content.
 - Server-rendered metadata, canonical URLs, structured data and a dynamic XML sitemap.
 - Consent-aware analytics, cookie preferences and responsive light and dark themes.
+- Self-hosted Jost and Marcellus webfonts, so typography does not require a pre-consent request to
+  Google Fonts.
 
 ## Technology
 
@@ -30,7 +32,7 @@ and the Perspectives editorial platform within a responsive black-and-gold desig
 ### Requirements
 
 - Node.js `^20.19.0` or `>=22.12.0`
-- npm
+- npm 11.6.2 (declared in `package.json`)
 
 ### Setup
 
@@ -49,6 +51,10 @@ and the Perspectives editorial platform within a responsive black-and-gold desig
    ```
 
 Vite prints the local URL after the server starts.
+
+npm is the canonical package manager for this repository; `package-lock.json` is the only lockfile.
+Keep the explicit WASM-runtime and `lru-cache` development dependencies in place: they satisfy
+optional peers in the Vite/Nitro toolchain and keep clean installs reproducible across platforms.
 
 ## Environment variables
 
@@ -74,6 +80,10 @@ VITE_WORDPRESS_API_URL=https://cms.example.com/wp-json/wp/v2
 The endpoint must use HTTPS outside local development and must not contain credentials, a query
 string or a fragment. Public posts do not require WordPress authentication.
 
+The frontend accepts HTTPS WordPress images and native video, caption-track, YouTube,
+YouTube-nocookie and Vimeo embeds. HTTP media and unsupported iframe hosts are removed during
+sanitisation to prevent mixed content and untrusted embeds.
+
 For consistent article presentation, each published post should include:
 
 - A stable slug, excerpt and category.
@@ -90,33 +100,43 @@ in `src/data/group.ts`. If the variable is configured but WordPress is unavailab
 invalid response, the application displays a retryable error rather than silently substituting
 fallback content.
 
+The CMS itself is a separate deployment boundary. Apply and record the required comment, ping,
+XML-RPC, REST-user, 2FA and login-rate-limit controls in
+[`security/wordpress/README.md`](security/wordpress/README.md).
+
 ## Available commands
 
-| Command             | Description                                         |
-| ------------------- | --------------------------------------------------- |
-| `npm run dev`       | Start the local development server.                 |
-| `npm run build`     | Create the production client, SSR and Nitro output. |
-| `npm run build:dev` | Create a development-mode build.                    |
-| `npm run preview`   | Preview the generated application locally.          |
-| `npm run lint`      | Run ESLint across the repository.                   |
-| `npm run format`    | Format supported files with Prettier.               |
+| Command                | Description                                                     |
+| ---------------------- | --------------------------------------------------------------- |
+| `npm run dev`          | Start the local development server.                             |
+| `npm run build`        | Create the production client, SSR and Nitro output.             |
+| `npm run build:dev`    | Create a development-mode build.                                |
+| `npm run preview`      | Preview the generated application locally.                      |
+| `npm run lint`         | Run ESLint and the configured Prettier checks.                  |
+| `npm run format`       | Format supported files with Prettier.                           |
+| `npm run format:check` | Check formatting without changing files.                        |
+| `npm run typecheck`    | Compile-check TypeScript without emitting files.                |
+| `npm test`             | Run the automated Vitest suite once.                            |
+| `npm run test:watch`   | Run Vitest in watch mode.                                       |
+| `npm run check`        | Run lint, type-checking, tests and a production build in order. |
 
 Before merging or deploying changes, run:
 
 ```sh
-npm run lint
-npm run build
+npm run check
 ```
 
 ## Project structure
 
 ```text
 public/              Static images, videos, documents and site icons
+security/            Deployment handoffs for controls outside the frontend
 src/components/      Shared layout, navigation and UI components
 src/data/            Structured corporate and fallback editorial content
 src/lib/             Site configuration, WordPress integration and shared utilities
 src/routes/          TanStack Start pages and server-rendered routes
 src/styles.css       Global styles and design-system tokens
+tests/               Automated pagination, sanitiser and security-header tests
 ```
 
 ## Deployment

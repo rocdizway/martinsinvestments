@@ -83,7 +83,7 @@ export const holdings: Holding[] = [
   {
     slug: "roc-parties",
     name: "Roc*Parties",
-    category: "VIP Events. Experiences",
+    category: "VIP EVENTS · EXPERIENCES · VIBES",
     positioning: "Unforgettable occasions, considered from beginning to end.",
     description:
       "VIP events, experiences, concierge and lifestyle management for unforgettable occasions.",

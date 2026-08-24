@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, BookOpen, Crown, Download, Menu, Play, X } from "lucide-react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useId, useRef, useState } from "react";
 import { founderChapters } from "@/data/founder-story";
 
 export const Route = createFileRoute("/founder")({
@@ -54,7 +54,7 @@ function FounderStorybook() {
     );
 
   return (
-    <main className="min-h-screen overflow-hidden bg-background text-foreground" data-no-reveal>
+    <div className="min-h-screen overflow-hidden bg-background text-foreground" data-no-reveal>
       <header className="fixed inset-x-0 top-20 z-40 border-b border-border bg-background/90 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
           <button
@@ -113,7 +113,7 @@ function FounderStorybook() {
         </div>
       </nav>
       <Contents open={contentsOpen} onClose={() => setContentsOpen(false)} goTo={goTo} />
-    </main>
+    </div>
   );
 }
 
@@ -133,7 +133,7 @@ function BookCover({
   goTo: (page: number) => void;
 }) {
   return (
-    <main className="bg-background text-foreground" data-no-reveal>
+    <div className="bg-background text-foreground" data-no-reveal>
       <section className="relative min-h-[100svh] overflow-hidden bg-black pt-20 text-white">
         <div className="absolute inset-0 lg:left-[42%]">
           <img
@@ -175,7 +175,7 @@ function BookCover({
         </div>
       </section>
       <Contents open={contentsOpen} onClose={closeContents} goTo={goTo} />
-    </main>
+    </div>
   );
 }
 
@@ -265,6 +265,13 @@ function FounderConsultingVideo() {
         className="aspect-[690/463] w-full bg-black object-contain"
       >
         <source src="/founder/bobby-martins-consulting.mp4" type="video/mp4" />
+        <track
+          kind="captions"
+          src="/founder/bobby-martins-consulting.en.vtt"
+          srcLang="en"
+          label="English"
+          default
+        />
         Your browser does not support embedded video.
       </video>
       <figcaption className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 px-5 py-4 text-white sm:px-6">
@@ -272,6 +279,14 @@ function FounderConsultingVideo() {
           Founder perspective
         </span>
         <span className="text-xs text-white/55">Consulting · Advisory · Speaking</span>
+        <details className="w-full border-t border-white/10 pt-3 text-sm text-white/70">
+          <summary className="w-fit cursor-pointer text-[0.62rem] tracking-[0.16em] text-gold-soft uppercase">
+            Read video transcript
+          </summary>
+          <p className="mt-3 leading-6">
+            Success isn’t about luck. It’s about the work put in every single day.
+          </p>
+        </details>
       </figcaption>
     </figure>
   );
@@ -286,16 +301,88 @@ function Contents({
   onClose: () => void;
   goTo: (page: number) => void;
 }) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
+  const onCloseRef = useRef(onClose);
+  const titleId = useId();
+
+  onCloseRef.current = onClose;
+
+  useEffect(() => {
+    if (!open) return;
+
+    returnFocusRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const focusFrame = window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onCloseRef.current();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusableElements = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusableElements?.length) {
+        event.preventDefault();
+        dialogRef.current?.focus();
+        return;
+      }
+
+      const firstElement = focusableElements[0]!;
+      const lastElement = focusableElements[focusableElements.length - 1]!;
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      returnFocusRef.current?.focus();
+    };
+  }, [open]);
+
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-[70] bg-black/70 p-4 backdrop-blur-sm">
-      <div className="founder-contents-in ml-auto h-full w-full max-w-xl overflow-y-auto bg-background p-7 text-foreground shadow-2xl sm:p-10">
+    <div
+      className="fixed inset-0 z-[70] bg-black/70 p-4 backdrop-blur-sm"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+        className="founder-contents-in ml-auto h-full w-full max-w-xl overflow-y-auto bg-background p-7 text-foreground shadow-2xl sm:p-10"
+      >
         <div className="flex items-center justify-between">
           <div>
             <p className="eyebrow">The Founder’s Story</p>
-            <h2 className="mt-3 text-3xl">Contents</h2>
+            <h2 id={titleId} className="mt-3 text-3xl">
+              Contents
+            </h2>
           </div>
           <button
+            ref={closeButtonRef}
+            type="button"
             onClick={onClose}
             aria-label="Close contents"
             className="grid size-11 place-items-center border border-border hover:border-gold"

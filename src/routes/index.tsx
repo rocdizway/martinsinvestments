@@ -5,6 +5,8 @@ import {
   Award,
   Handshake,
   Lightbulb,
+  Pause,
+  Play,
   TrendingUp,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -95,6 +97,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   const [heroSlide, setHeroSlide] = useState(0);
   const [previousHeroSlide, setPreviousHeroSlide] = useState<number | null>(null);
+  const [heroPaused, setHeroPaused] = useState(false);
   const heroSlideRef = useRef(0);
 
   const showHeroSlide = (nextSlide: number) => {
@@ -109,6 +112,20 @@ function Home() {
   };
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const pauseForReducedMotion = () => {
+      if (reducedMotion.matches) setHeroPaused(true);
+    };
+
+    pauseForReducedMotion();
+    reducedMotion.addEventListener("change", pauseForReducedMotion);
+
+    return () => reducedMotion.removeEventListener("change", pauseForReducedMotion);
+  }, []);
+
+  useEffect(() => {
+    if (heroPaused) return;
+
     const interval = window.setInterval(() => {
       const current = heroSlideRef.current;
       const next = (current + 1) % heroSlides.length;
@@ -119,14 +136,22 @@ function Home() {
     }, 3_000);
 
     return () => window.clearInterval(interval);
-  }, []);
+  }, [heroPaused]);
 
   return (
     <>
-      <section className="relative min-h-screen overflow-hidden bg-black text-white">
+      <section
+        className="relative min-h-screen overflow-hidden bg-black text-white"
+        aria-label="Martins Investments highlights"
+        aria-roledescription="carousel"
+      >
         {heroSlides.map((slide, index) => (
           <div
             key={slide.src}
+            id={`hero-slide-${index + 1}`}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${index + 1} of ${heroSlides.length}`}
             className={`absolute inset-0 overflow-hidden transition-opacity duration-[1800ms] ease-[cubic-bezier(.45,0,.2,1)] ${
               heroSlide === index || previousHeroSlide === index ? "opacity-100" : "opacity-0"
             }`}
@@ -165,13 +190,32 @@ function Home() {
             </p>
             <GoldLink to="/portfolio">Explore the portfolio</GoldLink>
           </div>
-          <div className="mt-8 flex gap-2" aria-label="Hero slides">
+          <div
+            className="mt-8 flex items-center gap-2"
+            role="group"
+            aria-label="Hero carousel controls"
+          >
+            <button
+              type="button"
+              onClick={() => setHeroPaused((paused) => !paused)}
+              aria-label={
+                heroPaused ? "Start automatic slide rotation" : "Pause automatic slide rotation"
+              }
+              className="mr-2 grid size-7 place-items-center rounded-full border border-white/30 text-white/75 transition-colors hover:border-gold hover:text-gold focus-visible:border-gold focus-visible:text-gold"
+            >
+              {heroPaused ? (
+                <Play className="size-3 fill-current" aria-hidden="true" />
+              ) : (
+                <Pause className="size-3" aria-hidden="true" />
+              )}
+            </button>
             {heroSlides.map((slide, index) => (
               <button
                 key={slide.src}
                 type="button"
                 aria-label={`Show hero slide ${index + 1}: ${slide.alt}`}
                 aria-current={heroSlide === index}
+                aria-controls={`hero-slide-${index + 1}`}
                 onClick={() => showHeroSlide(index)}
                 className={`h-0.5 transition-all duration-500 ${
                   heroSlide === index ? "w-12 bg-gold" : "w-7 bg-white/40 hover:bg-white/70"
