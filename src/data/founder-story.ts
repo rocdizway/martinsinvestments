@@ -7,7 +7,7 @@ export type FounderChapter = {
   image: string;
   imageAlt: string;
   quote: string;
-  sections: { heading?: string; paragraphs: string[]; cta?: string }[];
+  sections: { heading?: string; paragraphs: string[]; cta?: string; ctaHref?: string }[];
 };
 
 export const founderChapters: FounderChapter[] = [
@@ -248,6 +248,7 @@ export const founderChapters: FounderChapter[] = [
           "Available for consulting, advisory and speaking engagements.",
         ],
         cta: "Book Bobby Martins",
+        ctaHref: "https://www.sumupbookings.com/bobby-martins-investments-limited",
       },
       {
         heading: "Strategy into action",

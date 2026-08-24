@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { PageHero } from "@/components/page-hero";
 
 export const Route = createFileRoute("/privacy")({
@@ -38,6 +39,27 @@ function PrivacyPolicy() {
             "We use information to respond to enquiries, manage business relationships, keep the website secure, comply with legal obligations and, where consent is given, understand and improve website performance.",
           ],
           [
+            "External booking service",
+            <>
+              The “Book Bobby Martins” link opens SumUp Bookings in a new tab and takes you away
+              from this website. SumUp may collect technical and cookie information when its page
+              loads. If you make a booking, the personal and appointment details you enter are
+              processed through SumUp on our behalf and made available to us so we can arrange and
+              manage your request. Where applicable, SumUp processes payment-related information for
+              its own purposes. Its privacy practices and terms apply on that site. Please review
+              the{" "}
+              <a
+                href="https://www.sumup.com/en-gb/privacy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold underline-offset-4 hover:underline"
+              >
+                SumUp Privacy Policy
+              </a>{" "}
+              and the notices displayed on the booking page before submitting your information.
+            </>,
+          ],
+          [
             "Our lawful bases",
             "Depending on the context, we process information with your consent, to take steps at your request before a contract, for our legitimate interests in operating and protecting the business, or to comply with legal obligations.",
           ],
@@ -55,7 +77,7 @@ function PrivacyPolicy() {
           ],
           [
             "Contact and updates",
-            "Contact us through the website’s contact page with privacy requests. We may update this policy when our practices or legal requirements change. Last updated: 15 August 2026.",
+            "Contact us through the website’s contact page with privacy requests. We may update this policy when our practices or legal requirements change. Last updated: 24 August 2026.",
           ],
         ]}
       />
@@ -63,7 +85,7 @@ function PrivacyPolicy() {
   );
 }
 
-export function LegalDocument({ sections }: { sections: [string, string][] }) {
+export function LegalDocument({ sections }: { sections: [string, ReactNode][] }) {
   return (
     <article className="section-ivory py-20 lg:py-28">
       <div className="mx-auto max-w-4xl space-y-12 px-6 lg:px-10">
