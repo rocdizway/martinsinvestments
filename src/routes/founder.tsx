@@ -231,7 +231,16 @@ function Chapter({ chapter }: { chapter: ChapterType }) {
                     section.heading === "Consulting, advisory and speaking" ? (
                       <FounderConsultingVideo />
                     ) : null}
-                    {section.cta ? (
+                    {section.cta && section.ctaHref ? (
+                      <a
+                        href={section.ctaHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-4 text-xs tracking-[0.18em] text-gold-foreground uppercase transition-colors hover:bg-gold-soft"
+                      >
+                        {section.cta} <ArrowRight className="size-4" />
+                      </a>
+                    ) : section.cta ? (
                       <Link
                         to="/contact"
                         className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-4 text-xs tracking-[0.18em] text-gold-foreground uppercase transition-colors hover:bg-gold-soft"
