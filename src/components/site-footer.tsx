@@ -77,7 +77,7 @@ export function SiteFooter() {
             </button>
           </div>
         </div>
-        <div className="mt-8 text-center">
+        <!--div className="mt-8 text-center">
           <a
             href="https://wa.me/2348031975415/"
             target="_blank"
@@ -89,7 +89,7 @@ export function SiteFooter() {
               Bevilon
             </span>
           </a>
-        </div>
+        </div-->
       </div>
     </footer>
   );
