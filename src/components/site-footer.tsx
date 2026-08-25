@@ -77,19 +77,7 @@ export function SiteFooter() {
             </button>
           </div>
         </div>
-        <div className="mt-8 text-center" style="display:none">
-          <a
-            href="https://wa.me/2348031975415/"
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex items-center gap-2 text-[0.62rem] tracking-[0.18em] uppercase text-muted-foreground/70 transition-colors hover:text-gold"
-          >
-            <span>Digital craftsmanship by</span>
-            <span className="border-b border-gold/35 pb-0.5 text-gold transition-colors group-hover:border-gold">
-              Bevilon
-            </span>
-          </a>
-        </div>
+
       </div>
     </footer>
   );
