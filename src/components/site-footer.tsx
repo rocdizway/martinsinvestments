@@ -77,8 +77,6 @@ export function SiteFooter() {
             </button>
           </div>
         </div>
-        <div className="mt-8 text-center">
-        </div>
       </div>
     </footer>
   );
