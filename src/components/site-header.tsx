@@ -5,6 +5,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 const nav = [
   { to: "/", label: "Home" },
   { to: "/portfolio", label: "Portfolio" },
+  { to: "https://sumup.martinsinvestments.com/", label: "Merchant Services" },
   { to: "/approach", label: "Our Vision" },
   { to: "/insights", label: "Perspectives" },
   { to: "/contact", label: "Contact" },
