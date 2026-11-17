@@ -4,6 +4,7 @@ import { holdings } from "@/data/group";
 const companyLinks = [
   { to: "/about", label: "The Group" },
   { to: "/portfolio", label: "Portfolio" },
+  { to: "https://sumup.martinsinvestments.com/", label: "Merchant Services" },
   { to: "/approach", label: "Our Vision" },
   { to: "/insights", label: "Perspectives" },
   { to: "/contact", label: "Contact" },
